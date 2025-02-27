@@ -1,9 +1,8 @@
 ﻿using LeetCodeTasks.Helpers;
-using System.Collections.Immutable;
 
 namespace LeetCodeTasks.LeetCode;
 
-internal class Arrays
+public class Arrays
 {
     // #1480
     public static int[] RunningSum(int[] nums)
@@ -166,13 +165,40 @@ internal class Arrays
         return accepted;
     }
 
+    // #383 - 2. Try not to allocate arrays of chars
     public static bool CanConstruct2(string ransomNote, string magazine)
     {
+        if (magazine.Length < ransomNote.Length)
+        {
+            return false;
+        }
+
         bool accepted = true;
+        var charUsage = new bool[magazine.Length];
+        var magArr = magazine.ToCharArray();
 
         for (int i = 0; i < ransomNote.Length; i++)
         {
+            for(int j = 0; j < magazine.Length; j++)
+            {
+                if (ransomNote[i] != magArr[j] || charUsage[j])
+                {
+                    // count to end and no match
+                    if (j == magazine.Length - 1) {
+                        accepted = false;
+                        break;
+                    }
 
+                    continue;
+                }
+                else
+                {
+                    charUsage[j] = true;
+                    break;
+                }
+
+               
+            }
         }
         return accepted;
     }
