@@ -1,11 +1,12 @@
 ﻿using LeetCodeTasks.Helpers;
+using System.Collections.Immutable;
 
 namespace LeetCodeTasks.LeetCode;
 
 internal class Arrays
 {
     // #1480
-    public int[] RunningSum(int[] nums)
+    public static int[] RunningSum(int[] nums)
     {
         int arrayLength = nums.Length;
         int[] resultArr = new int[arrayLength];
@@ -18,7 +19,7 @@ internal class Arrays
     }
 
     // #1672
-    public int MaximumWealth(int[][] accounts)
+    public static int MaximumWealth(int[][] accounts)
     {
         int maxVal = 0;
         int currWealth = 0;
@@ -39,7 +40,7 @@ internal class Arrays
     }
 
     // #412 - non optimal
-    public IList<string> FizzBuzz(int n)
+    public static IList<string> FizzBuzz(int n)
     {
         var res = new List<string>(n);
         for (int i = 1; i <= n; i++)
@@ -65,7 +66,7 @@ internal class Arrays
     }
 
     // #1342
-    public int NumberOfSteps(int num)
+    public static int NumberOfSteps(int num)
     {
         int numberOfSteps = 0;
         while (true)
@@ -93,7 +94,7 @@ internal class Arrays
     }
 
     // #876
-    public ListNode MiddleNode(ListNode head)
+    public static ListNode MiddleNode(ListNode head)
     {
         if (head.next == null)
         {
@@ -127,9 +128,52 @@ internal class Arrays
         return currentMiddle;
     }
 
-    public bool CanConstruct(string ransomNote, string magazine)
+    // # 383 - non optimal
+    public static bool CanConstruct(string ransomNote, string magazine)
     {
-        var x = ransomNote.ToCharArray();
-        return true;
+        var ransomArr = ransomNote.ToCharArray();
+        var magArr = magazine.ToCharArray();
+        Array.Sort(ransomArr);
+        Array.Sort(magArr);
+        bool accepted = true;
+        int magCounter = 0;
+
+        for (int i = 0; i< ransomNote.Length; i++)
+        {
+            for(int j = magCounter; j < magazine.Length; j++ )
+            {
+                if (ransomArr[i] == magArr[j])
+                {
+                    if(i == ransomArr.Length - 1)
+                    {
+                        //no need to iterate
+                        break;
+                    }
+                    magCounter++;
+                    break;
+                }
+
+                magCounter++;
+            }
+
+            if(magCounter >= magazine.Length)
+            {
+                accepted = false;
+                break;
+            }
+           
+        }
+        return accepted;
+    }
+
+    public static bool CanConstruct2(string ransomNote, string magazine)
+    {
+        bool accepted = true;
+
+        for (int i = 0; i < ransomNote.Length; i++)
+        {
+
+        }
+        return accepted;
     }
 }
