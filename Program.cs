@@ -1,3 +1,1 @@
-﻿using LeetCodeTasks.Tests;
-
-ArraysTests.Test();
+﻿Console.WriteLine("Abc");
