@@ -1,32 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LeetCodeTasks.LeetCode;
+﻿namespace LeetCodeTasks.LeetCode;
 
 public class Subsequencies
 {
-    // #873
-    // for each i from the beginning to (end - longestFibSubseqLen)
-    // check if possible to start fibon seq with i + j element = exist elem k = i + j
-    // if possible - start from k to the end
+    // #873 - non optimal in runtime
     public static int LenLongestFibSubseq(int[] arr)
     {
-        int longestFibSubseq = 1;
+        int longestFibSubseq = 0;
         int arrLength = arr.Length;
 
         for (int i = 0; i < arrLength; i++)
         {
-            for(int j = 1; j < arrLength - 1; j++)
+            for(int j = i + 1; j < arrLength - 1; j++)
             {
                 int searchedVal = arr[i] + arr[j];
                 int countForCurrent = CountLengthFibSubseq(arr, j+1, searchedVal);
 
+                if(countForCurrent > longestFibSubseq) {  
+                    longestFibSubseq = countForCurrent; 
+                }
             }
 
-            // if longest > arrLenth - i; break
+            if(longestFibSubseq > arrLength - i - 1)
+            {
+                break;
+            }
         }
 
         return longestFibSubseq;
@@ -34,18 +31,34 @@ public class Subsequencies
 
     public static int CountLengthFibSubseq(int[] arr, int startPos, int initialVal)
     {
-        int lengthFibSeq = 2;
-        //find new element
-        //if found - reccursive call and add value to 
-        //int nextFib = NextFibElem(arr, j, initialVal);
+        int lengthFibSeq = 0;
+        int currentPos = startPos;
+        int currentVal = initialVal;
 
-        return lengthFibSeq;
+        while (true)
+        {
+            int nextFib = NextFibElem(arr, currentPos, currentVal);
+
+            if(nextFib < 0)
+            {
+                break;
+            }
+
+            lengthFibSeq++;
+            currentVal = arr[currentPos - 1] + arr[nextFib];
+            currentPos = nextFib + 1;
+
+            if (currentPos == arr.Length || currentVal > arr[arr.Length - 1])
+            {
+                break;
+            }
+        }
+
+        return lengthFibSeq > 0 ? lengthFibSeq + 2 : 0;
     }
 
-    // search binary
-    // should be decorated and made recursive
     public static int NextFibElem(int[] arr, int startPos, int searchValue)
     {
-        return -1;
+        return Array.BinarySearch<int>(arr, startPos, arr.Length - startPos, searchValue);
     }
 }
