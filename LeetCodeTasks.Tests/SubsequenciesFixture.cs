@@ -11,4 +11,12 @@ internal class SubsequenciesFixture
     {
         Assert.That(Subsequencies.LenLongestFibSubseq(ints), Is.EqualTo(sequenceLength));
     }
+
+    [TestCase(new int[] { 2, 3, 5, 9, 1 }, 1, 1)]
+    [TestCase(new int[] { 2, 3, 5, 9 }, 2, 5)]
+    [TestCase(new int[] { 2, 7, 9, 3, 1 }, 2, 2)]
+    public void Test_MinCapability(int[] ints, int minHouseNum, int maxCap)
+    {
+        Assert.That(Subsequencies.MinCapability(ints, minHouseNum), Is.EqualTo(maxCap));
+    }
 }

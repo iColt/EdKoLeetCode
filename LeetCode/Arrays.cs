@@ -4,7 +4,8 @@ namespace LeetCodeTasks.LeetCode;
 
 public class Arrays
 {
-    // #1480
+    #region #1480
+
     public static int[] RunningSum(int[] nums)
     {
         int arrayLength = nums.Length;
@@ -17,7 +18,10 @@ public class Arrays
         return resultArr;
     }
 
-    // #1672
+    #endregion
+
+    #region #1672
+
     public static int MaximumWealth(int[][] accounts)
     {
         int maxVal = 0;
@@ -38,7 +42,10 @@ public class Arrays
         return maxVal;
     }
 
-    // #412 - non optimal
+    #endregion
+
+    #region #412 - non optimal
+
     public static IList<string> FizzBuzz(int n)
     {
         var res = new List<string>(n);
@@ -64,7 +71,9 @@ public class Arrays
         return res;
     }
 
-    // #1342
+    #endregion
+
+    #region #1342
     public static int NumberOfSteps(int num)
     {
         int numberOfSteps = 0;
@@ -92,7 +101,10 @@ public class Arrays
         return numberOfSteps;
     }
 
-    // #876
+    #endregion
+
+    #region #876
+
     public static ListNode MiddleNode(ListNode head)
     {
         if (head.next == null)
@@ -127,7 +139,10 @@ public class Arrays
         return currentMiddle;
     }
 
-    // # 383 - non optimal
+    #endregion
+
+    #region # 383 - non optimal
+
     public static bool CanConstruct(string ransomNote, string magazine)
     {
         var ransomArr = ransomNote.ToCharArray();
@@ -165,7 +180,10 @@ public class Arrays
         return accepted;
     }
 
-    // #383 - 2. Try not to allocate arrays of chars
+    #endregion
+
+    #region #383 - 2. Try not to allocate arrays of chars
+
     public static bool CanConstruct2(string ransomNote, string magazine)
     {
         if (magazine.Length < ransomNote.Length)
@@ -202,4 +220,12 @@ public class Arrays
         }
         return accepted;
     }
+
+    #endregion
+
+    #region 
+
+
+
+    #endregion
 }
