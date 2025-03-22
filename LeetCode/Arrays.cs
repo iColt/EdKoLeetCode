@@ -152,13 +152,13 @@ public class Arrays
         bool accepted = true;
         int magCounter = 0;
 
-        for (int i = 0; i< ransomNote.Length; i++)
+        for (int i = 0; i < ransomNote.Length; i++)
         {
-            for(int j = magCounter; j < magazine.Length; j++ )
+            for (int j = magCounter; j < magazine.Length; j++)
             {
                 if (ransomArr[i] == magArr[j])
                 {
-                    if(i == ransomArr.Length - 1)
+                    if (i == ransomArr.Length - 1)
                     {
                         //no need to iterate
                         break;
@@ -170,12 +170,12 @@ public class Arrays
                 magCounter++;
             }
 
-            if(magCounter >= magazine.Length)
+            if (magCounter >= magazine.Length)
             {
                 accepted = false;
                 break;
             }
-           
+
         }
         return accepted;
     }
@@ -197,12 +197,13 @@ public class Arrays
 
         for (int i = 0; i < ransomNote.Length; i++)
         {
-            for(int j = 0; j < magazine.Length; j++)
+            for (int j = 0; j < magazine.Length; j++)
             {
                 if (ransomNote[i] != magArr[j] || charUsage[j])
                 {
                     // count to end and no match
-                    if (j == magazine.Length - 1) {
+                    if (j == magazine.Length - 1)
+                    {
                         accepted = false;
                         break;
                     }
@@ -215,7 +216,7 @@ public class Arrays
                     break;
                 }
 
-               
+
             }
         }
         return accepted;
@@ -230,11 +231,11 @@ public class Arrays
         int maxConsecutiveOnes = 0;
         int tempConsecutiveOnes = 0;
 
-        for(int i = 0; i < nums.Length; i++)
+        for (int i = 0; i < nums.Length; i++)
         {
             if (nums[i] == 0)
             {
-                if(tempConsecutiveOnes > maxConsecutiveOnes)
+                if (tempConsecutiveOnes > maxConsecutiveOnes)
                 {
                     maxConsecutiveOnes = tempConsecutiveOnes;
                 }
@@ -250,4 +251,35 @@ public class Arrays
     }
 
     #endregion
+
+    #region #1 - Runtime unoptimal
+
+    public static int[] TwoSum(int[] nums, int target)
+    {
+        int[] output = new int[2];
+        bool seqFound = false;
+        for (int i = 0; i < nums.Length; i++)
+        {
+            for(int j = i + 1; j < nums.Length; j++)
+            {
+                if (nums[i] + nums[j] == target)
+                {
+                    output[0] = i;
+                    output[1] = j;
+                    seqFound = true;
+                    break;
+                }
+            }
+            if(seqFound)
+            {
+                break;
+            }
+        }
+
+        return output;
+    }
+
+    #endregion
+
+
 }

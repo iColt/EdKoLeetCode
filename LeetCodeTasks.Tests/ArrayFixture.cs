@@ -23,4 +23,12 @@ public class ArrayFixture
     {
         Assert.That(Arrays.FindMaxConsecutiveOnes(ints), Is.EqualTo(res));
     }
+
+    [TestCase(new int[] { 2, 7, 11, 15 }, 9, new int[] { 0,1 })]
+    [TestCase(new int[] { 3, 2, 4 }, 6, new int[] { 1, 2 })]
+    [TestCase(new int[] { 3,3 }, 6, new int[] { 0, 1 })]
+    public void Test_TwoSums(int[] ints, int res, int[] output)
+    {
+        Assert.That(Arrays.TwoSum(ints, res), Is.EqualTo(output));
+    }
 }
