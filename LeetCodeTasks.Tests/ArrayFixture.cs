@@ -15,4 +15,12 @@ public class ArrayFixture
     {
         Assert.That(Arrays.CanConstruct2(ransom, magaz), Is.EqualTo(result));
     }
+
+    [TestCase(new int[] { 1, 1, 1, 0, 1, 1, 1, 1 }, 4)]
+    [TestCase(new int[] { 1, 1, 1, 0, 1, 1, 1, 1, 0 }, 4)]
+    [TestCase(new int[] { 1, 1, 1, 1, 0, 1, 1, 1, 0 }, 4)]
+    public void Test_MaxCons(int[] ints, int res)
+    {
+        Assert.That(Arrays.FindMaxConsecutiveOnes(ints), Is.EqualTo(res));
+    }
 }

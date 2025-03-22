@@ -223,9 +223,31 @@ public class Arrays
 
     #endregion
 
-    #region 
+    #region FindMaxConsecutiveOnes
 
+    public static int FindMaxConsecutiveOnes(int[] nums)
+    {
+        int maxConsecutiveOnes = 0;
+        int tempConsecutiveOnes = 0;
 
+        for(int i = 0; i < nums.Length; i++)
+        {
+            if (nums[i] == 0)
+            {
+                if(tempConsecutiveOnes > maxConsecutiveOnes)
+                {
+                    maxConsecutiveOnes = tempConsecutiveOnes;
+                }
+                tempConsecutiveOnes = 0;
+            }
+            else
+            {
+                tempConsecutiveOnes++;
+            }
+        }
+
+        return maxConsecutiveOnes > tempConsecutiveOnes ? maxConsecutiveOnes : tempConsecutiveOnes;
+    }
 
     #endregion
 }
