@@ -260,7 +260,7 @@ public class Arrays
         bool seqFound = false;
         for (int i = 0; i < nums.Length; i++)
         {
-            for(int j = i + 1; j < nums.Length; j++)
+            for (int j = i + 1; j < nums.Length; j++)
             {
                 if (nums[i] + nums[j] == target)
                 {
@@ -270,7 +270,7 @@ public class Arrays
                     break;
                 }
             }
-            if(seqFound)
+            if (seqFound)
             {
                 break;
             }
@@ -278,6 +278,55 @@ public class Arrays
 
         return output;
     }
+
+
+    #region #1(2) - Better performance
+
+    public static int[] TwoSum2(int[] nums, int target)
+    {
+        int[] output = [0, 0];
+        int[] valuesInPos = new int[2];
+        int[] copyOfInput = new int[nums.Length];
+        Array.Copy(nums, copyOfInput, nums.Length);
+        Array.Sort(copyOfInput);
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+            int pos = Array.BinarySearch(copyOfInput, i + 1, copyOfInput.Length - i - 1, target - copyOfInput[i]);
+
+            if (pos > 0)
+            {
+                valuesInPos[0] = copyOfInput[i];
+                valuesInPos[1] = copyOfInput[pos];
+                break;
+            }
+        }
+
+        bool firstSet = false;
+        bool secondSet = false;
+        for (int j = 0; j < nums.Length; j++)
+        {
+            if (nums[j] == valuesInPos[0] && !firstSet)
+            {
+                firstSet = true;
+                output[0] = j;
+            }
+            else if (nums[j] == valuesInPos[1] && !secondSet)
+            {
+                secondSet = true;
+                output[1] = j;
+            }
+
+            if (firstSet && secondSet)
+            {
+                break;
+            }
+        }
+
+        return output;
+    }
+
+    #endregion
 
     #endregion
 
