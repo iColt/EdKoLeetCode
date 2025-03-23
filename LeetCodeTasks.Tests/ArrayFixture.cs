@@ -33,5 +33,6 @@ public class ArrayFixture
     {
         CollectionAssert.AreEquivalent(Arrays.TwoSum(ints, res), output);
         CollectionAssert.AreEquivalent(Arrays.TwoSum2(ints, res), output);
+        CollectionAssert.AreEquivalent(Arrays.TwoSum3(ints, res), output);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using LeetCodeTasks.Helpers;
+using System.Linq;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -321,6 +322,42 @@ public class Arrays
             {
                 break;
             }
+        }
+
+        return output;
+    }
+
+    #endregion
+
+    #region #1 - Hash = Beat 99%
+
+    public static int[] TwoSum3(int[] nums, int target)
+    {
+        int[] output = new int[2];
+
+        //Dictionary<int, int> keyValuePairs = nums
+        //    .Select((v, i) => new { Key = i, Value = v })
+        //    .ToDictionary(o => o.Key, o => o.Value);
+
+        Dictionary<int, int> valuePosPairs = new Dictionary<int, int>(nums.Length);
+
+        valuePosPairs[nums[0]] = 0;
+
+        for (int i = 1; i < nums.Length; i++)
+        {
+            if (valuePosPairs.TryGetValue(target - nums[i], out int pos))
+            {
+                output[0] = pos;
+                output[1] = i;
+                break;
+            }
+
+            if (valuePosPairs.ContainsKey(nums[i]))
+            {
+                continue;
+            }
+
+            valuePosPairs[nums[i]] = i;
         }
 
         return output;
