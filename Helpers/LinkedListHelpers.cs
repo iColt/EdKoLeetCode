@@ -15,6 +15,7 @@ public static class LinkedListHelpers
                 return arr;
             }
 
+            arr[realLength] = current.val;
             realLength++;
             current = current.next;
         }
@@ -28,6 +29,8 @@ public static class LinkedListHelpers
         {
             if(i  == array.Length - 1)
             {
+                ListNode lastNode = new ListNode(array[i]);
+                currentNode.next = lastNode;
                 return node;
             }
 

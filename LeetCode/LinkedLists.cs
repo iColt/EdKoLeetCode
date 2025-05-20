@@ -20,7 +20,9 @@ public class LinkedLists
         Array.Reverse(second);
 
         int[] resultArray;
-        if(lengthFirst > lengthSecond)
+        // just convert to classic long numbers and sum?
+        // (maybe it will be not correct and I need to save current approach just in case)
+        if (lengthFirst > lengthSecond)
         {
             resultArray = SumTwoArraysByNum(first, lengthFirst, second, lengthSecond);
         }
@@ -45,6 +47,8 @@ public class LinkedLists
         return outputNode;
     }
 
+    // no initial revert = incorrect numbers
+    //we should convert number to array and just sum it, then write to output array or event node
     private static int[] SumTwoArraysByNum(int[] first, int lengthFirst, int[] second, int lengthSecond)
     {
         int[] resultArray = new int[lengthFirst + 1];
@@ -52,17 +56,18 @@ public class LinkedLists
 
         for (int i = 0; i < lengthFirst; i++)
         {
-            if(i < lengthSecond - 1)
+            if(i < lengthSecond)
             {
                 int sum = first[i] + second[i] + increaseValue;
                 if(sum > 9)
                 {
-                    increaseValue = sum % 10;
-                    resultArray[i] = sum / 10;
+                    increaseValue = sum / 10;
+                    resultArray[i] = sum % 10;
                 }
                 else
                 {
                     resultArray[i] = sum;
+                    increaseValue = 0;
                 }
             }
             else
@@ -76,8 +81,18 @@ public class LinkedLists
                 else
                 {
                     resultArray[i] = sum;
+                    increaseValue = 0;
                 }
             }
+        }
+
+        if(increaseValue != 0)
+        {
+            resultArray[lengthFirst + 1] = increaseValue;
+        }
+        else
+        {
+            Array.Resize(ref resultArray, lengthFirst);
         }
 
         return resultArray;
