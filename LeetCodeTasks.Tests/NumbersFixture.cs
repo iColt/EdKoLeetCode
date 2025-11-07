@@ -12,11 +12,12 @@ internal class NumbersFixture
         Assert.That(Numbers.IsPalindrome(number), Is.EqualTo(result));
     }
 
+    [TestCase(1534236469, 0)]
+    [TestCase(-123, -321)]
+    [TestCase(-2147483648, 0)]
     [TestCase(121, 121)]
     [TestCase(123, 321)]
-    [TestCase(-123, -321)]
     [TestCase(120, 21)]
-    [TestCase(-2147483648, 0)]
     public static void Test_Reverse(int number, int reversed)
     {
         Assert.That(Numbers.Reverse(number), Is.EqualTo(reversed));

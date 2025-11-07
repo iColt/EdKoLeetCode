@@ -39,7 +39,7 @@ public static class Numbers
 
     #endregion
 
-    #region #7
+    #region #7 - Reverse - 80%/70% runtime/memory
 
     public static int Reverse(int x)
     {
@@ -63,7 +63,8 @@ public static class Numbers
             if (numberLength == 9)
             {
                 int maxIntegerDivided = 214748364;
-                if (reversedNumber > maxIntegerDivided)
+                var valueToCompare = negative ? reversedNumber * -1 : reversedNumber;
+                if (valueToCompare > maxIntegerDivided)
                     return 0;
                 if(reversedNumber == maxIntegerDivided && x > 7)
                 {
@@ -73,10 +74,6 @@ public static class Numbers
 
         }
 
-        if(negative)
-        {
-            reversedNumber *= 1;
-        }
         return reversedNumber;
     }
 
