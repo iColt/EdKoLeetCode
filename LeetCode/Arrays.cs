@@ -367,5 +367,42 @@ public class Arrays
 
     #endregion
 
+    #region #27 - RemoveElement - Optimal runtime, non-optimal memory (70%)
 
+    public static int RemoveElement(int[] nums, int val)
+    {
+        int length = nums.Length;
+        int currentElementFromNoseIndex = 0;
+        int currElementFromTailIndex = length - 1;
+        while(true)
+        {
+            if (currentElementFromNoseIndex == nums.Length || currentElementFromNoseIndex > currElementFromTailIndex) { break; }
+
+            if (nums[currentElementFromNoseIndex] == val)
+            {
+                bool found = false;
+                for(int i = currElementFromTailIndex; i > currentElementFromNoseIndex; i--)
+                {
+                    if (nums[i] != val)
+                    {
+                        found = true;
+                        nums[currentElementFromNoseIndex] = nums[i];
+                        nums[i] = val;
+                        currElementFromTailIndex = i - 1;
+                        break;
+                    }
+                }
+                if(!found)
+                {
+                    break;
+                }
+            }
+
+            currentElementFromNoseIndex++;
+        }
+
+        return currentElementFromNoseIndex;
+    }
+
+    #endregion
 }

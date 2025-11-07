@@ -35,4 +35,11 @@ public class ArrayFixture
         CollectionAssert.AreEquivalent(Arrays.TwoSum2(ints, res), output);
         CollectionAssert.AreEquivalent(Arrays.TwoSum3(ints, res), output);
     }
+
+    [TestCase(new int[] { 3, 2, 2, 3 }, 3, 2)]
+    [TestCase(new int[] { 0, 1, 2, 2, 3, 0, 4, 2 }, 2, 5)]
+    public void Test_RemoveElements(int[] ints, int value, int length)
+    {
+        Assert.That(Arrays.RemoveElement(ints, value), Is.EqualTo(length));
+    }
 }
