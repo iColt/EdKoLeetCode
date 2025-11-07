@@ -2,7 +2,8 @@
 
 public static class Numbers
 {
-    // #9 - IsPalindrome - medium memory and runtime performance
+    #region #9 - IsPalindrome - medium memory and runtime performance
+
     public static  bool IsPalindrome(int x)
     {
         if(x >= 0 && x < 10) return true;
@@ -35,4 +36,49 @@ public static class Numbers
 
         return true;
     }
+
+    #endregion
+
+    #region #7
+
+    public static int Reverse(int x)
+    {
+        if(x == 0) return 0;
+
+        bool negative = x < 0;
+        //x < 2^31
+        int reversedNumber = 0;
+        int numberLength = 0;
+        while (true)
+        {
+            reversedNumber = reversedNumber * 10 + x % 10;
+            numberLength++;
+            x = x / 10;
+
+            if (x == 0)
+            {
+                break;
+            }
+
+            if (numberLength == 9)
+            {
+                int maxIntegerDivided = 214748364;
+                if (reversedNumber > maxIntegerDivided)
+                    return 0;
+                if(reversedNumber == maxIntegerDivided && x > 7)
+                {
+                    return 0;
+                }
+            }
+
+        }
+
+        if(negative)
+        {
+            reversedNumber *= 1;
+        }
+        return reversedNumber;
+    }
+
+    #endregion
 }
