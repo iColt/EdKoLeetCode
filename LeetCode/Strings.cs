@@ -8,6 +8,8 @@ namespace LeetCodeTasks.LeetCode;
 
 public static class Strings
 {
+
+
     #region 71 - Simplify path
 
     public static string SimplifyPath(string path)

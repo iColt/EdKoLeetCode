@@ -367,6 +367,34 @@ public class Arrays
 
     #endregion
 
+    #region 26 - Remove Duplicates from Sorted Array - non optimal memory
+
+    public static int RemoveDuplicates(int[] nums)
+    {
+        int currentElementIndex = 0;
+        int exchangeElementIndex = currentElementIndex + 1;
+
+        int currentUniqueElement = nums[currentElementIndex];
+        while (true)
+        {
+            if(nums.Length == exchangeElementIndex)
+            {
+                break;
+            }
+
+            if(currentUniqueElement < nums[exchangeElementIndex])
+            {
+                currentUniqueElement = nums[exchangeElementIndex];
+                nums[++currentElementIndex] = currentUniqueElement;
+            }
+
+            exchangeElementIndex++;
+        }
+        return currentElementIndex + 1;
+    }
+
+    #endregion
+
     #region #27 - RemoveElement - Optimal runtime, non-optimal memory (70%)
 
     public static int RemoveElement(int[] nums, int val)
@@ -405,4 +433,5 @@ public class Arrays
     }
 
     #endregion
+
 }
