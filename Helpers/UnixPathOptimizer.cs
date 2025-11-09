@@ -18,8 +18,15 @@ public sealed class UnixPathOptimizer
 
     public string Optimize()
     {
-
+        EscapeEndSlash();
 
         return _object.ToString();
     } 
+
+    private void EscapeEndSlash() {
+        int length = _object.Length;
+        if (_object[length - 1].Equals('/')) {
+            _object.Remove(length - 2, 1);
+        } 
+    }
 }
