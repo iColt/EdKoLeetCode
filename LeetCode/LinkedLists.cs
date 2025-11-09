@@ -4,7 +4,8 @@ namespace LeetCodeTasks.LeetCode;
 
 public class LinkedLists
 {
-    // #2 - Add Two Numbers - non optimal in runtime, non optimal in memory
+    #region #2 - Add Two Numbers - non optimal in runtime, non optimal in memory
+
     public static ListNode AddTwoNumbers(ListNode l1, ListNode l2)
     {
         ListNode outputNode = new ListNode();
@@ -45,4 +46,51 @@ public class LinkedLists
         result.Reverse();
         return result.ToArray();
     }
+
+    #endregion
+
+    #region #61
+
+    public static ListNode RotateRight(ListNode head, int k)
+    {
+        // do 1-time analyze of List and save list[end] and list[end - k] element and list[initialHead]
+        // if k < full list capacity:
+        //  list[end - k] - will be new head
+        //  list[end] will reference list[initialHead]
+        //  list[end - k - 1] - will be new tail (reference null)
+        // if k = full capacity - do nothing, return current head
+        // else - reduce |k| by capacity, and do the second step of algorithm 
+        int listCapacity = 0;
+
+        ListNode endNode = null;
+        ListNode newHeadNode = null;
+        ListNode newTailNode = null;
+
+        ListNode currentNode = head;
+        ListNode previousNode = null;
+        int iterator = 0;
+
+        while(true)
+        {
+            if(currentNode.next == null)
+            {
+                endNode = currentNode;
+                break;
+            }
+
+            previousNode = currentNode;
+            currentNode = currentNode.next;
+            iterator++;
+
+            if (iterator > k + 1)
+            {
+                newTailNode = previousNode; 
+                newHeadNode = currentNode;
+            }
+        }
+
+        return head;
+    }
+
+    #endregion
 }
