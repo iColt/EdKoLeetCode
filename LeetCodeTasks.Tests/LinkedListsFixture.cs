@@ -21,4 +21,14 @@ internal class LinkedListsFixture
         var result = LinkedLists.RotateRight(first.CreateLinkedList(), k);
         Assert.That(result.val, Is.EqualTo(firstEl));
     }
+
+    [Ignore("Bug with empty LinkedList")]
+    [TestCase(new int[] { 1, 2, 4 }, new int[] { 1, 3, 4 }, new int[] { 1, 1, 2, 3, 4, 4 })]
+    [TestCase(new int[] { }, new int[] {  }, new int[] {  })]
+    [TestCase(new int[] { }, new int[] { 0 }, new int[] { 0 })]
+    public void Test_MergeTwoLists(int[] first, int[] second, int[] output)
+    {
+        var result = LinkedLists.MergeTwoLists(first.CreateLinkedList(), second.CreateLinkedList());
+        CollectionAssert.AreEquivalent(result.ExposeLinkedList(100, out var _), output);
+    }
 }

@@ -93,4 +93,65 @@ public class LinkedLists
     }
 
     #endregion
+
+    #region 21 Merge Two Sorted Lists - 100/7 runtime/memory. Awful memory consumption
+
+    public static ListNode MergeTwoLists(ListNode list1, ListNode list2)
+    {
+        ListNode resultHead = new ListNode();
+        ListNode? iterator = resultHead;
+
+        ListNode currentFirst = list1;
+        ListNode currentSecond = list2;
+
+        if (currentFirst == null && currentSecond == null)
+        {
+            return null;
+        }
+
+        while (true)
+        {
+            if(currentFirst == null && currentSecond == null)
+            {
+                break;
+            }
+
+            if (currentFirst == null && currentSecond != null)
+            {
+                currentSecond = SetValue(iterator, currentSecond);
+            } else
+            if (currentFirst != null && currentSecond == null)
+            {
+                currentFirst = SetValue(iterator, currentFirst);
+            }
+            else if (currentFirst != null && currentSecond != null)
+            {
+                if (currentFirst.val < currentSecond.val)
+                {
+                    currentFirst = SetValue(iterator, currentFirst);
+                }
+                else
+                {
+                    currentSecond = SetValue(iterator, currentSecond);
+                }
+            }
+
+            if (currentFirst != null && currentSecond != null)
+            {
+                iterator.next = new ListNode();
+                iterator = iterator.next;
+            }
+        }
+
+        return resultHead;
+    }
+
+    private static ListNode SetValue(ListNode iterator, ListNode current)
+    {
+        iterator.val = current.val;
+        current = current.next;
+        return current;
+    }
+
+    #endregion
 }
