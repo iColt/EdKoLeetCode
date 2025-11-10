@@ -49,7 +49,7 @@ public class LinkedLists
 
     #endregion
 
-    #region #61
+    #region #61 Rotate List - non optimal in runtime, non optimal in memory 21.5/8
 
     public static ListNode RotateRight(ListNode head, int k)
     {
@@ -60,6 +60,12 @@ public class LinkedLists
         //  list[end - k - 1] - will be new tail (reference null)
         // if k = full capacity - do nothing, return current head
         // else - reduce |k| by capacity, and do the second step of algorithm 
+
+        if (k == 0 || head == null)
+        {
+            return head;
+        }
+
         int listCapacity = 0;
 
         ListNode endNode = null;
@@ -82,14 +88,67 @@ public class LinkedLists
             currentNode = currentNode.next;
             iterator++;
 
-            if (iterator > k + 1)
+            if(iterator == k + 1)
             {
-                newTailNode = previousNode; 
+                newTailNode = previousNode;
                 newHeadNode = currentNode;
             }
+            
         }
 
+        if(k == iterator || iterator <= 1)
+        {
+            return head;
+        }
+        else if(k < iterator)
+        {
+            newHeadNode.next = head;
+            newTailNode.next = null;
+            return endNode;
+        }
+        else
+        {
+
+        }
         return head;
+    }
+
+    public static ListNode RotateRight2(ListNode head, int k)
+    {
+        if (k == 0 || head == null)
+        {
+            return head;
+        }
+
+        ListNode outputNode = new ListNode();
+        int listLength;
+        int[] arrayForm = LinkedListHelpers.ExposeLinkedList(head, 500, out listLength);
+
+        if(listLength == k)
+        {
+            return head;
+        }
+
+        Array.Resize<int>(ref arrayForm, listLength);
+
+        int moduleK = k;
+        if (k > listLength)
+        {
+            moduleK = k % listLength;
+        }
+        int[] resultArr = new int[listLength];
+        for(int i = 0; i < moduleK; i ++)
+        {
+            resultArr[i] = arrayForm[listLength - moduleK + i];
+        }
+        for(int i = 0; i < listLength - moduleK; i++)
+        {
+            resultArr[i + moduleK] = arrayForm[i];
+        }
+
+        outputNode = resultArr.CreateLinkedList();
+
+        return outputNode;
     }
 
     #endregion

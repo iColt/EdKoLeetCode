@@ -14,11 +14,14 @@ internal class LinkedListsFixture
         CollectionAssert.AreEquivalent(result.ExposeLinkedList(maxLen, out var _), output);
     }
 
+    [TestCase(new int[] { 0, 1, 2 }, 1, 2)]
+    [TestCase(new int[] { 0, 1, 2 }, 2, 1)]
+    [TestCase(new int[] { 0, 1, 2 }, 3, 0)]
     [TestCase(new int[] { 1, 2, 3, 4, 5 }, 2, 4)]
     [TestCase(new int[] { 0, 1, 2 }, 4, 2)]
     public void Test_RotateRight(int[] first, int k, int firstEl)
     {
-        var result = LinkedLists.RotateRight(first.CreateLinkedList(), k);
+        var result = LinkedLists.RotateRight2(first.CreateLinkedList(), k);
         Assert.That(result.val, Is.EqualTo(firstEl));
     }
 
