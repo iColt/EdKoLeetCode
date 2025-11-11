@@ -1,5 +1,4 @@
 ﻿using LeetCodeTasks.Helpers;
-using System.Linq;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -439,6 +438,19 @@ public class Arrays
     public static int SearchInsert(int[] nums, int target)
     {
         return ArraysHelper.FindPosBinarySearch(nums, target);
+    }
+
+    #endregion
+
+    #region 46 - Permutations
+
+    public IList<IList<int>> Permute(int[] nums)
+    {
+        IList<IList<int>> result = new List<IList<int>>();
+
+
+
+        return result;
     }
 
     #endregion

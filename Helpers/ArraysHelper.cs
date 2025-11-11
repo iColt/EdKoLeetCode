@@ -43,4 +43,26 @@ public static class ArraysHelper
         }
     }
 
+    //permute array of DISTINCT values
+    public static IList<IList<int>> PermuteArray(int[] array)
+    {
+        List<IList<int>> result = new List<IList<int>>();
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            var buffer = array[0];
+            array[0] = array[i];
+            array[i] = buffer;
+            result.AddRange(PermuteSubArrayReccursive(array, array[i]));
+        }
+
+        return result;
+    }
+
+    private static IList<IList<int>> PermuteSubArrayReccursive(int[] subArray, int startingIndex)
+    {
+        List<IList<int>> result = new List<IList<int>>();
+        return result;
+    }
+
 }
