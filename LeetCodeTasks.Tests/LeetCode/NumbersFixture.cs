@@ -1,4 +1,4 @@
-﻿namespace LeetCodeTasks.Tests;
+﻿namespace LeetCodeTasks.Tests.LeetCode;
 [TestFixture]
 internal class NumbersFixture
 {
