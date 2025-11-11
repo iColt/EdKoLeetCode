@@ -7,12 +7,16 @@ public static class ArraysHelper
     {
         int length = array.Length;
         int currentLeftPointer = 0;
-        int currentRightPointer = length - 1;
-        int currentPosition = 0;
+        int currentRightPointer = length;
+
+        if(length == 0)
+        {
+            return -1;
+        }
 
         while (true)
         {
-            currentPosition = (currentRightPointer - currentLeftPointer) / 2;
+            int currentPosition = (currentRightPointer + currentLeftPointer) / 2;
 
             if ((array[currentPosition] == targetValue))
             {
@@ -28,11 +32,15 @@ public static class ArraysHelper
 
             if(currentRightPointer - currentLeftPointer < 2)
             {
-                break;
+                if (array[currentLeftPointer] == targetValue)
+                {
+                    return currentLeftPointer;
+                } else
+                {
+                    return currentRightPointer;
+                }
             }
         }
-
-        return currentPosition;
     }
 
 }
