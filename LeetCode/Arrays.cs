@@ -434,4 +434,14 @@ public class Arrays
 
     #endregion
 
+    #region 35
+
+    public static int SearchInsert(int[] nums, int target)
+    {
+
+
+        return 0;
+    }
+
+    #endregion
 }
