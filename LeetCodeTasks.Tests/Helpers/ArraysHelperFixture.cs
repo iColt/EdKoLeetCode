@@ -21,6 +21,16 @@ public class ArraysHelperFixture
         Assert.That(result, Is.EqualTo(0));
     }
 
+
+    [Test]
+    public void BinarySearch_ShouldFindPosOfElementLessThenMin()
+    {
+        int[] array = { 2, 4, 6, 8 };
+        int result = ArraysHelper.FindPosBinarySearch(array, 0);
+        Assert.That(result, Is.EqualTo(0));
+    }
+
+
     [Test]
     public void Should_Find_Last_Element()
     {

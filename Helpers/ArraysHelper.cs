@@ -32,7 +32,7 @@ public static class ArraysHelper
 
             if(currentRightPointer - currentLeftPointer < 2)
             {
-                if (array[currentLeftPointer] == targetValue)
+                if (array[currentLeftPointer] >= targetValue)
                 {
                     return currentLeftPointer;
                 } else

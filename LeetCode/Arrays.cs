@@ -434,13 +434,11 @@ public class Arrays
 
     #endregion
 
-    #region 35
+    #region 35 - Search Insert Position - 100/66.5
 
     public static int SearchInsert(int[] nums, int target)
     {
-
-
-        return 0;
+        return ArraysHelper.FindPosBinarySearch(nums, target);
     }
 
     #endregion

@@ -50,4 +50,12 @@ public class ArrayFixture
     {
         Assert.That(Arrays.RemoveDuplicates(ints), Is.EqualTo(length));
     }
+
+    [TestCase(new int[] { 1, 3, 5, 6 }, 5, 2)]
+    [TestCase(new int[] { 1, 3, 5, 6 }, 2, 1)]
+    [TestCase(new int[] { 1, 3, 5, 6 }, 7, 4)]
+    public void Test_SearchInsert(int[] nums, int target, int pos)
+    {
+        Assert.That(Arrays.SearchInsert(nums, target), Is.EqualTo(pos));
+    }
 }
