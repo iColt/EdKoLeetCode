@@ -97,4 +97,35 @@ public class ArraysHelperFixture
         int result = ArraysHelper.FindPosBinarySearch(array, 198); // should exist
         Assert.That(result, Is.EqualTo(99));
     }
+
+    [TestCase(new int[] { 1 }, 1)]
+    [TestCase(new int[] { 1, 2 }, 2)]
+    [TestCase(new int[] { 1, 2, 3 }, 6)]
+    [TestCase(new int[] { 0, 1 }, 2)]
+    [TestCase(new int[] { -1, 1, 2 }, 6)]
+    public void Permute_Should_Return_Correct_Number_Of_Permutations(int[] input, int expectedCount)
+    {
+        var result = ArraysHelper.PermuteArray(input);
+        Assert.That(result.Count, Is.EqualTo(expectedCount), "Unexpected number of permutations.");
+
+        // Each permutation must have the same length as the input
+        foreach (var perm in result)
+            Assert.That(perm.Count, Is.EqualTo(input.Length), "Permutation length mismatch.");
+
+        // Ensure all elements are from the input
+        foreach (var perm in result)
+            CollectionAssert.AreEquivalent(input, perm, "Permutation contains invalid elements.");
+
+        // Ensure all permutations are unique
+        var uniqueCount = result.Select(p => string.Join(",", p)).Distinct().Count();
+        Assert.That(uniqueCount, Is.EqualTo(result.Count), "Permutations are not unique.");
+    }
+
+    [Test]
+    public void Permute_Should_Handle_Larger_Input()
+    {
+        int[] input = { 1, 2, 3, 4 };
+        var result = ArraysHelper.PermuteArray(input);
+        Assert.That(result.Count, Is.EqualTo(24)); // 4! = 24
+    }
 }

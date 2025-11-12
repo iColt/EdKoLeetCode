@@ -43,25 +43,55 @@ public static class ArraysHelper
         }
     }
 
-    //permute array of DISTINCT values
+    //permute array of DISTINCT values, min length = 3
     public static IList<IList<int>> PermuteArray(int[] array)
     {
-        List<IList<int>> result = new List<IList<int>>();
+        IList<IList<int>> result = new List<IList<int>>();
 
-        for (int i = 0; i < array.Length; i++)
+        if (array.Length == 1)
         {
-            var buffer = array[0];
-            array[0] = array[i];
-            array[i] = buffer;
-            result.AddRange(PermuteSubArrayReccursive(array, array[i]));
+            result.Add(array);
+            return result;
+        }
+        if (array.Length == 2)
+        {
+            result.Add(array);
+            result.Add(new List<int> { array[1], array[0] });
+            return result;
         }
 
-        return result;
+        return PermuteSubArrayReccursive(array, 0);
     }
 
     private static IList<IList<int>> PermuteSubArrayReccursive(int[] subArray, int startingIndex)
     {
         List<IList<int>> result = new List<IList<int>>();
+
+        if(subArray.Length - startingIndex == 2)
+        {
+            result.Add(subArray);
+
+            //change 2 last digits
+            int[] swappedArray = new int[subArray.Length];
+            Array.Copy(subArray, swappedArray, subArray.Length);
+            var buffer = swappedArray[subArray.Length - 1];
+            swappedArray[subArray.Length - 1] = swappedArray[subArray.Length - 2];
+            swappedArray[subArray.Length - 2] = buffer;
+
+            result.Add(swappedArray);
+            return result;
+        }
+
+        for (int i = startingIndex; i < subArray.Length; i++)
+        {
+            int[] swappedArray = new int[subArray.Length];
+            Array.Copy(subArray, swappedArray, subArray.Length);
+            var buffer = swappedArray[startingIndex];
+            swappedArray[startingIndex] = swappedArray[i];
+            swappedArray[i] = buffer;
+            result.AddRange(PermuteSubArrayReccursive(swappedArray, startingIndex + 1));
+        }
+
         return result;
     }
 

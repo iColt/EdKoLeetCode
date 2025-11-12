@@ -442,15 +442,11 @@ public class Arrays
 
     #endregion
 
-    #region 46 - Permutations
+    #region 46 - Permutations - 100/35.3. Non-optimal memory
 
     public IList<IList<int>> Permute(int[] nums)
     {
-        IList<IList<int>> result = new List<IList<int>>();
-
-
-
-        return result;
+        return ArraysHelper.PermuteArray(nums);
     }
 
     #endregion
