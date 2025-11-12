@@ -454,4 +454,38 @@ public class Arrays
     }
 
     #endregion
+
+    #region 66 - Plus one - 100/51
+
+    public static int[] PlusOne(int[] digits)
+    {
+        bool shouldAddOne = true;
+
+
+        for(int i = digits.Length - 1; i >= 0; i--)
+        {
+            if(shouldAddOne)
+            {
+                digits[i] = digits[i] + 1;
+                if (digits[i] != 10)
+                {
+                    shouldAddOne = false;
+                    break;
+                } else
+                {
+                    digits[i] = 0;
+                }
+            }
+        }
+
+        if(shouldAddOne)
+        {
+            Array.Resize(ref digits, digits.Length + 1);
+            digits[0] = 1;
+        }
+
+        return digits;
+    }
+
+    #endregion
 }

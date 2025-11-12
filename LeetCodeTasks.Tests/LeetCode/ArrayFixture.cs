@@ -58,4 +58,37 @@ public class ArrayFixture
     {
         Assert.That(Arrays.SearchInsert(nums, target), Is.EqualTo(pos));
     }
+
+    #region 66 - Plus One
+
+    [TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2, 4 })]
+    [TestCase(new int[] { 1, 2, 9 }, new int[] { 1, 3, 0 })]
+    [TestCase(new int[] { 9, 9, 9 }, new int[] { 1, 0, 0, 0 })]
+    [TestCase(new int[] { 1, 0, 0 }, new int[] { 1, 0, 1 })]
+    [TestCase(new int[] { 9 }, new int[] { 1, 0 })]
+    [TestCase(new int[] { 7 }, new int[] { 8 })]
+    [TestCase(new int[] { 2, 3, 4 }, new int[] { 2, 3, 5 })]
+    [TestCase(new int[] { 4, 3, 9, 9 }, new int[] { 4, 4, 0, 0 })]
+    [TestCase(new int[] { 2, 3, 4 }, new int[] { 2, 3, 5 })]
+    public void Tets_PlusOne(int[] nums, int[] expected)
+    {
+        int[] result = Arrays.PlusOne(nums);
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void Tets_PlusOne_ShouldHandleLargeNumber()
+    {
+        int[] input = new int[100];
+        for (int i = 0; i < input.Length; i++)
+            input[i] = 9;
+
+        int[] result = Arrays.PlusOne(input);
+
+        Assert.That(result.Length, Is.EqualTo(101));
+        Assert.That(result[0], Is.EqualTo(1));
+        Assert.That(result[1], Is.EqualTo(0));
+    }
+
+    #endregion
 }
