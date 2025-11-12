@@ -4,254 +4,6 @@ namespace LeetCodeTasks.LeetCode;
 
 public class Arrays
 {
-    #region #1480
-
-    public static int[] RunningSum(int[] nums)
-    {
-        int arrayLength = nums.Length;
-        int[] resultArr = new int[arrayLength];
-        resultArr[0] = nums[0];
-        for (int i = 1; i < arrayLength; i++)
-        {
-            resultArr[i] = resultArr[i - 1] + nums[i];
-        }
-        return resultArr;
-    }
-
-    #endregion
-
-    #region #1672
-
-    public static int MaximumWealth(int[][] accounts)
-    {
-        int maxVal = 0;
-        int currWealth = 0;
-        for (int i = 0; i < accounts.Length; i++)
-        {
-            for (int j = 0; j < accounts[i].Length; j++)
-            {
-                currWealth += accounts[i][j];
-            }
-            if (currWealth > maxVal)
-            {
-                maxVal = currWealth;
-            }
-
-            currWealth = 0;
-        }
-        return maxVal;
-    }
-
-    #endregion
-
-    #region #412 - non optimal
-
-    public static IList<string> FizzBuzz(int n)
-    {
-        var res = new List<string>(n);
-        for (int i = 1; i <= n; i++)
-        {
-            if (i % 3 == 0 && i % 5 == 0)
-            {
-                res.Add("FizzBuzz");
-            }
-            else if (i % 3 == 0)
-            {
-                res.Add("Fizz");
-            }
-            else if (i % 5 == 0)
-            {
-                res.Add("Buzz");
-            }
-            else
-            {
-                res.Add(i.ToString());
-            }
-        }
-        return res;
-    }
-
-    #endregion
-
-    #region #1342
-    public static int NumberOfSteps(int num)
-    {
-        int numberOfSteps = 0;
-        while (true)
-        {
-            if (num == 0)
-            {
-                break;
-            }
-
-            numberOfSteps++;
-            num = num / 2;
-
-            if (num == 0)
-            {
-                break;
-            }
-
-            if (num % 2 == 1)
-            {
-                num -= 1;
-                numberOfSteps++;
-            }
-        }
-        return numberOfSteps;
-    }
-
-    #endregion
-
-    #region #876
-
-    public static ListNode MiddleNode(ListNode head)
-    {
-        if (head.next == null)
-        {
-            return head;
-        }
-
-        if (head.next.next == null)
-        {
-            return head.next;
-        }
-
-        int nodeCounter = 3;
-        ListNode currentMiddle = head.next;
-        ListNode currentNode = head.next.next;
-        while (true)
-        {
-            if (currentNode.next == null)
-            {
-                break;
-            }
-
-            nodeCounter++;
-            currentNode = currentNode.next;
-
-            if (nodeCounter % 2 == 0)
-            {
-                currentMiddle = currentMiddle.next;
-            }
-        }
-
-        return currentMiddle;
-    }
-
-    #endregion
-
-    #region # 383 - non optimal
-
-    public static bool CanConstruct(string ransomNote, string magazine)
-    {
-        var ransomArr = ransomNote.ToCharArray();
-        var magArr = magazine.ToCharArray();
-        Array.Sort(ransomArr);
-        Array.Sort(magArr);
-        bool accepted = true;
-        int magCounter = 0;
-
-        for (int i = 0; i < ransomNote.Length; i++)
-        {
-            for (int j = magCounter; j < magazine.Length; j++)
-            {
-                if (ransomArr[i] == magArr[j])
-                {
-                    if (i == ransomArr.Length - 1)
-                    {
-                        //no need to iterate
-                        break;
-                    }
-                    magCounter++;
-                    break;
-                }
-
-                magCounter++;
-            }
-
-            if (magCounter >= magazine.Length)
-            {
-                accepted = false;
-                break;
-            }
-
-        }
-        return accepted;
-    }
-
-    #endregion
-
-    #region #383 - 2. Try not to allocate arrays of chars
-
-    public static bool CanConstruct2(string ransomNote, string magazine)
-    {
-        if (magazine.Length < ransomNote.Length)
-        {
-            return false;
-        }
-
-        bool accepted = true;
-        var charUsage = new bool[magazine.Length];
-        var magArr = magazine.ToCharArray();
-
-        for (int i = 0; i < ransomNote.Length; i++)
-        {
-            for (int j = 0; j < magazine.Length; j++)
-            {
-                if (ransomNote[i] != magArr[j] || charUsage[j])
-                {
-                    // count to end and no match
-                    if (j == magazine.Length - 1)
-                    {
-                        accepted = false;
-                        break;
-                    }
-
-                    continue;
-                }
-                else
-                {
-                    charUsage[j] = true;
-                    break;
-                }
-
-
-            }
-        }
-        return accepted;
-    }
-
-    #endregion
-
-    #region FindMaxConsecutiveOnes
-
-    public static int FindMaxConsecutiveOnes(int[] nums)
-    {
-        int maxConsecutiveOnes = 0;
-        int tempConsecutiveOnes = 0;
-
-        for (int i = 0; i < nums.Length; i++)
-        {
-            if (nums[i] == 0)
-            {
-                if (tempConsecutiveOnes > maxConsecutiveOnes)
-                {
-                    maxConsecutiveOnes = tempConsecutiveOnes;
-                }
-                tempConsecutiveOnes = 0;
-            }
-            else
-            {
-                tempConsecutiveOnes++;
-            }
-        }
-
-        return maxConsecutiveOnes > tempConsecutiveOnes ? maxConsecutiveOnes : tempConsecutiveOnes;
-    }
-
-    #endregion
-
     #region #1 - Runtime unoptimal
 
     public static int[] TwoSum(int[] nums, int target)
@@ -442,6 +194,16 @@ public class Arrays
 
     #endregion
 
+    #region 39 - Combination Sum
+
+    public static IList<IList<int>> CombinationSum(int[] candidates, int target)
+    {
+        IList<IList<int>> result = new List<IList<int>>();
+        return result;
+    }
+
+    #endregion
+
     #region 46 - Permutations - 100/35.3. Non-optimal memory
 
     public IList<IList<int>> Permute(int[] nums)
@@ -481,6 +243,258 @@ public class Arrays
         }
 
         return digits;
+    }
+
+    #endregion
+
+    #region 383 Ramsone note
+
+    #region # 383 Ramsone note 61/19 - non optimal
+
+    public static bool CanConstruct(string ransomNote, string magazine)
+    {
+        var ransomArr = ransomNote.ToCharArray();
+        var magArr = magazine.ToCharArray();
+        Array.Sort(ransomArr);
+        Array.Sort(magArr);
+        bool accepted = true;
+        int magCounter = 0;
+
+        for (int i = 0; i < ransomNote.Length; i++)
+        {
+            for (int j = magCounter; j < magazine.Length; j++)
+            {
+                if (ransomArr[i] == magArr[j])
+                {
+                    if (i == ransomArr.Length - 1)
+                    {
+                        //no need to iterate
+                        break;
+                    }
+                    magCounter++;
+                    break;
+                }
+
+                magCounter++;
+            }
+
+            if (magCounter >= magazine.Length)
+            {
+                accepted = false;
+                break;
+            }
+
+        }
+        return accepted;
+    }
+
+    #endregion
+
+    #region #383 - 2. Try not to allocate arrays of chars
+
+    public static bool CanConstruct2(string ransomNote, string magazine)
+    {
+        if (magazine.Length < ransomNote.Length)
+        {
+            return false;
+        }
+
+        bool accepted = true;
+        var charUsage = new bool[magazine.Length];
+        var magArr = magazine.ToCharArray();
+
+        for (int i = 0; i < ransomNote.Length; i++)
+        {
+            for (int j = 0; j < magazine.Length; j++)
+            {
+                if (ransomNote[i] != magArr[j] || charUsage[j])
+                {
+                    // count to end and no match
+                    if (j == magazine.Length - 1)
+                    {
+                        accepted = false;
+                        break;
+                    }
+
+                    continue;
+                }
+                else
+                {
+                    charUsage[j] = true;
+                    break;
+                }
+
+
+            }
+        }
+        return accepted;
+    }
+
+    #endregion
+
+    #endregion
+
+    #region #412 - non optimal
+
+    public static IList<string> FizzBuzz(int n)
+    {
+        var res = new List<string>(n);
+        for (int i = 1; i <= n; i++)
+        {
+            if (i % 3 == 0 && i % 5 == 0)
+            {
+                res.Add("FizzBuzz");
+            }
+            else if (i % 3 == 0)
+            {
+                res.Add("Fizz");
+            }
+            else if (i % 5 == 0)
+            {
+                res.Add("Buzz");
+            }
+            else
+            {
+                res.Add(i.ToString());
+            }
+        }
+        return res;
+    }
+
+    #endregion
+
+    #region #485 - Find Max Consecutive Ones - 100/81
+
+    public static int FindMaxConsecutiveOnes(int[] nums)
+    {
+        int maxConsecutiveOnes = 0;
+        int tempConsecutiveOnes = 0;
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (nums[i] == 0)
+            {
+                if (tempConsecutiveOnes > maxConsecutiveOnes)
+                {
+                    maxConsecutiveOnes = tempConsecutiveOnes;
+                }
+                tempConsecutiveOnes = 0;
+            }
+            else
+            {
+                tempConsecutiveOnes++;
+            }
+        }
+
+        return maxConsecutiveOnes > tempConsecutiveOnes ? maxConsecutiveOnes : tempConsecutiveOnes;
+    }
+
+    #endregion
+
+    #region #876 - Middle of the linked list - 100/27
+
+    public static ListNode MiddleNode(ListNode head)
+    {
+        if (head.next == null)
+        {
+            return head;
+        }
+
+        if (head.next.next == null)
+        {
+            return head.next;
+        }
+
+        int nodeCounter = 3;
+        ListNode currentMiddle = head.next;
+        ListNode currentNode = head.next.next;
+        while (true)
+        {
+            if (currentNode.next == null)
+            {
+                break;
+            }
+
+            nodeCounter++;
+            currentNode = currentNode.next;
+
+            if (nodeCounter % 2 == 0)
+            {
+                currentMiddle = currentMiddle.next;
+            }
+        }
+
+        return currentMiddle;
+    }
+
+    #endregion
+
+    #region #1342 - Number of Steps to Reduce a Number to Zero - 100/88
+    public static int NumberOfSteps(int num)
+    {
+        int numberOfSteps = 0;
+        while (true)
+        {
+            if (num == 0)
+            {
+                break;
+            }
+
+            numberOfSteps++;
+            num = num / 2;
+
+            if (num == 0)
+            {
+                break;
+            }
+
+            if (num % 2 == 1)
+            {
+                num -= 1;
+                numberOfSteps++;
+            }
+        }
+        return numberOfSteps;
+    }
+
+    #endregion
+
+    #region #1480 - Running Sum of 1d Array - 100/54
+
+    public static int[] RunningSum(int[] nums)
+    {
+        int arrayLength = nums.Length;
+        int[] resultArr = new int[arrayLength];
+        resultArr[0] = nums[0];
+        for (int i = 1; i < arrayLength; i++)
+        {
+            resultArr[i] = resultArr[i - 1] + nums[i];
+        }
+        return resultArr;
+    }
+
+    #endregion
+
+    #region #1672 - Richest Customer Wealth - 100/21 non-optimal memory
+
+    public static int MaximumWealth(int[][] accounts)
+    {
+        int maxVal = 0;
+        int currWealth = 0;
+        for (int i = 0; i < accounts.Length; i++)
+        {
+            for (int j = 0; j < accounts[i].Length; j++)
+            {
+                currWealth += accounts[i][j];
+            }
+            if (currWealth > maxVal)
+            {
+                maxVal = currWealth;
+            }
+
+            currWealth = 0;
+        }
+        return maxVal;
     }
 
     #endregion
