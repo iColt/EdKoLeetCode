@@ -78,4 +78,58 @@ public static class Numbers
     }
 
     #endregion
+
+
+    #region 69 - Sqrt(x) - 100/60.5 runtime/memory
+
+    public static int MySqrt(int x)
+    {
+        int maxSqrt = 46340;
+        int maxPowResult = 2147395600;
+
+        if (x <= 1)
+        {
+            return x;
+        }
+
+        if(x >= maxPowResult)
+        {
+            return maxSqrt;
+        }
+
+        int leftBorder = 1;
+        int rightBorder = maxSqrt;
+        int currentTarget;
+        while (true)
+        {
+            currentTarget = (rightBorder + leftBorder) / 2;
+
+            if(currentTarget * currentTarget == x)
+            {
+                break;
+            }
+
+            if (currentTarget * currentTarget < x && ((currentTarget + 1) * (currentTarget + 1)) >= x)
+            {
+                if ((currentTarget + 1) * (currentTarget + 1) == x)
+                {
+                    return currentTarget + 1;
+                }
+                break;
+            }
+
+            if(currentTarget * currentTarget < x)
+            {
+                leftBorder = currentTarget;
+            }
+            else
+            {
+                rightBorder = currentTarget;
+            }
+        }
+
+        return currentTarget;
+    }
+
+    #endregion
 }

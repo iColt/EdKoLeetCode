@@ -247,7 +247,7 @@ public class Arrays
 
     #endregion
 
-    #region 383 Ramsone note
+    #region 383 Ramsone note - Solved
 
     #region # 383 Ramsone note 61/19 - non optimal
 

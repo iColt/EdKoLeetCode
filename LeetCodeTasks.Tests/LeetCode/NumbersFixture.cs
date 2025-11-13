@@ -22,4 +22,17 @@ internal class NumbersFixture
     {
         Assert.That(Numbers.Reverse(number), Is.EqualTo(reversed));
     }
+
+    [TestCase(2147483647, 46340)]
+    [TestCase(2147395600, 46340)]
+    [TestCase(4, 2)]
+    [TestCase(1225, 35)]
+    [TestCase(8, 2)]
+    [TestCase(0, 0)]
+    [TestCase(1, 1)]
+    [TestCase(10001, 100)]
+    public static void Test_MySqrt(int number, int expected)
+    {
+        Assert.That(Numbers.MySqrt(number), Is.EqualTo(expected));
+    }
 }
