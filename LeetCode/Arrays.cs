@@ -198,7 +198,31 @@ public class Arrays
 
     public static IList<IList<int>> CombinationSum(int[] candidates, int target)
     {
+        // Step 1 - sort
+        Array.Sort<int>(candidates);
+
+        return CombinationSumReccursive(candidates, target, new List<int>(), 0);
+    }
+
+    private static IList<IList<int>> CombinationSumReccursive(int[] candidates, int target, IList<int> currentEnum, int currentSumFromEnum)
+    {
         IList<IList<int>> result = new List<IList<int>>();
+
+        for(int i = 0; i < candidates.Length; i++)
+        {
+            int currentPartialSum = candidates[i] + currentSumFromEnum;
+
+            if(currentPartialSum == target)
+            {
+                currentEnum.Add(currentPartialSum);
+                result.Add(currentEnum);
+                // If sub array fits = no need to continue this 
+                continue;
+            }
+
+            
+        }
+
         return result;
     }
 
