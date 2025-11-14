@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace LeetCodeTasks.Tests.LeetCode;
 [TestFixture]
 public class ArrayFixture
@@ -90,5 +92,111 @@ public class ArrayFixture
         Assert.That(result[1], Is.EqualTo(0));
     }
 
+    #endregion
+
+    #region 39
+
+    [TestCase(new int[] { 5, 10, 8, 4, 3, 12, 9 }, 27, 45)]
+    [TestCase(new int[] { 2, 3, 6, 7 }, 7, 2)]
+    [TestCase(new int[] { 2, 3, 5 }, 8, 3)]
+    [TestCase(new int[] { 2 }, 1, 0)]
+    public void Test_CombinationSum(int[] candidates, int target, int countOfCombinations)
+    {
+        CompareTwoCombinations(Arrays.CombinationSum(candidates, target));
+        //Assert.That(Arrays.CombinationSum(candidates, target).Count(), Is.EqualTo(countOfCombinations));
+    }
+
+    //new List<int> {5,5,5,5,4,3}, new List<int> {5,5,5,8,4}, new List<int> {5,5,5,4,4,4}, new List<int> {5,5,5,3,3,3,3}, new List<int> {5,5,5,3,9}, new List<int> {5,5,5,12}, new List<int> {5,5,10,4,3}, new List<int> {5,5,8,3,3,3}, new List<int> {5,5,8,9}, new List<int> {5,5,4,4,3,3,3}, new List<int> {5,5,4,4,9}, new List<int> {5,10,8,4}, new List<int> {5,10,4,4,4}, new List<int> {5,10,3,3,3,3}, new List<int> {5,10,3,9}, new List<int> {5,10,12}, new List<int> {5,8,8,3,3}, new List<int> {5,8,4,4,3,3}, new List<int> {5,4,4,4,4,3,3}, new List<int> {5,4,3,3,3,3,3,3}, new List<int> {5,4,3,3,3,9}, new List<int> {5,4,3,3,12}, new List<int> {5,4,9,9}, new List<int> {10,10,4,3}, new List<int> {10,8,3,3,3}, new List<int> {10,8,9}, new List<int> {10,4,4,3,3,3}, new List<int> {10,4,4,9}, new List<int> {8,8,8,3}, new List<int> {8,8,4,4,3}, new List<int> {8,4,4,4,4,3}, new List<int> {8,4,3,3,3,3,3}, new List<int> {8,4,3,3,9}, new List<int> {8,4,3,12}, new List<int> {4,4,4,4,4,4,3}, new List<int> {4,4,4,3,3,3,3,3}, new List<int> {4,4,4,3,3,9}, new List<int> {4,4,4,3,12}, new List<int> {3,3,3,3,3,3,3,3,3}, new List<int> {3,3,3,3,3,3,9}, new List<int> {3,3,3,3,3,12}, new List<int> {3,3,3,9,9}, new List<int> {3,3,12,9}, new List<int> {3,12,12}, new List<int> {9,9,9]
+    private void CompareTwoCombinations(IList<IList<int>> result)
+    {
+        List<List<int>> list =
+        [
+          new List<int> { 5, 5, 5, 5, 4, 3 },
+        new List<int> { 5, 5, 5, 8, 4 },
+        new List<int> { 5, 5, 5, 4, 4, 4 },
+        new List<int> { 5, 5, 5, 3, 3, 3, 3 },
+        new List<int> { 5, 5, 5, 3, 9 },
+        new List<int> { 5, 5, 5, 12 },
+        new List<int> { 5, 5, 10, 4, 3 },
+        new List<int> { 5, 5, 8, 3, 3, 3 },
+        new List<int> { 5, 5, 8, 9 },
+        new List<int> { 5, 5, 4, 4, 3, 3, 3 },
+        new List<int> { 5, 5, 4, 4, 9 },
+        new List<int> { 5, 10, 8, 4 },
+        new List<int> { 5, 10, 4, 4, 4 },
+        new List<int> { 5, 10, 3, 3, 3, 3 },
+        new List<int> { 5, 10, 3, 9 },
+        new List<int> { 5, 10, 12 },
+        new List<int> { 5, 8, 8, 3, 3 },
+        new List<int> { 5, 8, 4, 4, 3, 3 },
+        new List<int> { 5, 4, 4, 4, 4, 3, 3 },
+        new List<int> { 5, 4, 3, 3, 3, 3, 3, 3 },
+        new List<int> { 5, 4, 3, 3, 3, 9 },
+        new List<int> { 5, 4, 3, 3, 12 },
+        new List<int> { 5, 4, 9, 9 },
+        new List<int> { 10, 10, 4, 3 },
+        new List<int> { 10, 8, 3, 3, 3 },
+        new List<int> { 10, 8, 9 },
+        new List<int> { 10, 4, 4, 3, 3, 3 },
+        new List<int> { 10, 4, 4, 9 },
+        new List<int> { 8, 8, 8, 3 },
+        new List<int> { 8, 8, 4, 4, 3 },
+        new List<int> { 8, 4, 4, 4, 4, 3 },
+        new List<int> { 8, 4, 3, 3, 3, 3, 3 },
+        new List<int> { 8, 4, 3, 3, 9 },
+        new List<int> { 8, 4, 3, 12 },
+        new List<int> { 4, 4, 4, 4, 4, 4, 3 },
+        new List<int> { 4, 4, 4, 3, 3, 3, 3, 3 },
+        new List<int> { 4, 4, 4, 3, 3, 9 },
+        new List<int> { 4, 4, 4, 3, 12 },
+        new List<int> { 3, 3, 3, 3, 3, 3, 3, 3, 3 },
+        new List<int> { 3, 3, 3, 3, 3, 3, 9 },
+        new List<int> { 3, 3, 3, 3, 3, 12 },
+        new List<int> { 3, 3, 3, 9, 9 },
+        new List<int> { 3, 3, 12, 9 },
+        new List<int> { 3, 12, 12 },
+        new List<int> { 9, 9, 9 }
+        ];
+
+        foreach(var x in result)
+        {
+            x.ToList().Sort();
+        }
+
+        foreach(var x in list)
+        {
+            x.Sort();
+        }
+
+        var comparer = new UnorderedIntArrayComparer();
+
+        var onlyIn1 = result.Except(list, comparer).ToList();
+        var onlyIn2 = list.Except(result, comparer).ToList();
+    }
+
+    public class UnorderedIntArrayComparer : IEqualityComparer<IList<int>>
+    {
+        public bool Equals(IList<int> a, IList<int> b)
+        {
+            if (a == null || b == null) return a == b;
+
+            if (a.Count != b.Count) return false;
+
+            return a.OrderBy(x => x).SequenceEqual(b.OrderBy(x => x));
+        }
+
+        public int GetHashCode(IList<int> arr)
+        {
+            unchecked
+            {
+                int hash = 17;
+
+                foreach (var x in arr.OrderBy(v => v))   // normalize ordering
+                    hash = hash * 31 + x.GetHashCode();
+
+                return hash;
+            }
+        }
+    }
     #endregion
 }

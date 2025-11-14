@@ -194,36 +194,79 @@ public class Arrays
 
     #endregion
 
-    #region 39 - Combination Sum
+    #region 39 - Combination Sum - 5/5 - poor performance and memory consumption
 
     public static IList<IList<int>> CombinationSum(int[] candidates, int target)
     {
-        // Step 1 - sort
         Array.Sort<int>(candidates);
 
-        return CombinationSumReccursive(candidates, target, new List<int>(), 0);
+        // Need to initialize it, so that we can avoid duplicates
+        // And avoid post-processing of result List
+        List<IList<int>> result = new List<IList<int>>();
+
+        CombinationSumReccursive(candidates, target, result, new List<int>(), 0);
+
+        return result;
     }
 
-    private static IList<IList<int>> CombinationSumReccursive(int[] candidates, int target, IList<int> currentEnum, int currentSumFromEnum)
+    private static void CombinationSumReccursive(int[] candidates, int target, List<IList<int>> result, IList<int> currentEnum, int currentSumFromEnum)
     {
-        IList<IList<int>> result = new List<IList<int>>();
-
         for(int i = 0; i < candidates.Length; i++)
         {
             int currentPartialSum = candidates[i] + currentSumFromEnum;
 
             if(currentPartialSum == target)
             {
-                currentEnum.Add(currentPartialSum);
-                result.Add(currentEnum);
+                var copyOfCurrent = new int[currentEnum.Count + 1];
+                currentEnum.CopyTo(copyOfCurrent, 0);
+                copyOfCurrent[currentEnum.Count] = candidates[i];
+                //we need to check if similar array already added
+                bool exist = false;
+                foreach(var entry in result)
+                {
+                    if(AreEquivalentDistinct(entry, copyOfCurrent.ToList<int>()))
+                    {
+                        exist = true;
+                    }
+                }
+                if(!exist)
+                {
+                    result.Add(copyOfCurrent);
+                }
                 // If sub array fits = no need to continue this 
                 continue;
             }
 
-            
+            if(currentPartialSum > target)
+            {
+                // if additional value will increase sum > target - this set should be removed
+                continue;
+            }
+
+            if(currentPartialSum < target)
+            {
+                var copyOfCurrent = new int[currentEnum.Count + 1];
+                currentEnum.CopyTo(copyOfCurrent, 0);
+                copyOfCurrent[currentEnum.Count] = candidates[i];
+                // if currentPartialSum still < target, we call reccursively the same function
+                CombinationSumReccursive(candidates, target, result, copyOfCurrent, currentPartialSum);
+            }
         }
 
-        return result;
+        return;
+    }
+
+    static bool AreEquivalentDistinct<T>(IList<T> a, IList<T> b)
+    {
+        if (a.Count != b.Count)
+        {
+            return false;
+        }
+
+        var sortedA = a.OrderBy(x => x).ToArray();
+        var sortedB = b.OrderBy(x => x).ToArray();
+
+        return sortedA.SequenceEqual(sortedB);
     }
 
     #endregion
