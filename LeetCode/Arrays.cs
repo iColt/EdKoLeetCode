@@ -314,6 +314,70 @@ public class Arrays
 
     #endregion
 
+    #region 88 Merge Sorted Array - 100/40.5 Non optimal memory
+
+    public static void Merge(int[] nums1, int m, int[] nums2, int n)
+    {
+        // if second array empty - return just first one
+        if(n == 0)
+        {
+            return;
+        }
+        if(m == 0)
+        {
+            for(int i = 0; i < n; i++)
+            {
+                nums1[i] = nums2[i];
+            }
+            return;
+        }
+
+        int firstArrayUsageCounter = m - 1;
+        int secondArrayUsageCounter = n - 1;
+
+        // pointer to position, that will be used to set values
+        int commonPositionMarker = m + n -1;
+
+        while(true)
+        {
+            if((firstArrayUsageCounter < 0 && secondArrayUsageCounter < 0) || commonPositionMarker < 0) {
+                break;
+            }
+
+            //if first consumed - just fill num1 with rest of values
+            if(firstArrayUsageCounter < 0)
+            {
+                for(int i = secondArrayUsageCounter; i >= 0; i--)
+                {
+                    nums1[commonPositionMarker] = nums2[i];
+                    commonPositionMarker--;
+                }
+                break;
+            }
+
+            //if second already consumed - no need to do anything
+            if(secondArrayUsageCounter < 0)
+            {
+                break;
+            }
+
+            if (nums1[firstArrayUsageCounter] >= nums2[secondArrayUsageCounter])
+            {
+                nums1[commonPositionMarker] = nums1[firstArrayUsageCounter];
+                firstArrayUsageCounter--;
+            } else
+            if (nums1[firstArrayUsageCounter] < nums2[secondArrayUsageCounter])
+            {
+                nums1[commonPositionMarker] = nums2[secondArrayUsageCounter];
+                secondArrayUsageCounter--;
+            }
+
+            commonPositionMarker--;
+        }
+    }
+
+    #endregion
+
     #region 383 Ramsone note - Solved
 
     #region # 383 Ramsone note 61/19 - non optimal
