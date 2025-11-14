@@ -12,4 +12,11 @@ public sealed class StringsFixture
     {
         Assert.That(Strings.SimplifyPath(path), Is.EqualTo(result));
     }
+
+    [TestCase("23", 9)]
+    [TestCase("2", 3)]
+    public void Test_LetterCombinations(string digits, int count)
+    {
+        Assert.That(Strings.LetterCombinations(digits).Count, Is.EqualTo(count));
+    }
 }
