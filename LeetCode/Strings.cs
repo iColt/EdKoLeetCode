@@ -2,50 +2,48 @@
 
 public static class Strings
 {
-    #region 17
+    #region 17 - Letter combination of phone number - 5/5 - poor runtime and memory
 
     public static IList<string> LetterCombinations(string digits)
     {
         var phoneCombinations = new List<List<string>>
         {
             // empty list so that we don't need to avoid index adjustment during producing results
-            new List<string>(),
-            new List<string> {"a", "b", "c" },
-            new List<string> {"d", "e", "f" },
-            new List<string> {"g", "h", "i" },
-            new List<string> {"j", "k", "l" },
-            new List<string> {"m", "n", "o" },
-            new List<string> {"p", "q", "r", "s" },
-            new List<string> {"t", "u", "v" },
-            new List<string> {"w", "x", "y", "z" },
+            new(),
+            new() {"a", "b", "c" },
+            new() {"d", "e", "f" },
+            new() {"g", "h", "i" },
+            new() {"j", "k", "l" },
+            new() {"m", "n", "o" },
+            new() {"p", "q", "r", "s" },
+            new() {"t", "u", "v" },
+            new() {"w", "x", "y", "z" },
         };
 
-        var numberDigitList = digits.Select(x => Int32.Parse(x.ToString())).ToList();
+        var numberDigitList = digits.Select(x => int.Parse(x.ToString())).ToList();
 
-        return ProduceLetterCombinationsReccursively(numberDigitList, phoneCombinations, string.Empty);
+        return ProduceLetterCombinationsReccursively(numberDigitList, phoneCombinations, string.Empty, 0);
     }
 
-    //EDKO - current implementation does not support correct enumeration. We need to enumerate by letters under digits, not digits itself
-    private static List<string> ProduceLetterCombinationsReccursively(List<int> digits, List<List<string>> phoneCombinations, string currentCompination)
+    private static List<string> ProduceLetterCombinationsReccursively(List<int> digits, List<List<string>> phoneCombinations, string currentCompination, int currentDigit)
     {
         var result = new List<string>();
 
-        if(digits.Count == 1)
+        if(digits.Count - 1 == currentDigit)
         {
-            foreach(var letter in phoneCombinations[digits[0] - 1]) { 
+            foreach(var letter in phoneCombinations[digits[currentDigit] - 1]) { 
                 result.Add(currentCompination +  letter);
             }
             return result;
         }
 
-        for (int i = 0; i < digits.Count; i++)
-        {
-            var reducedDigits = digits.Except(new List<int> { digits[i] }).ToList();
+        int nextDigit = currentDigit + 1;
 
-            for (int j = 0; j < phoneCombinations[digits[i]].Count; j++)
-            {
-                result.AddRange(ProduceLetterCombinationsReccursively(reducedDigits, phoneCombinations, currentCompination + phoneCombinations[digits[i] - 1][j]));
-            }
+        for (int j = 0; j < phoneCombinations[digits[currentDigit] - 1].Count; j++)
+        {
+            result.AddRange(
+                ProduceLetterCombinationsReccursively(digits, phoneCombinations, currentCompination + phoneCombinations[digits[currentDigit] - 1][j], nextDigit)
+                );
         }
 
         return result;
