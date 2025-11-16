@@ -79,6 +79,82 @@ public static class Numbers
 
     #endregion
 
+    #region 50 - Pow(x, n) - 100/72 in second implementation
+
+    public static double MyPow(double x, int n)
+    {
+        if (x == -1)
+        {
+            if (n % 2 != 0) { return -1; }
+            else { return 1; }
+        }
+        if (n == 0)
+        {
+            return 1;
+        }
+
+        if (n == 1)
+        {
+            return x;
+        }
+
+        if(x == 0)
+        {
+            return 0;
+        }
+
+        if(x == 1)
+        {
+            return 1;
+        }
+
+        double result = x;
+
+        if(n < 0)
+        {
+            result = 1 / x;
+            x = result;
+            n *= -1;
+            //value will be less then round amount
+            if(n > 50)
+            {
+                return 0;
+            }
+        }
+        for (int i = 0; i < n - 1; i++)
+        {
+            result *= x;
+        }
+        
+        return Math.Round(result, 5);
+    }
+
+    public static double MyPow2(double x, int n)
+    {
+        long N = n;
+        if (N < 0)
+        {
+            x = 1 / x;
+            N = -N;
+        }
+
+        return MyPowReccursive(x, N);
+    }
+
+    private static double MyPowReccursive(double x, long n)
+    {
+        if (n == 0) return 1.0;
+
+        double half = MyPowReccursive(x, n / 2);
+
+        if (n % 2 == 0)
+            return half * half;
+        else
+            return half * half * x;
+    }
+
+    #endregion
+
     #region 69 - Sqrt(x) - 100/60.5 runtime/memory
 
     public static int MySqrt(int x)

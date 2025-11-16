@@ -35,4 +35,15 @@ internal class NumbersFixture
     {
         Assert.That(Numbers.MySqrt(number), Is.EqualTo(expected));
     }
+
+    [TestCase(-1.00000, -2147483648, 1)]
+    [TestCase(2, -213423432, 0)]
+    [TestCase(2, -2, 0.25)]
+    [TestCase(0, 1, 0)]
+    [TestCase(1, 0, 1)]
+    [TestCase(2.1, 3, 9.26100d)]
+    public void Test_Pow(double x, int n, double result)
+    {
+        Assert.That(Numbers.MyPow(x, n), Is.EqualTo(result));
+    }
 }
