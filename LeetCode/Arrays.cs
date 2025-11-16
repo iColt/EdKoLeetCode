@@ -118,6 +118,29 @@ public class Arrays
 
     #endregion
 
+    #region 15 3Sum
+
+    public static IList<IList<int>> ThreeSum(int[] nums)
+    {
+        List<IList<int>> result = new List<IList<int>>();
+
+        Array.Sort(nums);
+        int anyZeroPosition = Array.BinarySearch(nums, 0);
+        int minElement = nums[0];
+        int maxElement = nums[nums.Length - 1];
+
+        ThreeSumReccursive(nums, result, anyZeroPosition, minElement, maxElement, 0, new int[2], 0);
+
+        return result;
+    }
+
+    private static void ThreeSumReccursive(int[] nums, List<IList<int>> result, int zeroPos, int minElPos, int maxElPos, int currentSum, int[] currentUsedElements, int currentStep)
+    {
+
+    }
+
+    #endregion
+
     #region 26 - Remove Duplicates from Sorted Array - non optimal memory
 
     public static int RemoveDuplicates(int[] nums)
