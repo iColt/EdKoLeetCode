@@ -125,18 +125,71 @@ public class Arrays
         List<IList<int>> result = new List<IList<int>>();
 
         Array.Sort(nums);
-        int anyZeroPosition = Array.BinarySearch(nums, 0);
-        int minElement = nums[0];
-        int maxElement = nums[nums.Length - 1];
 
-        ThreeSumReccursive(nums, result, anyZeroPosition, minElement, maxElement, 0, new int[2], 0);
+        // handle case, when count of 0 >= 3
+        var zerosCount = nums.Where(i => i == 0).Count();
+        if(zerosCount >= 3)
+        {
+            result.Add(new List<int> { 0, 0, 0 });
+        }
+        //set array to Distinct mode, as the task requires this
+        var distinctNums = nums.Distinct().ToArray();
+        int anyZeroPosition = Array.BinarySearch(distinctNums, 0);
+
+        ThreeSumReccursive(distinctNums, result, anyZeroPosition, 0, InitializeNewEmptyArray(), 0);
 
         return result;
     }
 
-    private static void ThreeSumReccursive(int[] nums, List<IList<int>> result, int zeroPos, int minElPos, int maxElPos, int currentSum, int[] currentUsedElements, int currentStep)
+    private static void ThreeSumReccursive(int[] nums, List<IList<int>> result, int zeroPos, int currentSum, int[] currentUsedElements, int currentStep)
     {
+        //we don't need more check, we just need to find positive value that passes
+        if (currentStep == 2)
+        {
+            int searchValue = currentSum * -1;
+            // if temp sum > max element in array - no need to search
+            if (searchValue > nums[nums.Length - 1])
+            {
+                return;
+            }
+            int sumPosition = Array.BinarySearch(nums, searchValue);
+            if(sumPosition >= 0) {
+                currentUsedElements[2] = nums[sumPosition];
+            }
+            result.Add(currentUsedElements);
+            return;
+        }
 
+        //if this is the step 0 - iterate only until zero, in other case - until the end
+        int breakdownIndex = currentStep == 0 ? zeroPos : nums.Length;
+
+        for(int i = currentStep; i < breakdownIndex; i++)
+        {
+            //asap we reach 0 on first step - no need to continue
+            if (currentStep == 0 && nums[i] == 0)
+            {
+                return;
+            }
+
+            currentSum += nums[i];
+            currentUsedElements[currentStep] = nums[i];
+            
+            var currentUsedElementsTemp = InitializeNewEmptyArray();
+            Array.Copy(currentUsedElements, currentUsedElementsTemp, 3);
+            int nextStep = currentStep + 1;
+            ThreeSumReccursive(nums, result, zeroPos, currentSum, currentUsedElementsTemp, nextStep);
+        }
+    }
+
+    private static int[] InitializeNewEmptyArray()
+    {
+        var result = new int[3];
+        for (int i = 0; i < result.Length; i++)
+        {
+            // we can set this because in the task definition result[i] cannot be > 10^5
+            result[i] = int.MaxValue;
+        }
+        return result;
     }
 
     #endregion

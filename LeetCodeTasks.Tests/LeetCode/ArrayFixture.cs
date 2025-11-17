@@ -217,4 +217,82 @@ public class ArrayFixture
         Arrays.Merge(nums1, m, nums2, n);
         Assert.That(nums1, Is.EqualTo(expected));
     }
+
+    #region 15
+
+    //[Test]
+    //[TestCaseSource(typeof(ThreeSumTestData), nameof(ThreeSumTestData.TestCases))]
+    [TestCase(new int[] { -1, 0, 1, 2, -1, -4 }, new int[] { 0, 0, 0 })]
+    [TestCase(new int[] { 0, 0, 0 }, new int[] {0, 0, 0})]
+    public void Test_ThreeSum(int[] nums, int[] expected)
+    {
+        var result = Arrays.ThreeSum(nums);
+
+        //var normExpected = NormalizeResult(new List<List<int>> { expected.ToList() });
+        //var normResult = NormalizeResult(result.ToList());
+
+        //Assert.That(normResult, Is.EqualTo(normExpected));
+    }
+
+    public class ThreeSumTestData
+    {
+        public static IEnumerable<TestCaseData> TestCases
+        {
+            get
+            {
+                yield return new TestCaseData(
+                   new int[] { 0, 0, 0 },
+                   new List<IList<int>>
+                   {
+                    new List<int> { 0, 0, 0 }
+                   }
+               ).SetName("SingleTriplet_Zeroes");
+                yield return new TestCaseData(
+                    new int[] { -1, 0, 1, 2, -1, -4 },
+                    new List<IList<int>>
+                    {
+                    new List<int> { -1, -1, 2 },
+                    new List<int> { -1, 0, 1 }
+                    }
+                ).SetName("Example_1");
+
+                yield return new TestCaseData(
+                    new int[] { 0, 1, 1 },
+                    new List<IList<int>>() // no triplets
+                ).SetName("NoTriplets");
+
+
+
+                yield return new TestCaseData(
+                    new int[] { -2, 0, 1, 1, 2 },
+                    new List<IList<int>>
+                    {
+                    new List<int> { -2, 0, 2 },
+                    new List<int> { -2, 1, 1 }
+                    }
+                ).SetName("Mixed_Positive_Negative");
+            }
+        }
+    }
+
+    // ---------------- Helper Methods ----------------
+
+    private static List<IList<int>> NormalizeResult(List<List<int>> list)
+    {
+        if (list == null)
+            return new List<IList<int>>();
+
+        var sortedTriplets = list
+            .Select(t => t.OrderBy(x => x).ToList())
+            .ToList();
+
+        return sortedTriplets
+            .OrderBy(t => t[0])
+            .ThenBy(t => t[1])
+            .ThenBy(t => t[2])
+            .Select(t => (IList<int>)t)
+            .ToList();
+    }
+
+    #endregion
 }
