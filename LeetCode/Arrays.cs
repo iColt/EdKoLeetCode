@@ -132,16 +132,26 @@ public class Arrays
         {
             result.Add(new List<int> { 0, 0, 0 });
         }
-        //set array to Distinct mode, as the task requires this
-        var distinctNums = nums.Distinct().ToArray();
-        int anyZeroPosition = Array.BinarySearch(distinctNums, 0);
+        int anyZeroPosition = Array.BinarySearch(nums, 0);
+        if(anyZeroPosition < 0)
+        {
+            // if < 0, need to find first element > 0
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] > 0)
+                {
+                    anyZeroPosition = i;
+                    break;
+                }
+            }
+        }
 
-        ThreeSumReccursive(distinctNums, result, anyZeroPosition, 0, InitializeNewEmptyArray(), 0);
+        ThreeSumReccursive(nums, result, anyZeroPosition, 0, InitializeNewEmptyArray(), 0, 0);
 
         return result;
     }
 
-    private static void ThreeSumReccursive(int[] nums, List<IList<int>> result, int zeroPos, int currentSum, int[] currentUsedElements, int currentStep)
+    private static void ThreeSumReccursive(int[] nums, List<IList<int>> result, int zeroPos, int currentSum, int[] currentUsedElements, int currentStep, int currentElementIndex)
     {
         //we don't need more check, we just need to find positive value that passes
         if (currentStep == 2)
@@ -152,32 +162,52 @@ public class Arrays
             {
                 return;
             }
-            int sumPosition = Array.BinarySearch(nums, searchValue);
+            // search starting from current element only
+            int sumPosition = Array.BinarySearch(nums, currentElementIndex, nums.Length - currentElementIndex, searchValue);
             if(sumPosition >= 0) {
                 currentUsedElements[2] = nums[sumPosition];
+                result.Add(currentUsedElements);
             }
-            result.Add(currentUsedElements);
             return;
         }
 
         //if this is the step 0 - iterate only until zero, in other case - until the end
         int breakdownIndex = currentStep == 0 ? zeroPos : nums.Length;
 
-        for(int i = currentStep; i < breakdownIndex; i++)
+        for(int i = currentElementIndex; i < breakdownIndex; i++)
         {
             //asap we reach 0 on first step - no need to continue
             if (currentStep == 0 && nums[i] == 0)
             {
                 return;
             }
+            //if current element equals previous - no need to analyze it as all possible situations already discovered on previous step
+            // [-1 0 0 1]
+            // [-4 -1 -1 -1 0 1 2]
+            // [-4 -1 -1 0 1 2]
+            if (currentStep == 0 && i > 0 && nums[i] == nums[i - 1])
+            {
+                continue;
+            }
+            if(currentStep == 1 && i - currentElementIndex > 0 && nums[i] == nums[currentElementIndex])
+            {
+                continue;
+            }
 
-            currentSum += nums[i];
+            int copyOfCurrentSum = currentSum;
+            copyOfCurrentSum += nums[i];
             currentUsedElements[currentStep] = nums[i];
             
+            // If sum negative, but we already used last element - no need to iterate further
+            if(copyOfCurrentSum < 0 && i == nums.Length - 1)
+            {
+                return;
+            }
+
             var currentUsedElementsTemp = InitializeNewEmptyArray();
             Array.Copy(currentUsedElements, currentUsedElementsTemp, 3);
             int nextStep = currentStep + 1;
-            ThreeSumReccursive(nums, result, zeroPos, currentSum, currentUsedElementsTemp, nextStep);
+            ThreeSumReccursive(nums, result, zeroPos, copyOfCurrentSum, currentUsedElementsTemp, nextStep, i + 1);
         }
     }
 
