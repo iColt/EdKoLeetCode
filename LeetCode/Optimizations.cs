@@ -2,28 +2,82 @@
 
 public static class Optimizations
 {
-    #region 121 - Best Time to Buy and Sell Stock
+    #region 121 - Best Time to Buy and Sell Stock. Old approach is O(nlogn) and is too slow. Second solved - 42/43
 
-    public static int MaxProfit(int[] prices)
+    public static int MaxProfitOld(int[] prices)
     {
-        Dictionary<int, int> dayValueArray = prices.Select((value, index) => new { value, index }).OrderByDescending(x => x.value)
-                      .ToDictionary(pair => pair.index, pair => pair.value);
-
+        if(prices.Length < 2) return 0;
         int maxProfit = 0;
 
         for(int i = 0; i < prices.Length - 1; i++)
         {
-            
+            int buyPrice = prices[i];
+            for(int j = i; j < prices.Length; j++)
+            {
+                if(prices[j] - buyPrice > maxProfit)
+                {
+                    maxProfit = prices[j] - buyPrice;
+                }
+            }
         }
         return maxProfit;
     }
 
-    private static int MaxProfitForBuyDay(Dictionary<int, int> dayValueArray, int buyIndex)
+    public static int MaxProfit(int[] prices)
     {
-        int index = -1;
+        if (prices.Length < 2)
+        {
+            return 0;
+        }
 
-        return index;
+        int foundMaxProfit = 0;
+
+        int currentMaxProfit = 0;
+
+        bool subArrayFound = false;
+
+        // phase 1 - instead of real values, set differencies
+        for( int i = 0; i < prices.Length - 1; i++)
+        {
+            prices[i] = prices[i + 1] - prices[i];
+        }
+
+        // pahse 2 - find subArray's, set start and end indexes?
+        for (int i = 0; i < prices.Length - 1; i++)
+        {
+            int tempMaxProfit = currentMaxProfit + prices[i];
+            if(tempMaxProfit <= 0)
+            {
+                // check and save found if possible. CurrentMaxProfit contains largest subArray sum for the last subArray
+                if(subArrayFound)
+                {
+                    subArrayFound = false;
+                   
+                    if(currentMaxProfit > foundMaxProfit)
+                    {
+                        foundMaxProfit = currentMaxProfit;
+                    }
+
+                    currentMaxProfit = 0;
+
+                }
+                continue;
+            } else
+            {
+                if(!subArrayFound)
+                {
+                    subArrayFound = true;
+                }
+            }
+            if(currentMaxProfit > foundMaxProfit)
+            {
+                foundMaxProfit = currentMaxProfit;
+            }
+            currentMaxProfit = tempMaxProfit;
+
+        }
+        
+        return currentMaxProfit > foundMaxProfit ? currentMaxProfit : foundMaxProfit;
     }
-
     #endregion
 }
