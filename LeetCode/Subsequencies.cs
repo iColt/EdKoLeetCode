@@ -147,4 +147,14 @@ public class Subsequencies
         return -1;
     }
     #endregion
+
+    #region 128 Longest Consecutive Sequence
+
+    public static int LongestConsecutive(int[] nums)
+    {
+        //shall we store distance between numbers?
+        return 0;
+    }
+
+    #endregion
 }

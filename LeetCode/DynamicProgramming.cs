@@ -1,6 +1,6 @@
 ﻿namespace LeetCodeTasks.LeetCode;
 
-public static class Optimizations
+public static class DynamicProgramming
 {
     #region 121 - Best Time to Buy and Sell Stock. Old approach is O(nlogn) and is too slow. Second solved - 42/43
 

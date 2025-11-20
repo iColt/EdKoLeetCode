@@ -1,6 +1,6 @@
 ﻿namespace LeetCodeTasks.Tests.LeetCode;
 [TestFixture]
-public sealed class OptimizationsFixture
+public sealed class DynamicProgrammingFixture
 {
     [TestCase(new int[] { 1, 7, 4, 2 }, 6)]
     [TestCase(new int[] { 3, 2, 6, 1, 8 }, 7)]
@@ -14,6 +14,6 @@ public sealed class OptimizationsFixture
     
     public void Test_MaxProfit(int[] prices, int output)
     {
-        Assert.That(Optimizations.MaxProfit(prices), Is.EqualTo(output));
+        Assert.That(DynamicProgramming.MaxProfit(prices), Is.EqualTo(output));
     }
 }
