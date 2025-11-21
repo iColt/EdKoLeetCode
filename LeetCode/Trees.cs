@@ -4,6 +4,34 @@ namespace LeetCodeTasks.LeetCode;
 
 public static class Trees
 {
+    #region 100 Same tree - 100/35
+
+    public static bool IsSameTree(TreeNode p, TreeNode q)
+    {
+        if(p == null && q == null)
+        {
+            return true;
+        }
+
+        if((p == null && q != null) || (p != null && q == null)) {
+            return false;
+        }
+
+        if (p.val != q.val)
+        {
+            return false;
+        }
+
+        if(!IsSameTree(p.left, q.left))
+        {
+            return false;
+        }
+
+        return IsSameTree(p.right, q.right);
+    }
+
+    #endregion
+
     #region 112 Path Sum - 100/58.7
 
     public static bool HasPathSum(TreeNode root, int targetSum)
