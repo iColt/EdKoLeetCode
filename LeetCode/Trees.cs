@@ -49,4 +49,25 @@ public static class Trees
     }
 
     #endregion
+
+    #region 144 Binary Tree Preorder traversal - 100/53
+
+    public static IList<int> PreorderTraversal(TreeNode root)
+    {
+        var result = new List<int>();
+
+        if (root == null)
+        {
+            return result;
+        }
+
+        result.Add(root.val);
+
+        result.AddRange(PreorderTraversal(root.left));
+        result.AddRange(PreorderTraversal(root.right));
+
+        return result;
+    }
+
+    #endregion
 }
