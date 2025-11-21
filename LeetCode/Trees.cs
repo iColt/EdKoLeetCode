@@ -70,4 +70,25 @@ public static class Trees
     }
 
     #endregion
+
+    #region 145 - 100/35.5
+
+    public static IList<int> PostorderTraversal(TreeNode root)
+    {
+        var result = new List<int>();
+
+        if (root == null)
+        {
+            return result;
+        }
+
+        result.AddRange(PostorderTraversal(root.left));
+        result.AddRange(PostorderTraversal(root.right));
+
+        result.Add(root.val);
+
+        return result;
+    }
+
+    #endregion
 }

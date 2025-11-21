@@ -160,7 +160,7 @@ public sealed class TreesFixture
     #region 144
 
     [TestCaseSource(typeof(PreorderTraversalTestData), nameof(PreorderTraversalTestData.TestCases))]
-    public void TestPreorderTraversal(TreeNode root, IList<int> expected)
+    public void Test_PreorderTraversal(TreeNode root, IList<int> expected)
     {
         var result = Trees.PreorderTraversal(root);
 
@@ -223,6 +223,77 @@ public sealed class TreesFixture
                 yield return new TestCaseData(
                     TreesHelpers.Tree(new int?[] { 5, 1, 7, null, null, 6 }),
                     new List<int> { 5, 1, 7, 6 }
+                );
+            }
+        }
+    }
+    #endregion
+
+    #region 145
+    [TestCaseSource(typeof(PostorderTraversalTestData), nameof(PostorderTraversalTestData.TestCases))]
+    public void Test_PostorderTraversal(TreeNode root, IList<int> expected)
+    {
+        var result = Trees.PostorderTraversal(root);
+
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    public class PostorderTraversalTestData
+    {
+        public static IEnumerable<TestCaseData> TestCases
+        {
+            get
+            {
+                // LeetCode Example: [1,null,2,3] -> [1,2,3]
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1, null, 2, 3 }),
+                    new List<int> { 3, 2, 1 }
+                );
+
+                // Single node
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1 }),
+                    new List<int> { 1 }
+                );
+
+                // Empty tree
+                yield return new TestCaseData(
+                    null,
+                    new List<int>()
+                );
+
+                // Full binary tree
+                //      1
+                //     / \
+                //    2   3
+                //   / \   \
+                //  4   5   6
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, null, 6 }),
+                    new List<int> { 4, 5, 2, 6, 3, 1 }
+                );
+
+                // Left-skewed tree: 1 -> 2 -> 3 -> 4
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, null, 8, null, null, 6, 7, 9 }),
+                    new List<int> { 4, 6, 7, 5, 2, 9, 8, 3, 1 }
+                );
+
+                // Right-skewed tree: 1 -> 2 -> 3 -> 4
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1, null, 2, null, 3, null, 4 }),
+                    new List<int> { 4, 3, 2, 1 }
+                );
+
+                // Mixed tree
+                //      5
+                //     / \
+                //    1   7
+                //       /
+                //      6
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 5, 1, 7, null, null, 6 }),
+                    new List<int> { 1, 6, 7, 5 }
                 );
             }
         }
