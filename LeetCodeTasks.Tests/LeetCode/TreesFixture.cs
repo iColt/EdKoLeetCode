@@ -5,6 +5,58 @@ namespace LeetCodeTasks.Tests.LeetCode;
 [TestFixture]
 public sealed class TreesFixture
 {
+    #region 94
+    [TestCaseSource(typeof(InorderTraversalTestData), nameof(InorderTraversalTestData.TestCases))]
+    public void Test_InorderTraversal(TreeNode root, IList<int> expected)
+    {
+        var result = Trees.InorderTraversal(root);
+
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    public class InorderTraversalTestData
+    {
+        public static IEnumerable<TestCaseData> TestCases
+        {
+            get
+            {
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1, null, 2, 3 }),
+                    new List<int> { 1, 3, 2 }
+                );
+
+                // Single node
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1 }),
+                    new List<int> { 1 }
+                );
+
+                // Empty tree
+                yield return new TestCaseData(
+                    null,
+                    new List<int>()
+                );
+
+                // Full binary tree
+                //      1
+                //     / \
+                //    2   3
+                //   / \   \
+                //  4   5   6
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, null, 6 }),
+                    new List<int> { 4, 2, 5, 1, 3, 6}
+                );
+
+                // Left-skewed tree: 1 -> 2 -> 3 -> 4
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, null, 8, null, null, 6, 7, 9 }),
+                    new List<int> { 4, 2, 6, 5, 7, 1, 3, 9, 8 }
+                );
+            }
+        }
+    }
+    #endregion
 
     #region 100
 

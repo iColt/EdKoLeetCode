@@ -4,6 +4,26 @@ namespace LeetCodeTasks.LeetCode;
 
 public static class Trees
 {
+    #region 94 Binary Tree Inorder Traversal - 100/90
+
+    public static IList<int> InorderTraversal(TreeNode root)
+    {
+        var result = new List<int>();
+
+        if (root == null)
+        {
+            return result;
+        }
+
+        result.AddRange(InorderTraversal(root.left));
+        result.Add(root.val);
+        result.AddRange(InorderTraversal(root.right));
+
+        return result;
+    }
+
+    #endregion
+
     #region 100 Same tree - 100/35
 
     public static bool IsSameTree(TreeNode p, TreeNode q)
@@ -71,7 +91,7 @@ public static class Trees
 
     #endregion
 
-    #region 145 - 100/35.5
+    #region 145 Binary Tree Postorder traversal - 100/35.5
 
     public static IList<int> PostorderTraversal(TreeNode root)
     {
