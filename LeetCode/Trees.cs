@@ -52,6 +52,57 @@ public static class Trees
 
     #endregion
 
+    #region 110 Balanced Binary Tree - 100/17.8 non effective memory consumption
+
+    public static bool IsBalanced(TreeNode root)
+    {
+        if(root == null || (root.left == null && root.right == null))
+        {
+            return true;
+        }
+
+        int leftSubTreeHeight = SubTreeHeight(root.left, 0);
+        int rightSubTreeHeight = SubTreeHeight(root.right, 0);
+
+        if(leftSubTreeHeight == -1 || rightSubTreeHeight == -1)
+        {
+            return false;
+        }
+
+        if(Math.Abs(leftSubTreeHeight - rightSubTreeHeight) < 2)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private static int SubTreeHeight(TreeNode root, int currentHeight)
+    {
+        if(root == null)
+        {
+            return currentHeight;
+        }
+
+        int leftSubTreeHeight = SubTreeHeight(root.left, currentHeight + 1);
+        int rightSubTreeHeight = SubTreeHeight(root.right, currentHeight + 1);
+
+        if (leftSubTreeHeight == -1 || rightSubTreeHeight == -1)
+        {
+            return -1;
+        }
+
+        if (Math.Abs(leftSubTreeHeight - rightSubTreeHeight) > 1)
+        {
+            //return impossible value
+            return -1;
+        }
+
+        return leftSubTreeHeight > rightSubTreeHeight ? leftSubTreeHeight : rightSubTreeHeight;
+    }
+
+    #endregion
+
     #region 112 Path Sum - 100/58.7
 
     public static bool HasPathSum(TreeNode root, int targetSum)

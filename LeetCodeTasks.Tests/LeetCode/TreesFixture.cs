@@ -45,7 +45,7 @@ public sealed class TreesFixture
                 //  4   5   6
                 yield return new TestCaseData(
                     TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, null, 6 }),
-                    new List<int> { 4, 2, 5, 1, 3, 6}
+                    new List<int> { 4, 2, 5, 1, 3, 6 }
                 );
 
                 // Left-skewed tree: 1 -> 2 -> 3 -> 4
@@ -128,6 +128,118 @@ public sealed class TreesFixture
                     TreesHelpers.Tree(new int?[] { 3, 20, 9 }),
                     false
                 );
+            }
+        }
+    }
+    #endregion
+
+    #region 110
+
+    [TestCaseSource(typeof(BalancedTreeTestData), nameof(BalancedTreeTestData.TestCases))]
+    public void TestBalancedBinaryTree(TreeNode root, bool expected)
+    {
+        Assert.That(Trees.IsBalanced(root), Is.EqualTo(expected));
+    }
+
+    public class BalancedTreeTestData
+    {
+        public static IEnumerable<TestCaseData> TestCases
+        {
+            get
+            {
+                yield return new TestCaseData(
+                  TreesHelpers.Tree(new int?[] { 1, 2, 2, 3, 3, null, null, 4, 4 }),
+                  false
+              );
+
+                // Complex but still balanced
+                //         1
+                //        / \
+                //       2   3
+                //      /     \
+                //     4       5
+                //      \     /
+                //       6   7
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, null, null, 5, null, 6, 7, null }),
+                    false
+                );
+
+                // Empty tree -> balanced
+                yield return new TestCaseData(
+                    null,
+                    true
+                );
+
+                // Single node -> balanced
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1 }),
+                    true
+                );
+
+                // Perfect balanced tree
+                //       1
+                //     /   \
+                //    2     3
+                //   / \   / \
+                //  4   5 6   7
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, 6, 7 }),
+                    true
+                );
+
+                // Balanced but not perfect
+                //      1
+                //     / \
+                //    2   3
+                //   /
+                //  4
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4 }),
+                    true
+                );
+
+                // Unbalanced (classic example)
+                //       1
+                //      /
+                //     2
+                //    /
+                //   3
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1, 2, null, 3 }),
+                    false
+                );
+
+                // Unbalanced – deeper right subtree
+                //    1
+                //     \
+                //      2
+                //       \
+                //        3
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1, null, 2, null, 3 }),
+                    false
+                );
+
+                // Mixed: balanced at upper levels, unbalanced deeper
+                //       1
+                //      / \
+                //     2   3
+                //    /
+                //   4
+                //  /
+                // 5
+                yield return new TestCaseData(
+                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, null, null, null, 5 }),
+                    false
+                );
+
+                yield return new TestCaseData(
+                 TreesHelpers.Tree(new int?[] { 1, 2, 2, 3, null, null, 3, 4, null, null, 4 }),
+                 false
+             );
+
+
             }
         }
     }
