@@ -4,8 +4,14 @@ public static class LinkedListHelpers
 {
     public static int[] ExposeLinkedList(this ListNode list, int maxLength, out int realLength)
     {
+        
         int[] arr = new int[maxLength];
         realLength = 0;
+        if (list == null)
+        {
+            return arr;
+        }
+
         ListNode current = list;
 
         while(true)
@@ -23,6 +29,11 @@ public static class LinkedListHelpers
 
     public static ListNode CreateLinkedList(this int[] array)
     {
+        if(array.Length == 0)
+        {
+            return null;
+        }
+
         ListNode node = new ListNode(array[0]);
         ListNode currentNode = node;
         for(int i = 1; i < array.Length; i++)

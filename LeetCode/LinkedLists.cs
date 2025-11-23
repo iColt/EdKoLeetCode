@@ -49,6 +49,68 @@ public class LinkedLists
 
     #endregion
 
+    #region 21 Merge Two Sorted Lists - 100/7 runtime/memory. Awful memory consumption
+
+    public static ListNode MergeTwoLists(ListNode list1, ListNode list2)
+    {
+        ListNode resultHead = new ListNode();
+        ListNode? iterator = resultHead;
+
+        ListNode currentFirst = list1;
+        ListNode currentSecond = list2;
+
+        if (currentFirst == null && currentSecond == null)
+        {
+            return null;
+        }
+
+        while (true)
+        {
+            if (currentFirst == null && currentSecond == null)
+            {
+                break;
+            }
+
+            if (currentFirst == null && currentSecond != null)
+            {
+                currentSecond = SetValue(iterator, currentSecond);
+            }
+            else
+            if (currentFirst != null && currentSecond == null)
+            {
+                currentFirst = SetValue(iterator, currentFirst);
+            }
+            else if (currentFirst != null && currentSecond != null)
+            {
+                if (currentFirst.val < currentSecond.val)
+                {
+                    currentFirst = SetValue(iterator, currentFirst);
+                }
+                else
+                {
+                    currentSecond = SetValue(iterator, currentSecond);
+                }
+            }
+
+            if (currentFirst != null && currentSecond != null)
+            {
+                iterator.next = new ListNode();
+                iterator = iterator.next;
+            }
+        }
+
+        return resultHead;
+    }
+
+    private static ListNode SetValue(ListNode iterator, ListNode current)
+    {
+        iterator.val = current.val;
+        current = current.next;
+        return current;
+    }
+
+    #endregion
+
     #region #61 Rotate List - non optimal in runtime, non optimal in memory 21.5/8
 
     public static ListNode RotateRight(ListNode head, int k)
@@ -153,63 +215,60 @@ public class LinkedLists
 
     #endregion
 
-    #region 21 Merge Two Sorted Lists - 100/7 runtime/memory. Awful memory consumption
+    #region 148 Sort List
 
-    public static ListNode MergeTwoLists(ListNode list1, ListNode list2)
+    public static ListNode SortList(ListNode head)
     {
-        ListNode resultHead = new ListNode();
-        ListNode? iterator = resultHead;
-
-        ListNode currentFirst = list1;
-        ListNode currentSecond = list2;
-
-        if (currentFirst == null && currentSecond == null)
+        if(head == null)
         {
             return null;
         }
 
-        while (true)
+        if(head.next == null)
         {
-            if(currentFirst == null && currentSecond == null)
+            return head;
+        }
+
+        ListNode currentNode = head;
+        ListNode iterationNode = head.next;
+        ListNode minValueNode = currentNode;
+        while (true) {
+
+            if (currentNode == null || currentNode.next == null)
             {
                 break;
             }
 
-            if (currentFirst == null && currentSecond != null)
+            int currentValue = currentNode.val;
+
+            while(true)
             {
-                currentSecond = SetValue(iterator, currentSecond);
-            } else
-            if (currentFirst != null && currentSecond == null)
-            {
-                currentFirst = SetValue(iterator, currentFirst);
-            }
-            else if (currentFirst != null && currentSecond != null)
-            {
-                if (currentFirst.val < currentSecond.val)
+                if (iterationNode == null)
                 {
-                    currentFirst = SetValue(iterator, currentFirst);
+                    break;
                 }
-                else
+
+                if(iterationNode.val < minValueNode.val)
                 {
-                    currentSecond = SetValue(iterator, currentSecond);
+                    minValueNode = iterationNode;
                 }
+
+                iterationNode = iterationNode.next;
             }
 
-            if (currentFirst != null && currentSecond != null)
+            if(currentValue > minValueNode.val)
             {
-                iterator.next = new ListNode();
-                iterator = iterator.next;
+                currentNode.val = minValueNode.val;
+                minValueNode.val = currentValue;
             }
+
+            currentNode = currentNode.next;
+            iterationNode = currentNode.next;
+            minValueNode = currentNode;
+
         }
 
-        return resultHead;
-    }
-
-    private static ListNode SetValue(ListNode iterator, ListNode current)
-    {
-        iterator.val = current.val;
-        current = current.next;
-        return current;
+        return head;
     }
 
     #endregion

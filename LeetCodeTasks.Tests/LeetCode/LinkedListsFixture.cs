@@ -25,13 +25,22 @@ internal class LinkedListsFixture
         Assert.That(result.val, Is.EqualTo(firstEl));
     }
 
-    [Ignore("Bug with empty LinkedList")]
-    [TestCase(new int[] { 1, 2, 4 }, new int[] { 1, 3, 4 }, new int[] { 1, 1, 2, 3, 4, 4 })]
-    [TestCase(new int[] { }, new int[] { }, new int[] { })]
-    [TestCase(new int[] { }, new int[] { 0 }, new int[] { 0 })]
-    public void Test_MergeTwoLists(int[] first, int[] second, int[] output)
+    [TestCase(new int[] { 1, 2, 4 }, new int[] { 1, 3, 4 }, new int[] { 1, 1, 2, 3, 4, 4 }, 6)]
+    [TestCase(new int[] { }, new int[] { }, new int[] { }, 0)]
+    [TestCase(new int[] { }, new int[] { 0 }, new int[] { 0 }, 1)]
+    public void Test_MergeTwoLists(int[] first, int[] second, int[] output, int maxLen)
     {
         var result = LinkedLists.MergeTwoLists(first.CreateLinkedList(), second.CreateLinkedList());
-        CollectionAssert.AreEquivalent(result.ExposeLinkedList(100, out var _), output);
+        CollectionAssert.AreEquivalent(result.ExposeLinkedList(maxLen, out var _), output);
+    }
+
+    [TestCase(new int[] { }, new int[] { }, 0)]
+    [TestCase(new int[] { 4, 2, 1, 3 }, new int[] { 1, 2, 3, 4 }, 4)]
+    [TestCase(new int[] { -1, 5, 3, 4, 0 }, new int[] { -1, 0, 3, 4, 5 }, 5)]
+    [TestCase(new int[] { 1 }, new int[] { 1 }, 1)]
+    public void Test_SortList(int[] linkedList, int[] output, int maxLen)
+    {
+        var result = LinkedLists.SortList(linkedList.CreateLinkedList());
+        CollectionAssert.AreEquivalent(result.ExposeLinkedList(maxLen, out var _), output);
     }
 }
