@@ -215,9 +215,9 @@ public class LinkedLists
 
     #endregion
 
-    #region 148 Sort List
+    #region 148 Sort List - 35.35/99.9 Worst runtime, because of extra sort of extra array?
 
-    public static ListNode SortList(ListNode head)
+    public static ListNode SortListTimeConsuming(ListNode head)
     {
         if(head == null)
         {
@@ -268,6 +268,45 @@ public class LinkedLists
 
         }
 
+        return head;
+    }
+
+    public static ListNode SortList(ListNode head)
+    {
+        if (head == null)
+        {
+            return null;
+        }
+
+        if (head.next == null)
+        {
+            return head;
+        }
+
+        ListNode currentNode = head;
+        const int maxLenght = 50000;
+        int[] array = new int[maxLenght];
+        int counter = 0;
+        while(true)
+        {
+            if(currentNode == null)
+            {
+                break;
+            }
+
+            array[counter++] = currentNode.val;
+            currentNode = currentNode.next;
+        }
+
+        Array.Resize(ref array, counter);
+        Array.Sort(array);
+
+        currentNode = head;
+        for(int i = 0; i < array.Length; i++)
+        {
+            currentNode.val = array[i];
+            currentNode = currentNode.next;
+        }
         return head;
     }
 
