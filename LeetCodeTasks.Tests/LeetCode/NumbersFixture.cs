@@ -46,4 +46,13 @@ internal class NumbersFixture
     {
         Assert.That(Numbers.MyPow(x, n), Is.EqualTo(result));
     }
-}
+
+    [TestCase(1, 1)]
+    [TestCase(2, 2)]
+    [TestCase(3, 3)]
+    [TestCase(4, 5)]
+    public void Test_ClimbStairs(int n, int output)
+    {
+        Assert.That(Numbers.ClimbStairs(n), Is.EqualTo(output));
+    }
+} 

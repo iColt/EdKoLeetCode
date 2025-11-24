@@ -207,4 +207,28 @@ public static class Numbers
     }
 
     #endregion
+
+    #region 70 Climbing Stairs
+
+    // 5: 11111, 2111, 1112, 1211, 1121, 122, 212, 221
+    public static int ClimbStairs(int n)
+    {
+        if(n <= 3)
+        {
+            return n;
+        }
+
+        int previousValue = 2;
+        int result = 3;
+
+        for(int i = 3; i < n; i++)
+        {
+            int tmp = result;
+            result += previousValue;
+            previousValue = tmp;
+        }
+        return result;
+    }
+
+    #endregion
 }
