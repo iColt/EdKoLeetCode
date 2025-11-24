@@ -215,6 +215,52 @@ public class LinkedLists
 
     #endregion
 
+    #region 82 Remove Duplicated from Sorted List II
+
+    public static ListNode DeleteDuplicates2(ListNode head)
+    {
+        if (head == null)
+        {
+            return head;
+        }
+
+        ListNode previousNode = null;
+        ListNode currentNode = head;
+
+        while (currentNode.next != null)
+        {
+            if (currentNode.next.val == currentNode.val)
+            {
+                while (currentNode.next.val == currentNode.val)
+                {
+                    currentNode.next = currentNode.next.next;
+
+                    if (currentNode.next == null)
+                    {
+                        break;
+                    }
+                }
+
+                if(previousNode == null)
+                {
+                    head = currentNode.next;
+                }
+            }
+
+            previousNode = currentNode;
+            currentNode = currentNode.next;
+
+            if (currentNode == null)
+            {
+                break;
+            }
+        }
+
+        return head;
+    }
+
+    #endregion
+
     #region 83 Remove Duplicates from Sorted List - 100/92.5
 
     public static ListNode DeleteDuplicates(ListNode head)
