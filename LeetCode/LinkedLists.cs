@@ -215,6 +215,45 @@ public class LinkedLists
 
     #endregion
 
+    #region 83 Remove Duplicates from Sorted List - 100/92.5
+
+    public static ListNode DeleteDuplicates(ListNode head)
+    {
+        if(head == null)
+        {
+            return head;
+        }
+
+        ListNode currentNode = head;
+
+        while (currentNode.next != null)
+        {
+            if(currentNode.next.val == currentNode.val)
+            {
+                while(currentNode.next.val == currentNode.val)
+                {
+                    currentNode.next = currentNode.next.next;
+
+                    if (currentNode.next == null)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            currentNode = currentNode.next;
+
+            if(currentNode == null)
+            {
+                break;
+            }
+        }
+
+        return head;
+    }
+
+    #endregion
+
     #region 148 Sort List - 35.35/99.9 Worst runtime, because of extra sort of extra array?
 
     public static ListNode SortListTimeConsuming(ListNode head)

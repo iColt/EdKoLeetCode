@@ -43,4 +43,16 @@ internal class LinkedListsFixture
         var result = LinkedLists.SortList(linkedList.CreateLinkedList());
         CollectionAssert.AreEquivalent(result.ExposeLinkedList(maxLen, out var _), output);
     }
+
+    [TestCase(new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, new int[] { 1 }, 1)]
+    [TestCase(new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 }, new int[] { 1, 2 }, 2)]
+    [TestCase(new int[] { }, new int[] { }, 0)]
+    [TestCase(new int[] { 1 }, new int[] { 1 }, 1)]
+    [TestCase(new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3, 4 }, 4)]
+    [TestCase(new int[] { 1, 1, 2, 2, 3, 3, 4 }, new int[] { 1, 2, 3, 4 }, 4)]
+    public void Test_DeleteDuplicates(int[] linkedList, int[] output, int maxLen)
+    {
+        var result = LinkedLists.DeleteDuplicates(linkedList.CreateLinkedList());
+        CollectionAssert.AreEquivalent(result.ExposeLinkedList(maxLen, out var _), output);
+    }
 }
