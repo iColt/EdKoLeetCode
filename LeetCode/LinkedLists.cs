@@ -217,7 +217,6 @@ public class LinkedLists
 
     #region 82 Remove Duplicated from Sorted List II
 
-    // rework
     public static ListNode DeleteDuplicates2(ListNode head)
     {
         if (head == null)
@@ -242,13 +241,22 @@ public class LinkedLists
                     }
                 }
 
+                // handle also the case, when in the middle of sequence we started deletion
                 if(previousNode == null)
                 {
                     head = currentNode.next;
+                    previousNode = currentNode.next;
+                } else
+                {
+                    // problem might be there
+                    if(head.val == previousNode.val)
+                    {
+                        head = currentNode.next;
+                    }
+                    previousNode.next = currentNode.next;
                 }
             }
 
-            previousNode = currentNode;
             currentNode = currentNode.next;
 
             if (currentNode == null)

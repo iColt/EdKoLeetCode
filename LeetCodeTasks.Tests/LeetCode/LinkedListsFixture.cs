@@ -56,8 +56,9 @@ internal class LinkedListsFixture
         CollectionAssert.AreEquivalent(result.ExposeLinkedList(maxLen, out var _), output);
     }
 
+    [TestCase(new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 }, new int[] { }, 0)]
+    [TestCase(new int[] { 1, 1, 1, 2, 3, 3, 3 }, new int[] { 2 }, 1)]
     [TestCase(new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, new int[] { }, 0)]
-    [TestCase(new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 }, new int[] {  }, 0)]
     [TestCase(new int[] { 1, 1, 2, 2, 3, 3, 4 }, new int[] { 4 }, 1)]
     [TestCase(new int[] { }, new int[] { }, 0)]
     [TestCase(new int[] { 1 }, new int[] { 1 }, 1)]
