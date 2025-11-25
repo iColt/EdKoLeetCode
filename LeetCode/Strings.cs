@@ -2,6 +2,15 @@
 
 public static class Strings
 {
+    #region 3 Longest Substring without repeating characters
+
+    public static int LengthOfLongestSubstring(string s)
+    {
+        return 0;
+    }
+
+    #endregion
+
     #region 17 - Letter combination of phone number - 5/5 - poor runtime and memory
 
     public static IList<string> LetterCombinations(string digits)
