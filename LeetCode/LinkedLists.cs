@@ -217,6 +217,7 @@ public class LinkedLists
 
     #region 82 Remove Duplicated from Sorted List II
 
+    // rework
     public static ListNode DeleteDuplicates2(ListNode head)
     {
         if (head == null)
