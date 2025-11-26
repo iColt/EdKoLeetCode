@@ -215,7 +215,7 @@ public class LinkedLists
 
     #endregion
 
-    #region 82 Remove Duplicated from Sorted List II
+    #region 82 Remove Duplicated from Sorted List II - 100/33 memory cons
 
     public static ListNode DeleteDuplicates2(ListNode head)
     {
@@ -229,8 +229,10 @@ public class LinkedLists
 
         while (currentNode.next != null)
         {
+            bool headChanged = false;
             if (currentNode.next.val == currentNode.val)
             {
+                int currentNodeVal = currentNode.val;
                 while (currentNode.next.val == currentNode.val)
                 {
                     currentNode.next = currentNode.next.next;
@@ -241,20 +243,36 @@ public class LinkedLists
                     }
                 }
 
-                // handle also the case, when in the middle of sequence we started deletion
-                if(previousNode == null)
+               // current.next either null or different value
+               // if it's null and previous value also null - return null as head
+               // if it's null but previous not null - return head and set previous.next = null
+               if(currentNode.next == null)
                 {
-                    head = currentNode.next;
-                    previousNode = currentNode.next;
+                    if(previousNode == null)
+                    {
+                        return null;
+                    } else
+                    {
+                        previousNode.next = null;
+                        return head;
+                    }
                 } else
                 {
-                    // problem might be there
-                    if(head.val == previousNode.val)
+                    // if currentNodeVal = head.val = need to clean head and set to currentNode.Next
+                    if(currentNodeVal == head.val)
                     {
                         head = currentNode.next;
+                    } else if(previousNode != null)
+                    {
+                        previousNode.next = currentNode.next;
                     }
-                    previousNode.next = currentNode.next;
                 }
+
+
+
+            } else
+            {
+                previousNode = currentNode;
             }
 
             currentNode = currentNode.next;
