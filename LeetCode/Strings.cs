@@ -6,7 +6,26 @@ public static class Strings
 
     public static int LengthOfLongestSubstring(string s)
     {
-        return 0;
+        if(s.Length < 2)
+        {
+            return s.Length;
+        }
+
+        int maxConsLenght = 0;
+        // use HashSet<char>?
+        // when find duplicate - save Max
+        char[] chars = s.ToCharArray();
+
+        HashSet<char> uniqueSymbols = new HashSet<char>();
+        int pointerToHashSet = 0;
+
+        for(int i = 0; i < chars.Length; i++)
+        {
+
+        }
+
+
+        return maxConsLenght;
     }
 
     #endregion

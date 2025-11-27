@@ -229,7 +229,6 @@ public class LinkedLists
 
         while (currentNode.next != null)
         {
-            bool headChanged = false;
             if (currentNode.next.val == currentNode.val)
             {
                 int currentNodeVal = currentNode.val;
