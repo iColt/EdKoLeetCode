@@ -12,8 +12,9 @@ public static class Strings
         }
 
         int maxConsLenght = 0;
+        int currConsLenght = 0;
         // use HashSet<char>?
-        // when find duplicate - save Max
+        // when find duplicate - save Max 
         char[] chars = s.ToCharArray();
 
         HashSet<char> uniqueSymbols = new HashSet<char>();
@@ -21,11 +22,27 @@ public static class Strings
 
         for(int i = 0; i < chars.Length; i++)
         {
+            int currentUniqueSetLength = uniqueSymbols.Count;
 
+            uniqueSymbols.Add(chars[i]);
+
+            if(currentUniqueSetLength != uniqueSymbols.Count)
+            {
+                currConsLenght++;
+            }
+            else
+            {
+                if(currConsLenght > maxConsLenght)
+                {
+                    maxConsLenght = currConsLenght;
+                }
+
+                int indexOfPreviousInserted = s.IndexOf(chars[i], i - currentUniqueSetLength);
+            }
         }
 
 
-        return maxConsLenght;
+        return currConsLenght > maxConsLenght ? currConsLenght : maxConsLenght;
     }
 
     #endregion
