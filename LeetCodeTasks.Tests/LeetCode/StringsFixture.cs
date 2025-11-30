@@ -25,9 +25,12 @@ public sealed class StringsFixture
         Assert.That(Strings.LengthOfLongestSubstring(s), Is.EqualTo(count));
     }
 
-    [TestCase("III", 3)]
-    [TestCase("LVIII", 58)]
     [TestCase("MCMXCIV", 1994)]
+    [TestCase("I", 1)]
+    [TestCase("II", 2)]
+    [TestCase("III", 3)]
+    [TestCase("IV", 4)]
+    [TestCase("LVIII", 58)]
     public void Test_RomanToInt(string s, int number)
     {
         Assert.That(Strings.RomanToInt(s), Is.EqualTo(number));

@@ -1,4 +1,6 @@
-﻿namespace LeetCodeTasks.LeetCode;
+﻿using LeetCodeTasks.Helpers;
+
+namespace LeetCodeTasks.LeetCode;
 
 public static class Strings
 {
@@ -47,11 +49,60 @@ public static class Strings
 
     #endregion
 
-    #region 13
+    #region 13 Roman to Integer - 9/14 - poor performace
 
     public static int RomanToInt(string s)
     {
-        return 0;
+        int number = 0;
+
+        if(s.Length == 1)
+        {
+            return RomanNumbers.RomanNumberToIntegerMap[s];
+        }
+
+        if(RomanNumbers.CommonUsedRomanIntegers.TryGetValue(s, out number))
+        {
+            return number;
+        }
+
+        var reversed = s.Reverse().ToArray();
+        int romanNumberLength = s.Length;
+        int currentIterator = 0;
+
+        while(currentIterator < romanNumberLength)
+        {
+            var currentDigit = reversed[currentIterator++];
+
+            // case when number like VIII
+            if(currentDigit == 'I')
+            {
+                int result = 1;
+                if(reversed[currentIterator] == 'I')
+                {
+                    result++;
+                    currentIterator++;
+                    if (reversed[currentIterator] == 'I')
+                    {
+                        result++;
+                        currentIterator++;
+                    }
+                }
+                number += result;
+                continue;
+            }
+
+            // it will not produce error as 1, 2, 3 already covered by CommonUsedRomanIntegers
+            if (currentIterator < romanNumberLength && RomanNumbers.ReducedRomanIntegers.TryGetValue($"{reversed[currentIterator]}{currentDigit}", out int value))
+            {
+                number += value;
+                currentIterator++;
+            } else
+            {
+                number += RomanNumbers.RomanNumberToIntegerMap[currentDigit.ToString()];
+            }
+        }
+
+        return number;
     }
 
     #endregion
