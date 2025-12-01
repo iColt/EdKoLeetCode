@@ -20,6 +20,9 @@ public sealed class StringsFixture
         Assert.That(Strings.LetterCombinations(digits).Count, Is.EqualTo(count));
     }
 
+    [TestCase("pwwkew", 3)]
+    [TestCase("abcabcbb", 3)]
+    [TestCase("bbbbb", 1)]
     public void Test_LengthOfLongestSubstring(string s, int count)
     {
         Assert.That(Strings.LengthOfLongestSubstring(s), Is.EqualTo(count));

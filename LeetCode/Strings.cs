@@ -4,7 +4,7 @@ namespace LeetCodeTasks.LeetCode;
 
 public static class Strings
 {
-    #region 3 Longest Substring without repeating characters
+    #region 3 Longest Substring without repeating characters - 26/52 - poor runtime
 
     public static int LengthOfLongestSubstring(string s)
     {
@@ -15,12 +15,10 @@ public static class Strings
 
         int maxConsLenght = 0;
         int currConsLenght = 0;
-        // use HashSet<char>?
-        // when find duplicate - save Max 
+
         char[] chars = s.ToCharArray();
 
         HashSet<char> uniqueSymbols = new HashSet<char>();
-        int pointerToHashSet = 0;
 
         for(int i = 0; i < chars.Length; i++)
         {
@@ -40,6 +38,12 @@ public static class Strings
                 }
 
                 int indexOfPreviousInserted = s.IndexOf(chars[i], i - currentUniqueSetLength);
+                currConsLenght = i - indexOfPreviousInserted;
+                uniqueSymbols.Clear();
+                for(int j = indexOfPreviousInserted + 1; j <= i; j++) {
+                    uniqueSymbols.Add(chars[j]);
+                }
+
             }
         }
 
