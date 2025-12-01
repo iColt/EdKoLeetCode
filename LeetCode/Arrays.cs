@@ -676,6 +676,33 @@ public class Arrays
 
     #endregion
 
+    #region 594 - Longest harmonious subsequence
+
+    public static int FindLHS(int[] nums)
+    {
+        if(nums.Length < 2)
+        {
+            return 0;
+        }
+
+        int length = 0;
+        int tempLenth = 0;
+
+        int minNumber = nums[0];
+        int maxNumber = 0;
+
+        bool sequenceInitialized = false;
+
+        for(int i = 1; i < nums.Length; i++)
+        {
+            //if (Math.Abs(nums[i] - minNumber))
+        }
+
+        return length;
+    }
+
+    #endregion
+
     #region #876 - Middle of the linked list - 100/27
 
     public static ListNode MiddleNode(ListNode head)
