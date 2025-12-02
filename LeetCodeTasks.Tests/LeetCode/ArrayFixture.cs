@@ -323,4 +323,12 @@ public class ArrayFixture
     {
         Assert.That(Arrays.FindLHS(nums), Is.EqualTo(length));
     }
+
+    [TestCase(new int[] { 2, 2, 1 }, 1)]
+    [TestCase(new int[] { 4, 1, 2, 1, 2 }, 4)]
+    [TestCase(new int[] { 1 }, 1)]
+    public void Test_SingleNumber(int[] nums, int unique)
+    {
+        Assert.That(Arrays.SingleNumber(nums), Is.EqualTo(unique));
+    }
 } 

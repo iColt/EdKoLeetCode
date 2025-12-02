@@ -2,7 +2,7 @@
 
 namespace LeetCodeTasks.LeetCode;
 
-public class Arrays
+public static class Arrays
 {
     #region #1 - Runtime unoptimal
 
@@ -427,7 +427,7 @@ public class Arrays
 
     #region 46 - Permutations - 100/35.3. Non-optimal memory
 
-    public IList<IList<int>> Permute(int[] nums)
+    public static IList<IList<int>> Permute(int[] nums)
     {
         return ArraysHelper.PermuteArray(nums);
     }
@@ -528,6 +528,31 @@ public class Arrays
 
             commonPositionMarker--;
         }
+    }
+
+    #endregion
+
+    #region 136 Single number - 28.9/19.5 Bad results
+
+    public static int SingleNumber(int[] nums)
+    {
+        if(nums.Length == 1)
+        {
+            return nums[0];
+        }
+
+        HashSet<int> visited = new HashSet<int>();
+        for (int i = 0; i < nums.Length; i++)
+        {
+            int currentHashSetLength = visited.Count;
+            visited.Add(nums[i]);
+            if(currentHashSetLength == visited.Count)
+            {
+                visited.Remove(nums[i]);
+            }
+        }
+
+        return visited.First();
     }
 
     #endregion
