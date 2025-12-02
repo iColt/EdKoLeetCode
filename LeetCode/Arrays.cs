@@ -557,6 +557,38 @@ public static class Arrays
 
     #endregion
 
+    #region 137 Single Number II - 17.5/44.2% Poor performance
+
+    public static int SingleNumberII(int[] nums)
+    {
+        if (nums.Length == 1)
+        {
+            return nums[0];
+        }
+
+        HashSet<int> visited = new HashSet<int>();
+        HashSet<int> doubleVisited = new HashSet<int>();
+        for (int i = 0; i < nums.Length; i++)
+        {
+            int currentHashSetLength = visited.Count;
+            visited.Add(nums[i]);
+            if (currentHashSetLength == visited.Count)
+            {
+                int currentSecondHashSetLength = doubleVisited.Count;
+                doubleVisited.Add(nums[i]);
+                if(doubleVisited.Count == currentSecondHashSetLength)
+                {
+                    visited.Remove(nums[i]);
+                    doubleVisited.Remove(nums[i]);
+                }
+            }
+        }
+
+        return visited.First();
+    }
+
+    #endregion
+
     #region 383 Ramsone note - Solved
 
     #region # 383 Ramsone note 61/19 - non optimal
