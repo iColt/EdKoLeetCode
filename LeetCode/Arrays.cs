@@ -676,29 +676,65 @@ public class Arrays
 
     #endregion
 
-    #region 594 - Longest harmonious subsequence
+    #region 594 - Longest harmonious subsequence 34/95 runtime+memory. Sorting takes time, but saves memory
 
     public static int FindLHS(int[] nums)
     {
-        if(nums.Length < 2)
+        if (nums.Length < 2)
         {
             return 0;
         }
 
-        int length = 0;
-        int tempLenth = 0;
+        int lengthOfLongest = 0;
 
-        int minNumber = nums[0];
-        int maxNumber = 0;
+        Array.Sort(nums);
 
-        bool sequenceInitialized = false;
-
-        for(int i = 1; i < nums.Length; i++)
+        int currentNumber = nums[0];
+        int temporaryLength = 1;
+        int secondPartCount = -1;
+        for (int i = 1; i < nums.Length; i++)
         {
-            //if (Math.Abs(nums[i] - minNumber))
+            if (nums[i] == currentNumber)
+            {
+                temporaryLength++;
+                if (secondPartCount > 0)
+                {
+                    secondPartCount++;
+                }
+            } else if (Math.Abs(nums[i] - currentNumber) == 1)
+            {
+                if (secondPartCount == -1) {
+                    currentNumber = nums[i];
+                    secondPartCount = 1;
+                    temporaryLength++;
+                } else
+                {
+                    currentNumber = nums[i];
+                    if (lengthOfLongest < temporaryLength)
+                    {
+                        lengthOfLongest = temporaryLength;
+                    }
+                    temporaryLength = secondPartCount + 1;
+                    secondPartCount = 1;
+                }
+            } else
+            {
+                currentNumber = nums[i];
+                if (lengthOfLongest < temporaryLength && secondPartCount != -1)
+                {
+                    lengthOfLongest = temporaryLength;
+                }
+                temporaryLength = 1;
+                secondPartCount = -1;
+            }
         }
 
-        return length;
+        if (secondPartCount == -1)
+        {
+            return lengthOfLongest;
+        }
+
+        return lengthOfLongest > temporaryLength ? lengthOfLongest : temporaryLength;
     }
 
     #endregion

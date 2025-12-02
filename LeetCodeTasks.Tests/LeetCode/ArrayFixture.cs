@@ -312,9 +312,13 @@ public class ArrayFixture
 
     #endregion
 
-    [TestCase(new int[] { 1, 3, 2, 2, 5, 2, 3, 7 }, 3)]
+    [TestCase(new int[] { 1, 3, 2, 2, 5, 2, 3, 7 }, 5)]
     [TestCase(new int[] { 1, 2, 3, 4 }, 2)]
     [TestCase(new int[] { 1, 1, 1, 1 }, 0)]
+    [TestCase(new int[] { 1, 1, 3, 4 }, 2)]
+    [TestCase(new int[] { 3, 4, 1, 1 }, 2)]
+    [TestCase(new int[] { 3 }, 0)]
+    [TestCase(new int[] { }, 0)]
     public void Test_FindLHS(int[] nums, int length)
     {
         Assert.That(Arrays.FindLHS(nums), Is.EqualTo(length));
