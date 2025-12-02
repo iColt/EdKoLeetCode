@@ -589,6 +589,31 @@ public static class Arrays
 
     #endregion
 
+    #region 260 Single Number III 19/40 Poor performance in all Single Number tasks
+
+    public static int[] SingleNumberIII(int[] nums)
+    {
+        if (nums.Length == 2)
+        {
+            return nums;
+        }
+
+        HashSet<int> visited = new HashSet<int>();
+        for (int i = 0; i < nums.Length; i++)
+        {
+            int currentHashSetLength = visited.Count;
+            visited.Add(nums[i]);
+            if (currentHashSetLength == visited.Count)
+            {
+                visited.Remove(nums[i]);
+            }
+        }
+
+        return [visited.First(), visited.Last()];
+    }
+
+    #endregion
+
     #region 383 Ramsone note - Solved
 
     #region # 383 Ramsone note 61/19 - non optimal

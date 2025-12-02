@@ -339,4 +339,12 @@ public class ArrayFixture
     {
         Assert.That(Arrays.SingleNumberII(nums), Is.EqualTo(unique));
     }
+
+    [TestCase(new int[] { 1, 2, 1, 3, 2, 5 }, 2)]
+    [TestCase(new int[] { -1, 0 }, 2)]
+    [TestCase(new int[] { 0, 1 }, 2)]
+    public void Test_SingleNumberIII(int[] nums, int unique)
+    {
+        Assert.That(Arrays.SingleNumberIII(nums).Count, Is.EqualTo(unique));
+    }
 } 
