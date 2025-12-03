@@ -347,4 +347,15 @@ public class ArrayFixture
     {
         Assert.That(Arrays.SingleNumberIII(nums).Count, Is.EqualTo(unique));
     }
+
+    [TestCase(new int[] { 9, 8, 99, 98 }, "999988")]
+    [TestCase(new int[] { 10, 2 }, "210")]
+    [TestCase(new int[] { 10, 2, 110 }, "211010")]
+    [TestCase(new int[] { 3, 30, 34, 5, 9 }, "9534330")]
+    [TestCase(new int[] { 10, 2, 2100000000 }, "2210000000010")]
+    [TestCase(new int[] { 10, 2, 2140000000 }, "2214000000010")]
+    public void Test_LargestNumber(int[] nums, string output)
+    {
+        Assert.That(Arrays.LargestNumber(nums), Is.EqualTo(output));
+    }
 } 

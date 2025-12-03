@@ -1,4 +1,6 @@
-﻿namespace LeetCodeTasks.LeetCode;
+﻿using System.Collections.Specialized;
+
+namespace LeetCodeTasks.LeetCode;
 
 public class Subsequencies
 {
@@ -152,8 +154,50 @@ public class Subsequencies
 
     public static int LongestConsecutive(int[] nums)
     {
+        if(nums.Length < 2)
+        {
+            return nums.Length;
+        }
+
+        int longestLength = 0;
         //shall we store distance between numbers?
-        return 0;
+        //HashSet<int> similarNumberSet = new HashSet<int>();
+
+        // dictionary of dictionaries?
+        // each dictionary store 100 elements
+        // each dictionary of dictionaries has key = number
+        // In this case, we assume 1 iteration to fill + one iteration to find 
+        // In result O(2n) = O(n)
+        OrderedDictionary orderedElements = new OrderedDictionary();
+
+        for(int i =0; i < nums.Length; i++)
+        {
+            orderedElements.Add(nums[i], nums[i]);
+        }
+
+        int tempLength = 1;
+
+        for(int i = 1; i < orderedElements.Count; i++)
+        {
+            if (orderedElements[i] == orderedElements[i - 1])
+            {
+                continue;
+            }
+
+            if (Math.Abs((int)orderedElements[i] - (int)orderedElements[i - 1]) == 1)
+            {
+                tempLength++;
+            } else
+            {
+                if(longestLength < tempLength)
+                {
+                    longestLength = tempLength;
+                }
+                tempLength = 1;
+            }
+        }
+
+        return longestLength > tempLength ? longestLength : tempLength;
     }
 
     #endregion

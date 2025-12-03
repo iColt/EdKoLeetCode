@@ -21,7 +21,7 @@ internal class SubsequenciesFixture
     }
 
     [TestCaseSource(typeof(LongestConsecutiveTestData), nameof(LongestConsecutiveTestData.TestCases))]
-    public void TestLongestConsecutive(int[] nums, int expected)
+    public void Test_LongestConsecutive(int[] nums, int expected)
     {
         int result = Subsequencies.LongestConsecutive(nums);
 

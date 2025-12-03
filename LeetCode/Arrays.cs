@@ -1,4 +1,5 @@
 ﻿using LeetCodeTasks.Helpers;
+using System.Text;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -585,6 +586,70 @@ public static class Arrays
         }
 
         return visited.First();
+    }
+
+    #endregion
+
+    #region 179 Largest Number
+
+    public static string LargestNumber(int[] nums)
+    {
+        Array.Sort(nums);
+        StringBuilder sb = new();
+        StringBuilder zeroSB = new();
+        StringBuilder zeroEndingSb = new();
+        int iterator = 0;
+        int lowSeparator = 1;
+        int highSeparator = 10;
+        while(iterator < nums.Length)
+        {
+            if (nums[iterator] == 0)
+            {
+                zeroSB.Append("0");
+                iterator++;
+            } else if (nums[iterator] >= lowSeparator && nums[iterator] < highSeparator)
+            {
+                StringBuilder tempSb = new();
+                while(nums[iterator] < highSeparator)
+                {
+                    if (nums[iterator] % 10 == 0)
+                    {
+                        zeroEndingSb.Insert(0, nums[iterator++]);
+                    } else
+                    {
+                        tempSb.Insert(0, nums[iterator++]);
+                    }
+
+                    if (iterator >= nums.Length)
+                    {
+                        break;
+                    }
+                }
+                sb.Insert(0, tempSb);
+            }
+
+
+            if (iterator >= nums.Length)
+            {
+                break;
+            }
+
+            if (nums[iterator] >= highSeparator)
+            {
+                lowSeparator *= 10; 
+                if(highSeparator > int.MaxValue / 10)
+                {
+                    highSeparator = int.MaxValue;
+                } else
+                {
+                    highSeparator *= 10;
+                }
+            }
+        }
+
+        sb.Append(zeroEndingSb.ToString());
+        sb.Append(zeroSB.ToString());
+        return sb.ToString();
     }
 
     #endregion
