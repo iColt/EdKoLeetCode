@@ -351,7 +351,7 @@ public static class Arrays
 
     #region 39 - Combination Sum - 5/5 - poor performance and memory consumption
 
-    public static IList<IList<int>> CombinationSum(int[] candidates, int target)
+    public static IList<IList<int>> CombinationSumOld(int[] candidates, int target)
     {
         Array.Sort<int>(candidates);
 
@@ -422,6 +422,18 @@ public static class Arrays
         var sortedB = b.OrderBy(x => x).ToArray();
 
         return sortedA.SequenceEqual(sortedB);
+    }
+
+    public static IList<IList<int>> CombinationSum(int[] candidates, int target)
+    {
+        List<IList<int>> result = new List<IList<int>>();
+
+        // try to use backtail reccursive instead of difficult one from me
+        // if we already switched to next digit
+        // do not join previous one
+        // this will garantee unique without stupid checks
+
+        return result;
     }
 
     #endregion
