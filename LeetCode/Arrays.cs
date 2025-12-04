@@ -349,7 +349,7 @@ public static class Arrays
 
     #endregion
 
-    #region 39 - Combination Sum - 5/5 - poor performance and memory consumption
+    #region 39 - Combination Sum - 5/5 - poor performance and memory consumption (Old) || 44.8 / 96.5% Runtime/Memory (New)
 
     public static IList<IList<int>> CombinationSumOld(int[] candidates, int target)
     {
@@ -432,6 +432,44 @@ public static class Arrays
         // if we already switched to next digit
         // do not join previous one
         // this will garantee unique without stupid checks
+
+        int temporarySum = 0;
+        List<int> searchedSet = new List<int>();
+
+        for(int i = 0; i < candidates.Length; i++)
+        {
+            searchedSet.Add(candidates[i]);
+            int searchedSetCount = searchedSet.Count;
+            temporarySum += candidates[i];
+            BackTrack(i);
+            temporarySum -= candidates[i];
+            searchedSet.RemoveAt(searchedSetCount - 1);
+        }
+
+        void BackTrack(int index)
+        {
+            if(temporarySum > target)
+            {
+                return;
+            }
+
+            if(temporarySum == target)
+            {
+                List<int> temp = [.. searchedSet];
+                result.Add(temp);
+                return;
+            }
+
+            for(int j = index; j <  candidates.Length; j++)
+            {
+                searchedSet.Add(candidates[j]);
+                int searchedSetCount = searchedSet.Count;
+                temporarySum += candidates[j];
+                BackTrack(j);
+                temporarySum -= candidates[j];
+                searchedSet.RemoveAt(searchedSetCount - 1);
+            }
+        }
 
         return result;
     }

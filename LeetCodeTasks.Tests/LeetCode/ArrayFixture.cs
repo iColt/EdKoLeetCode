@@ -96,14 +96,14 @@ public class ArrayFixture
 
     #region 39
 
+    [TestCase(new int[] { 2, 3, 5 }, 8, 3)]
     [TestCase(new int[] { 5, 10, 8, 4, 3, 12, 9 }, 27, 45)]
     [TestCase(new int[] { 2, 3, 6, 7 }, 7, 2)]
-    [TestCase(new int[] { 2, 3, 5 }, 8, 3)]
     [TestCase(new int[] { 2 }, 1, 0)]
     public void Test_CombinationSum(int[] candidates, int target, int countOfCombinations)
     {
-        CompareTwoCombinations(Arrays.CombinationSum(candidates, target));
-        //Assert.That(Arrays.CombinationSum(candidates, target).Count(), Is.EqualTo(countOfCombinations));
+        //CompareTwoCombinations(Arrays.CombinationSum(candidates, target));
+        Assert.That(Arrays.CombinationSum(candidates, target).Count(), Is.EqualTo(countOfCombinations));
     }
 
     //new List<int> {5,5,5,5,4,3}, new List<int> {5,5,5,8,4}, new List<int> {5,5,5,4,4,4}, new List<int> {5,5,5,3,3,3,3}, new List<int> {5,5,5,3,9}, new List<int> {5,5,5,12}, new List<int> {5,5,10,4,3}, new List<int> {5,5,8,3,3,3}, new List<int> {5,5,8,9}, new List<int> {5,5,4,4,3,3,3}, new List<int> {5,5,4,4,9}, new List<int> {5,10,8,4}, new List<int> {5,10,4,4,4}, new List<int> {5,10,3,3,3,3}, new List<int> {5,10,3,9}, new List<int> {5,10,12}, new List<int> {5,8,8,3,3}, new List<int> {5,8,4,4,3,3}, new List<int> {5,4,4,4,4,3,3}, new List<int> {5,4,3,3,3,3,3,3}, new List<int> {5,4,3,3,3,9}, new List<int> {5,4,3,3,12}, new List<int> {5,4,9,9}, new List<int> {10,10,4,3}, new List<int> {10,8,3,3,3}, new List<int> {10,8,9}, new List<int> {10,4,4,3,3,3}, new List<int> {10,4,4,9}, new List<int> {8,8,8,3}, new List<int> {8,8,4,4,3}, new List<int> {8,4,4,4,4,3}, new List<int> {8,4,3,3,3,3,3}, new List<int> {8,4,3,3,9}, new List<int> {8,4,3,12}, new List<int> {4,4,4,4,4,4,3}, new List<int> {4,4,4,3,3,3,3,3}, new List<int> {4,4,4,3,3,9}, new List<int> {4,4,4,3,12}, new List<int> {3,3,3,3,3,3,3,3,3}, new List<int> {3,3,3,3,3,3,9}, new List<int> {3,3,3,3,3,12}, new List<int> {3,3,3,9,9}, new List<int> {3,3,12,9}, new List<int> {3,12,12}, new List<int> {9,9,9]
