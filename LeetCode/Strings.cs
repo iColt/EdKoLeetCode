@@ -270,4 +270,43 @@ public static class Strings
     }
 
     #endregion
+
+    #region 168 - Excel Sheet Column Title
+
+    public static string ConvertToTitle(int columnNumber)
+    {
+        if(columnNumber == 1)
+        {
+            return "A";
+        }
+        // run while circle
+        // check the % 26
+        // create string from the end
+        // convert to char
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while (columnNumber > 0)
+        {
+            
+            int rest = columnNumber % 26;
+
+            if(rest == 1 && columnNumber == 1) {
+                break;
+            }
+
+            if(rest == 0)
+            {
+                stringBuilder.Insert(0, 'Z');
+            } else
+            {
+                stringBuilder.Insert(0, (char)(64 + rest));
+            }
+
+            columnNumber /= 26;
+        }
+
+        return stringBuilder.ToString();
+    }
+
+    #endregion
 }
