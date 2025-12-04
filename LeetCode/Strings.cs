@@ -1,4 +1,5 @@
 ﻿using LeetCodeTasks.Helpers;
+using System.Text;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -143,9 +144,9 @@ public static class Strings
 
     #endregion
 
-    #region 17 - Letter combination of phone number - 5/5 - poor runtime and memory
+    #region 17 - Letter combination of phone number - 5/5 - poor runtime and memory(Old), 100/24.4 - nice runtime, poor memory management
 
-    public static IList<string> LetterCombinations(string digits)
+    public static IList<string> LetterCombinationsOld(string digits)
     {
         var phoneCombinations = new List<List<string>>
         {
@@ -187,6 +188,47 @@ public static class Strings
                 );
         }
 
+        return result;
+    }
+
+    public static IList<string> LetterCombinations(string digits)
+    {
+        if (string.IsNullOrEmpty(digits))
+            return new List<string>();
+
+        var map = new Dictionary<char, string>
+        {
+            ['2'] = "abc",
+            ['3'] = "def",
+            ['4'] = "ghi",
+            ['5'] = "jkl",
+            ['6'] = "mno",
+            ['7'] = "pqrs",
+            ['8'] = "tuv",
+            ['9'] = "wxyz"
+        };
+
+        var result = new List<string>();
+        var current = new StringBuilder();
+
+        void Backtrack(int index)
+        {
+            if (index == digits.Length)
+            {
+                result.Add(current.ToString());
+                return;
+            }
+
+            string letters = map[digits[index]];
+            foreach (char c in letters)
+            {
+                current.Append(c);
+                Backtrack(index + 1);
+                current.Length--;
+            }
+        }
+
+        Backtrack(0);
         return result;
     }
 
