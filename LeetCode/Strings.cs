@@ -290,9 +290,9 @@ public static class Strings
             
             int rest = columnNumber % 26;
 
-            if(rest == 1 && columnNumber == 1) {
-                break;
-            }
+            //if(rest == 1 && columnNumber - 26 == 0) {
+            //    break;
+            //}
 
             if(rest == 0)
             {
@@ -303,6 +303,16 @@ public static class Strings
             }
 
             columnNumber /= 26;
+
+            if(rest == 0 && columnNumber == 1)
+            {
+                break;
+            }
+
+            if (columnNumber < 26 && columnNumber > 1)
+            {
+                columnNumber -= 1;
+            }
         }
 
         return stringBuilder.ToString();

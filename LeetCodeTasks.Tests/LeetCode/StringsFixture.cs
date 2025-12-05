@@ -41,10 +41,11 @@ public sealed class StringsFixture
         Assert.That(Strings.RomanToInt(s), Is.EqualTo(number));
     }
 
-    [TestCase(1, "A")]
-    [TestCase(26, "Z")]
     [TestCase(703, "AAA")]
+    [TestCase(52, "AZ")]
+    [TestCase(26, "Z")]
     [TestCase(701, "ZY")]
+    [TestCase(1, "A")]
     public void Test_ConvertToTitle(int columnNumber, string output)
     {
         Assert.That(Strings.ConvertToTitle(columnNumber), Is.EqualTo(output));
