@@ -41,8 +41,13 @@ public sealed class StringsFixture
         Assert.That(Strings.RomanToInt(s), Is.EqualTo(number));
     }
 
-    [TestCase(703, "AAA")]
+    [TestCase(18278, "ZZZ")]
     [TestCase(52, "AZ")]
+    [TestCase(702, "ZZ")]
+    [TestCase(78, "BZ")]
+    [TestCase(2147483647, "FXSHRXW")]
+    [TestCase(703, "AAA")]
+    [TestCase(53, "BA")]
     [TestCase(26, "Z")]
     [TestCase(701, "ZY")]
     [TestCase(1, "A")]

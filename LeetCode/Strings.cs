@@ -271,7 +271,7 @@ public static class Strings
 
     #endregion
 
-    #region 168 - Excel Sheet Column Title
+    #region 168 - Excel Sheet Column Title - 100/98
 
     public static string ConvertToTitle(int columnNumber)
     {
@@ -279,43 +279,18 @@ public static class Strings
         {
             return "A";
         }
-        // run while circle
-        // check the % 26
-        // create string from the end
-        // convert to char
-        StringBuilder stringBuilder = new StringBuilder();
+        var result = new StringBuilder();
 
         while (columnNumber > 0)
         {
-            
-            int rest = columnNumber % 26;
-
-            //if(rest == 1 && columnNumber - 26 == 0) {
-            //    break;
-            //}
-
-            if(rest == 0)
-            {
-                stringBuilder.Insert(0, 'Z');
-            } else
-            {
-                stringBuilder.Insert(0, (char)(64 + rest));
-            }
-
+            columnNumber--;                          // shift to 0-based
+            int remainder = columnNumber % 26;
+            char c = (char)('A' + remainder);
+            result.Insert(0, c);
             columnNumber /= 26;
-
-            if(rest == 0 && columnNumber == 1)
-            {
-                break;
-            }
-
-            if (columnNumber < 26 && columnNumber > 1)
-            {
-                columnNumber -= 1;
-            }
         }
 
-        return stringBuilder.ToString();
+        return result.ToString();
     }
 
     #endregion
