@@ -52,6 +52,48 @@ public static class Trees
 
     #endregion
 
+    #region 101 Symmetric tree
+
+    public static bool IsSymmetric(TreeNode root)
+    {
+        if(root == null)
+        {
+            return true;
+        }
+
+        return IsLeafsSymmetric(root.left, root.right);
+    }
+
+    private static bool IsLeafsSymmetric(TreeNode left, TreeNode right)
+    {
+        if(left == null && right == null)
+        {
+            return true;
+        }
+
+        if(left == null || right == null)
+        {
+            return false;
+        }
+
+        if(left.val != right.val) { 
+            return false; 
+        }
+
+        return IsLeafsSymmetric(left.left, right.right) && IsLeafsSymmetric(left.right, right.left);
+    }
+
+    #endregion
+
+    #region 108 Convert sorted array to Binary Search tree
+
+    public static TreeNode SortedArrayToBST(int[] nums)
+    {
+        return new TreeNode(3);
+    }
+
+    #endregion
+
     #region 110 Balanced Binary Tree - 100/17.8 non effective memory consumption
 
     public static bool IsBalanced(TreeNode root)

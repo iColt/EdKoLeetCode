@@ -245,6 +245,15 @@ public sealed class TreesFixture
     }
     #endregion
 
+    #region 108
+
+    public void Test_IsSymmetric()
+    {
+
+    }
+
+    #endregion
+
     #region 112
 
     [TestCaseSource(typeof(PathSumTestData), nameof(PathSumTestData.TestCases))]
