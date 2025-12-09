@@ -583,6 +583,15 @@ public static class Arrays
 
     #endregion
 
+    #region 118 Pascal's triangle
+
+    public static IList<IList<int>> Generate(int numRows)
+    {
+        return new List<IList<int>>();
+    }
+
+    #endregion
+
     #region 136 Single number - 28.9/19.5 Bad results || 100/86 new results
 
     public static int SingleNumberOld(int[] nums)

@@ -358,4 +358,59 @@ public class ArrayFixture
     {
         Assert.That(Arrays.LargestNumber(nums), Is.EqualTo(output));
     }
+
+    [TestCase(1)]
+    [TestCase(2)]
+    [TestCase(5)]
+    [TestCase(6)]
+    public void Test_Generate_ReturnsCorrectTriangle(int numRows)
+    {
+        // Arrange: expected results
+        var expected = numRows switch
+        {
+            1 => new List<IList<int>>
+            {
+                new List<int>{ 1 }
+            },
+
+            2 => new List<IList<int>>
+            {
+                new List<int>{ 1 },
+                new List<int>{ 1, 1 },
+            },
+
+            5 => new List<IList<int>>
+            {
+                new List<int>{ 1 },
+                new List<int>{ 1, 1 },
+                new List<int>{ 1, 2, 1 },
+                new List<int>{ 1, 3, 3, 1 },
+                new List<int>{ 1, 4, 6, 4, 1 },
+            },
+
+            6 => new List<IList<int>>
+            {
+                new List<int>{ 1 },
+                new List<int>{ 1, 1 },
+                new List<int>{ 1, 2, 1 },
+                new List<int>{ 1, 3, 3, 1 },
+                new List<int>{ 1, 4, 6, 4, 1 },
+                new List<int>{ 1, 5, 10, 10, 5, 1 },
+            },
+
+            _ => null
+        };
+
+        // Act
+        var result = Arrays.Generate(numRows);
+
+        // Assert count
+        Assert.That(numRows, Is.EqualTo(result.Count));
+
+        // Assert row contents
+        for (int i = 0; i < numRows; i++)
+        {
+            CollectionAssert.AreEqual(expected[i], result[i]);
+        }
+    }
 } 
