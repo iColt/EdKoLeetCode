@@ -52,7 +52,7 @@ public static class Trees
 
     #endregion
 
-    #region 101 Symmetric tree
+    #region 101 Symmetric tree - 100/58.2
 
     public static bool IsSymmetric(TreeNode root)
     {

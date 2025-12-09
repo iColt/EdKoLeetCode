@@ -4,9 +4,8 @@ namespace LeetCodeTasks.LeetCode;
 
 public class Subsequencies
 {
-    #region #873
+    #region 873 - 9/100
 
-    // #873 - non optimal in runtime, optimal in memory
     public static int LenLongestFibSubseq(int[] arr)
     {
         int longestFibSubseq = 0;
@@ -68,8 +67,8 @@ public class Subsequencies
     }
 
     #endregion
-
-    #region #2560
+     
+    #region 2560 - Not solved
 
     public static int MinCapability(int[] nums, int k)
     {
