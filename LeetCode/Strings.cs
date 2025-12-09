@@ -283,7 +283,7 @@ public static class Strings
 
         while (columnNumber > 0)
         {
-            columnNumber--;                          // shift to 0-based
+            columnNumber--;
             int remainder = columnNumber % 26;
             char c = (char)('A' + remainder);
             result.Insert(0, c);

@@ -1,4 +1,6 @@
-﻿namespace LeetCodeTasks.LeetCode;
+﻿using LeetCodeTasks.Helpers;
+
+namespace LeetCodeTasks.LeetCode;
 
 public static class DataStructures
 {
@@ -20,6 +22,29 @@ public static class DataStructures
         public void Put(int key, int value)
         {
 
+        }
+    }
+
+    #endregion
+
+    #region 173 Binary Search Tree Iterator
+
+    public class BSTIterator
+    {
+
+        public BSTIterator(TreeNode root)
+        {
+
+        }
+
+        public int Next()
+        {
+            return 0;
+        }
+
+        public bool HasNext()
+        {
+            return false;
         }
     }
 
