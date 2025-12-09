@@ -620,9 +620,9 @@ public static class Arrays
 
     #endregion
 
-    #region 137 Single Number II - 17.5/44.2% Poor performance
+    #region 137 Single Number II - 17.5/44.2% Poor performance || 100/35 poor memory management
 
-    public static int SingleNumberII(int[] nums)
+    public static int SingleNumberIIOld(int[] nums)
     {
         if (nums.Length == 1)
         {
@@ -648,6 +648,19 @@ public static class Arrays
         }
 
         return visited.First();
+    }
+
+    public static int SingleNumberII(int[] nums)
+    {
+        int ones = 0, twos = 0;
+
+        foreach (int num in nums)
+        {
+            ones = (ones ^ num) & ~twos;
+            twos = (twos ^ num) & ~ones;
+        }
+
+        return ones;
     }
 
     #endregion
