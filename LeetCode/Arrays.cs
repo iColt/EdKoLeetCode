@@ -583,9 +583,9 @@ public static class Arrays
 
     #endregion
 
-    #region 136 Single number - 28.9/19.5 Bad results
+    #region 136 Single number - 28.9/19.5 Bad results || 100/86 new results
 
-    public static int SingleNumber(int[] nums)
+    public static int SingleNumberOld(int[] nums)
     {
         if(nums.Length == 1)
         {
@@ -604,6 +604,18 @@ public static class Arrays
         }
 
         return visited.First();
+    }
+
+    public static int SingleNumber(int[] nums)
+    {
+        int result = 0;
+
+        foreach (int num in nums)
+        {
+            result ^= num;
+        }
+
+        return result;
     }
 
     #endregion
