@@ -4,7 +4,7 @@ namespace LeetCodeTasks.LeetCode;
 
 public static class DataStructures
 {
-    #region 146 LRU Cache
+    #region 146 LRU Cache Not Solved
 
     public class LRUCache
     {
@@ -27,7 +27,7 @@ public static class DataStructures
 
     #endregion
 
-    #region 173 Binary Search Tree Iterator
+    #region 173 Binary Search Tree Iterator - Not Solved
 
     public class BSTIterator
     {

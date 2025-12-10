@@ -149,7 +149,7 @@ public class Subsequencies
     }
     #endregion
 
-    #region 128 Longest Consecutive Sequence
+    #region 128 Longest Consecutive Sequence - Not Solved
 
     public static int LongestConsecutive(int[] nums)
     {

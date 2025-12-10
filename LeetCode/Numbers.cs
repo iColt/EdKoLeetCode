@@ -208,7 +208,7 @@ public static class Numbers
 
     #endregion
 
-    #region 70 Climbing Stairs
+    #region 70 Climbing Stairs 100/33.5
 
     // 5: 11111, 2111, 1112, 1211, 1121, 122, 212, 221
     public static int ClimbStairs(int n)

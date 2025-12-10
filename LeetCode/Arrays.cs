@@ -583,7 +583,7 @@ public static class Arrays
 
     #endregion
 
-    #region 118 Pascal's triangle
+    #region 118 Pascal's triangle - Not Solved
 
     public static IList<IList<int>> Generate(int numRows)
     {
