@@ -583,11 +583,36 @@ public static class Arrays
 
     #endregion
 
-    #region 118 Pascal's triangle - Not Solved
+    #region 118 Pascal's triangle - Check results
 
     public static IList<IList<int>> Generate(int numRows)
     {
-        return new List<IList<int>>();
+        IList<IList<int>> result = new List<IList<int>>
+        {
+            new List<int> { 1 }
+        };
+
+        if(numRows == 1)
+        {
+            return result;
+        }
+
+        for(int i = 1; i < numRows; i++)
+        {
+            var nextLevelOfPyramid = new List<int> { 1 };
+
+            for(int j = 1; j < i; j ++)
+            {
+                nextLevelOfPyramid.Add(
+                    result[i - 1][j - 1] + result[i - 1][j]
+                    );
+            }
+
+            nextLevelOfPyramid.Add(1);
+            result.Add(nextLevelOfPyramid);
+        }
+
+        return result;
     }
 
     #endregion
