@@ -85,11 +85,40 @@ public static class Trees
 
     #endregion
 
-    #region 108 Convert sorted array to Binary Search tree
+    #region 108 Convert sorted array to Binary Search tree - NotSolved
 
     public static TreeNode SortedArrayToBST(int[] nums)
     {
-        return new TreeNode(3);
+        if(nums.Length == 1)
+        {
+            return new TreeNode(nums[0]);
+        }
+
+        int length = nums.Length;
+
+        return BuildBST(nums, 0, length);
+    }
+
+    private static TreeNode BuildBST(int[] nums, int startIndex,  int endIndex)
+    {
+        if(endIndex - startIndex == 1)
+        {
+            return new TreeNode
+            {
+                val = nums[startIndex],
+                left = new TreeNode(endIndex),
+            };
+        }
+
+        if(startIndex == endIndex)
+        {
+            return new TreeNode(nums[startIndex]);
+        }
+
+        int currentTop = (endIndex - startIndex) / 2;
+        TreeNode topNode = new TreeNode(nums[currentTop]);
+
+        return topNode;
     }
 
     #endregion

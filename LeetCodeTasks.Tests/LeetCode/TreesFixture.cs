@@ -247,9 +247,63 @@ public sealed class TreesFixture
 
     #region 108
 
-    public void Test_IsSymmetric()
+    public static IEnumerable<TestCaseData> ConvertTestCases()
     {
+        yield return new TestCaseData(
+            new int[] { },
+            null
+        );
 
+        yield return new TestCaseData(
+            new int[] { 1 },
+            new TreeNode(1)
+        );
+
+        yield return new TestCaseData(
+            new int[] { 1, 3 },
+            new TreeNode(3,
+                new TreeNode(1),
+                null)
+        );
+
+        yield return new TestCaseData(
+            new int[] { -10, -3, 0, 5, 9 },
+            new TreeNode(0,
+                new TreeNode(-10,
+                    null,
+                    new TreeNode(-3)),
+                new TreeNode(5,
+                    null,
+                    new TreeNode(9)))
+        );
+
+        yield return new TestCaseData(
+            new int[] { 1, 2, 3, 4, 5, 6, 7 },
+            new TreeNode(4,
+                new TreeNode(2,
+                    new TreeNode(1),
+                    new TreeNode(3)),
+                new TreeNode(6,
+                    new TreeNode(5),
+                    new TreeNode(7)))
+        );
+    }
+
+    [TestCaseSource(nameof(ConvertTestCases))]
+    public void SortedArrayToBST_ShouldBuildCorrectTree(int[] nums, TreeNode expected)
+    {
+        var result = Trees.SortedArrayToBST(nums);
+
+        Assert.IsTrue(AreEqualTrees(expected, result), "Generated tree does not match expected");
+    }
+
+    private bool AreEqualTrees(TreeNode a, TreeNode b)
+    {
+        if (a == null && b == null) return true;
+        if (a == null || b == null) return false;
+        if (a.val != b.val) return false;
+
+        return AreEqualTrees(a.left, b.left) && AreEqualTrees(a.right, b.right);
     }
 
     #endregion
