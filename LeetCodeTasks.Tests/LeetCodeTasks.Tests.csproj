@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\EdkoSDK\src\EdkoSKD\EdkoSKD.Common\EdkoSKD.Common.csproj" />
     <ProjectReference Include="..\LeetCodeTasks.csproj" />
   </ItemGroup>
 

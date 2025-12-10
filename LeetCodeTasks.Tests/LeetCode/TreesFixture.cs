@@ -1,4 +1,5 @@
-﻿using LeetCodeTasks.Helpers;
+﻿using EdkoSKD.Common.Models;
+using EdkoSKD.Common.Trees;
 
 namespace LeetCodeTasks.Tests.LeetCode;
 
@@ -21,13 +22,13 @@ public sealed class TreesFixture
             get
             {
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, null, 2, 3 }),
+                    TreeHelpers.Tree(new int?[] { 1, null, 2, 3 }),
                     new List<int> { 1, 3, 2 }
                 );
 
                 // Single node
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1 }),
+                    TreeHelpers.Tree(new int?[] { 1 }),
                     new List<int> { 1 }
                 );
 
@@ -44,13 +45,13 @@ public sealed class TreesFixture
                 //   / \   \
                 //  4   5   6
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, null, 6 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, null, 6 }),
                     new List<int> { 4, 2, 5, 1, 3, 6 }
                 );
 
                 // Left-skewed tree: 1 -> 2 -> 3 -> 4
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, null, 8, null, null, 6, 7, 9 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, null, 8, null, null, 6, 7, 9 }),
                     new List<int> { 4, 2, 6, 5, 7, 1, 3, 9, 8 }
                 );
             }
@@ -76,22 +77,22 @@ public sealed class TreesFixture
             {
                 // Same structure and values
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, 3 }),
-                    TreesHelpers.Tree(new int?[] { 1, 2, 3 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, 3 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, 3 }),
                     true
                 );
 
                 // Different structure
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2 }),
-                    TreesHelpers.Tree(new int?[] { 1, null, 2 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2 }),
+                    TreeHelpers.Tree(new int?[] { 1, null, 2 }),
                     false
                 );
 
                 // Different node values
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, 1 }),
-                    TreesHelpers.Tree(new int?[] { 1, 1, 2 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, 1 }),
+                    TreeHelpers.Tree(new int?[] { 1, 1, 2 }),
                     false
                 );
 
@@ -104,28 +105,28 @@ public sealed class TreesFixture
 
                 // One empty, one not
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1 }),
+                    TreeHelpers.Tree(new int?[] { 1 }),
                     null,
                     false
                 );
 
                 yield return new TestCaseData(
                     null,
-                    TreesHelpers.Tree(new int?[] { 1 }),
+                    TreeHelpers.Tree(new int?[] { 1 }),
                     false
                 );
 
                 // Larger equal trees
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 3, 9, 20, null, null, 15, 7 }),
-                    TreesHelpers.Tree(new int?[] { 3, 9, 20, null, null, 15, 7 }),
+                    TreeHelpers.Tree(new int?[] { 3, 9, 20, null, null, 15, 7 }),
+                    TreeHelpers.Tree(new int?[] { 3, 9, 20, null, null, 15, 7 }),
                     true
                 );
 
                 // Same values but different arrangement
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 3, 9, 20 }),
-                    TreesHelpers.Tree(new int?[] { 3, 20, 9 }),
+                    TreeHelpers.Tree(new int?[] { 3, 9, 20 }),
+                    TreeHelpers.Tree(new int?[] { 3, 20, 9 }),
                     false
                 );
             }
@@ -148,7 +149,7 @@ public sealed class TreesFixture
             get
             {
                 yield return new TestCaseData(
-                  TreesHelpers.Tree(new int?[] { 1, 2, 2, 3, 3, null, null, 4, 4 }),
+                  TreeHelpers.Tree(new int?[] { 1, 2, 2, 3, 3, null, null, 4, 4 }),
                   false
               );
 
@@ -161,7 +162,7 @@ public sealed class TreesFixture
                 //      \     /
                 //       6   7
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, null, null, 5, null, 6, 7, null }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, 3, 4, null, null, 5, null, 6, 7, null }),
                     false
                 );
 
@@ -173,7 +174,7 @@ public sealed class TreesFixture
 
                 // Single node -> balanced
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1 }),
+                    TreeHelpers.Tree(new int?[] { 1 }),
                     true
                 );
 
@@ -184,7 +185,7 @@ public sealed class TreesFixture
                 //   / \   / \
                 //  4   5 6   7
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, 6, 7 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, 6, 7 }),
                     true
                 );
 
@@ -195,7 +196,7 @@ public sealed class TreesFixture
                 //   /
                 //  4
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, 3, 4 }),
                     true
                 );
 
@@ -206,7 +207,7 @@ public sealed class TreesFixture
                 //    /
                 //   3
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, null, 3 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, null, 3 }),
                     false
                 );
 
@@ -217,7 +218,7 @@ public sealed class TreesFixture
                 //       \
                 //        3
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, null, 2, null, 3 }),
+                    TreeHelpers.Tree(new int?[] { 1, null, 2, null, 3 }),
                     false
                 );
 
@@ -230,12 +231,12 @@ public sealed class TreesFixture
                 //  /
                 // 5
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, null, null, null, 5 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, 3, 4, null, null, null, 5 }),
                     false
                 );
 
                 yield return new TestCaseData(
-                 TreesHelpers.Tree(new int?[] { 1, 2, 2, 3, null, null, 3, 4, null, null, 4 }),
+                 TreeHelpers.Tree(new int?[] { 1, 2, 2, 3, null, null, 3, 4, null, null, 4 }),
                  false
              );
 
@@ -288,16 +289,7 @@ public sealed class TreesFixture
     {
         var result = Trees.SortedArrayToBST(nums);
 
-        Assert.IsTrue(AreEqualTrees(expected, result), "Generated tree does not match expected");
-    }
-
-    private bool AreEqualTrees(TreeNode a, TreeNode b)
-    {
-        if (a == null && b == null) return true;
-        if (a == null || b == null) return false;
-        if (a.val != b.val) return false;
-
-        return AreEqualTrees(a.left, b.left) && AreEqualTrees(a.right, b.right);
+        Assert.IsTrue(TreeHelpers.AreEqualTrees(expected, result), "Generated tree does not match expected");
     }
 
     #endregion
@@ -320,42 +312,42 @@ public sealed class TreesFixture
             {
                 // More complex tree
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { -2, null, -3 }),
+                    TreeHelpers.Tree(new int?[] { -2, null, -3 }),
                     -5,
                     true
                 );
 
                 // More complex tree
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, null, null, 5 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, 3, 4, null, null, 5 }),
                     8,
                     false     // path 1 → 2 → 4
                 );
 
                 // Example 1 from LeetCode
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1 }),
+                    TreeHelpers.Tree(new int?[] { 5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1 }),
                     22,
                     true
                 );
 
                 // No valid path
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, 3 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, 3 }),
                     5,
                     false
                 );
 
                 // Single node equal to target
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1 }),
+                    TreeHelpers.Tree(new int?[] { 1 }),
                     1,
                     true
                 );
 
                 // Single node not equal
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1 }),
+                    TreeHelpers.Tree(new int?[] { 1 }),
                     2,
                     false
                 );
@@ -368,7 +360,7 @@ public sealed class TreesFixture
                 );
 
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, null, null, 5 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, 3, 4, null, null, 5 }),
                     10,
                     false
                 );
@@ -396,13 +388,13 @@ public sealed class TreesFixture
             {
                 // LeetCode Example: [1,null,2,3] -> [1,2,3]
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, null, 2, 3 }),
+                    TreeHelpers.Tree(new int?[] { 1, null, 2, 3 }),
                     new List<int> { 1, 2, 3 }
                 );
 
                 // Single node
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1 }),
+                    TreeHelpers.Tree(new int?[] { 1 }),
                     new List<int> { 1 }
                 );
 
@@ -419,19 +411,19 @@ public sealed class TreesFixture
                 //   / \   \
                 //  4   5   6
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, null, 6 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, null, 6 }),
                     new List<int> { 1, 2, 4, 5, 3, 6 }
                 );
 
                 // Left-skewed tree: 1 -> 2 -> 3 -> 4
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, null, 3, null, 4 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, null, 3, null, 4 }),
                     new List<int> { 1, 2, 3, 4 }
                 );
 
                 // Right-skewed tree: 1 -> 2 -> 3 -> 4
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, null, 2, null, 3, null, 4 }),
+                    TreeHelpers.Tree(new int?[] { 1, null, 2, null, 3, null, 4 }),
                     new List<int> { 1, 2, 3, 4 }
                 );
 
@@ -442,7 +434,7 @@ public sealed class TreesFixture
                 //       /
                 //      6
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 5, 1, 7, null, null, 6 }),
+                    TreeHelpers.Tree(new int?[] { 5, 1, 7, null, null, 6 }),
                     new List<int> { 5, 1, 7, 6 }
                 );
             }
@@ -467,13 +459,13 @@ public sealed class TreesFixture
             {
                 // LeetCode Example: [1,null,2,3] -> [1,2,3]
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, null, 2, 3 }),
+                    TreeHelpers.Tree(new int?[] { 1, null, 2, 3 }),
                     new List<int> { 3, 2, 1 }
                 );
 
                 // Single node
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1 }),
+                    TreeHelpers.Tree(new int?[] { 1 }),
                     new List<int> { 1 }
                 );
 
@@ -490,19 +482,19 @@ public sealed class TreesFixture
                 //   / \   \
                 //  4   5   6
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, null, 6 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, null, 6 }),
                     new List<int> { 4, 5, 2, 6, 3, 1 }
                 );
 
                 // Left-skewed tree: 1 -> 2 -> 3 -> 4
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, null, 8, null, null, 6, 7, 9 }),
+                    TreeHelpers.Tree(new int?[] { 1, 2, 3, 4, 5, null, 8, null, null, 6, 7, 9 }),
                     new List<int> { 4, 6, 7, 5, 2, 9, 8, 3, 1 }
                 );
 
                 // Right-skewed tree: 1 -> 2 -> 3 -> 4
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 1, null, 2, null, 3, null, 4 }),
+                    TreeHelpers.Tree(new int?[] { 1, null, 2, null, 3, null, 4 }),
                     new List<int> { 4, 3, 2, 1 }
                 );
 
@@ -513,7 +505,7 @@ public sealed class TreesFixture
                 //       /
                 //      6
                 yield return new TestCaseData(
-                    TreesHelpers.Tree(new int?[] { 5, 1, 7, null, null, 6 }),
+                    TreeHelpers.Tree(new int?[] { 5, 1, 7, null, null, 6 }),
                     new List<int> { 1, 6, 7, 5 }
                 );
             }

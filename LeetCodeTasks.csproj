@@ -13,4 +13,8 @@
     <None Remove="LeetCodeTasks.Tests\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EdkoSDK\src\EdkoSKD\EdkoSKD.Common\EdkoSKD.Common.csproj" />
+  </ItemGroup>
+
 </Project>
