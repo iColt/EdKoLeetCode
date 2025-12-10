@@ -271,6 +271,15 @@ public static class Strings
 
     #endregion
 
+    #region 131 Palindrome Partioning - Not Solved
+
+    public static IList<IList<string>> Partition(string s)
+    {
+        return new List<IList<string>>();
+    }
+
+    #endregion
+
     #region 168 - Excel Sheet Column Title - 100/98
 
     public static string ConvertToTitle(int columnNumber)
