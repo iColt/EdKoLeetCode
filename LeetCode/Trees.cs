@@ -85,7 +85,7 @@ public static class Trees
 
     #endregion
 
-    #region 108 Convert sorted array to Binary Search tree - Check results
+    #region 108 Convert sorted array to Binary Search tree - 100/66
 
     public static TreeNode SortedArrayToBST(int[] nums)
     {
