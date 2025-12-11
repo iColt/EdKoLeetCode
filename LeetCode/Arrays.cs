@@ -583,7 +583,7 @@ public static class Arrays
 
     #endregion
 
-    #region 118 Pascal's triangle - Check results
+    #region 118 Pascal's triangle - 50/12 non optimal memory
 
     public static IList<IList<int>> Generate(int numRows)
     {
