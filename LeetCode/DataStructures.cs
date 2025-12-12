@@ -32,20 +32,31 @@ public static class DataStructures
 
     public class BSTIterator
     {
+        private TreeNode _root;
+        private TreeNode _previousValue;
+        private ListNode _rootNode;
+        private ListNode _currentIterator;
 
         public BSTIterator(TreeNode root)
         {
-
+            _root = root;
+            BuildListFromTreeNode(root);
         }
 
         public int Next()
         {
-            return 0;
+            _currentIterator = _currentIterator.next;
+            return _currentIterator.val;
         }
 
         public bool HasNext()
         {
-            return false;
+            return _currentIterator.next != null;
+        }
+
+        private ListNode BuildListFromTreeNode(TreeNode root)
+        {
+            return new ListNode();
         }
     }
 
