@@ -109,4 +109,29 @@ public sealed class StringsFixture
             list.Select(part => string.Join(",", part))
         );
     }
+
+    [TestCase("", true)]
+    [TestCase(" ", true)]
+    [TestCase("a", true)]
+    [TestCase("A", true)]
+    [TestCase("aa", true)]
+    [TestCase("ab", false)]
+
+    [TestCase("A man, a plan, a canal: Panama", true)]
+    [TestCase("race a car", false)]
+    [TestCase("No 'x' in Nixon", true)]
+
+    [TestCase(".,", true)]
+    [TestCase("0P", false)]
+    [TestCase("12321", true)]
+    [TestCase("1231", false)]
+
+    public void IsPalindrome_ReturnsExpectedResult(string input, bool expected)
+    {
+        // Act
+        bool result = Strings.IsPalindrome(input);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
 }

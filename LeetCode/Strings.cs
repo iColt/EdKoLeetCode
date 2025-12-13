@@ -271,6 +271,15 @@ public static class Strings
 
     #endregion
 
+    #region 125
+
+    public static bool IsPalindrome(string s)
+    {
+        return false;
+    }
+
+    #endregion
+
     #region 131 Palindrome Partioning - Not Solved
 
     public static IList<IList<string>> Partition(string s)
