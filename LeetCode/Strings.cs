@@ -275,6 +275,22 @@ public static class Strings
 
     public static bool IsPalindrome(string s)
     {
+        if(s.Length == 0)
+        {
+            return true;
+        }
+
+        var collection = s.ToCharArray();
+        int startPointer = 0, endPointer = s.Length - 1;
+        
+        string lower = s.ToLower();
+        string trimmed = lower.Trim(' ', ',', '.');
+        while (startPointer < endPointer)
+        {
+
+        }
+
+
         return false;
     }
 
