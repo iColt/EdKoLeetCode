@@ -413,4 +413,52 @@ public class ArrayFixture
             CollectionAssert.AreEqual(expected[i], result[i]);
         }
     }
+
+    [TestCaseSource(nameof(TestCases))]
+    public void SummaryRanges_ReturnsExpectedResult(int[] nums, IList<string> expected)
+    {
+        // Act
+        var result = Arrays.SummaryRanges(nums);
+
+        // Assert
+        CollectionAssert.AreEqual(expected, result);
+    }
+
+    public static IEnumerable<TestCaseData> TestCases()
+    {
+        yield return new TestCaseData(
+            new int[] { },
+            new List<string> { }
+        );
+
+        yield return new TestCaseData(
+            new int[] { 5 },
+            new List<string> { "5" }
+        );
+
+        yield return new TestCaseData(
+            new int[] { 0, 1, 2, 4, 5, 7 },
+            new List<string> { "0->2", "4->5", "7" }
+        );
+
+        yield return new TestCaseData(
+            new int[] { 0, 2, 3, 4, 6, 8, 9 },
+            new List<string> { "0", "2->4", "6", "8->9" }
+        );
+
+        yield return new TestCaseData(
+            new int[] { -3, -2, -1, 0, 1 },
+            new List<string> { "-3->1" }
+        );
+
+        yield return new TestCaseData(
+            new int[] { int.MinValue, int.MinValue + 1, 0, int.MaxValue },
+            new List<string>
+            {
+                $"{int.MinValue}->{int.MinValue + 1}",
+                "0",
+                $"{int.MaxValue}"
+            }
+        );
+    }
 } 

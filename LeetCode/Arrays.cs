@@ -763,6 +763,15 @@ public static class Arrays
 
     #endregion
 
+    #region 228 Summary Ranges
+
+    public static IList<string> SummaryRanges(int[] nums)
+    {
+        return new List<string>();
+    }
+
+    #endregion
+
     #region 260 Single Number III 19/40 Poor performance in all Single Number tasks
 
     public static int[] SingleNumberIII(int[] nums)
