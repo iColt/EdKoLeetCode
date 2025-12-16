@@ -763,11 +763,69 @@ public static class Arrays
 
     #endregion
 
-    #region 228 Summary Ranges
+    #region 228 Summary Ranges - 64/20 poor memory management
 
     public static IList<string> SummaryRanges(int[] nums)
     {
-        return new List<string>();
+        int counter = 0;
+        var result = new List<string>();
+        if (nums.Length == 0)
+        {
+            return result;
+        }
+        if(nums.Length == 1)
+        {
+            result.Add(nums[0].ToString());
+            return result;
+        }
+
+        while(counter < nums.Length)
+        {
+            int startIndex = counter;
+
+            int endIndex = counter + 1;
+            
+            if(endIndex >= nums.Length)
+            {
+                result.Add(nums[startIndex].ToString());
+                break;
+            }
+
+            while(true)
+            {
+                if (endIndex >= nums.Length)
+                {
+                    endIndex--;
+                    break;
+                }
+                if (nums[endIndex] == nums[endIndex - 1])
+                {
+                    break;
+                }
+
+                if (nums[endIndex - 1] + 1 == nums[endIndex])
+                {
+                    endIndex++;
+                    continue;
+                } else
+                {
+                    endIndex--;
+                    break;
+                }
+            }
+
+            if(startIndex == endIndex)
+            {
+                result.Add(nums[startIndex].ToString());
+            } else
+            {
+                result.Add($"{nums[startIndex]}->{nums[endIndex]}");
+            }
+
+            counter = endIndex + 1;
+        }
+
+        return result;
     }
 
     #endregion

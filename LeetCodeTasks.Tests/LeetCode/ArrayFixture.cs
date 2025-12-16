@@ -414,7 +414,7 @@ public class ArrayFixture
         }
     }
 
-    [TestCaseSource(nameof(TestCases))]
+    [TestCaseSource(nameof(SummaryRangeTestCases))]
     public void SummaryRanges_ReturnsExpectedResult(int[] nums, IList<string> expected)
     {
         // Act
@@ -424,7 +424,7 @@ public class ArrayFixture
         CollectionAssert.AreEqual(expected, result);
     }
 
-    public static IEnumerable<TestCaseData> TestCases()
+    public static IEnumerable<TestCaseData> SummaryRangeTestCases()
     {
         yield return new TestCaseData(
             new int[] { },
@@ -455,10 +455,35 @@ public class ArrayFixture
             new int[] { int.MinValue, int.MinValue + 1, 0, int.MaxValue },
             new List<string>
             {
-                $"{int.MinValue}->{int.MinValue + 1}",
-                "0",
-                $"{int.MaxValue}"
+                 $"{int.MinValue}->{int.MinValue + 1}",
+                 "0",
+                 $"{int.MaxValue}"
             }
         );
+        yield return new TestCaseData(
+           new int[] { int.MinValue + 1, 2, 3, 4 },
+           new List<string>
+           {
+                 $"{int.MinValue + 1}",
+                 "2->4"
+           }
+       );
+        yield return new TestCaseData(
+           new int[] { -100, -99, int.MaxValue },
+           new List<string>
+           {
+                "-100->-99",
+                $"{int.MaxValue}"
+           }
+       );
+        yield return new TestCaseData(
+           new int[] { int.MinValue, 0, 2, 3, 4 },
+           new List<string>
+           {
+                $"{int.MinValue}",
+                "0",
+                "2->4"
+           }
+       );
     }
 } 
