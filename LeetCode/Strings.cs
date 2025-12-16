@@ -271,27 +271,27 @@ public static class Strings
 
     #endregion
 
-    #region 125
+    #region 125 - 62/27.5 poor memory one more time
 
     public static bool IsPalindrome(string s)
     {
-        if(s.Length == 0)
+        if(s.Length < 2)
         {
             return true;
         }
 
-        var collection = s.ToCharArray();
-        int startPointer = 0, endPointer = s.Length - 1;
+        int startPointer = 0;
         
         string lower = s.ToLower();
-        string trimmed = lower.Trim(' ', ',', '.');
-        while (startPointer < endPointer)
+        var collection = lower.ToCharArray().Where(x => ((int)x > 96 && (int)x < 123) || ((int)x > 47 && (int)x < 58)).ToArray();
+        while (startPointer < collection.Length / 2)
         {
-
+            if (collection[startPointer] != collection[collection.Length - startPointer - 1]) { return false; }
+            startPointer++;
         }
 
 
-        return false;
+        return true;
     }
 
     #endregion
