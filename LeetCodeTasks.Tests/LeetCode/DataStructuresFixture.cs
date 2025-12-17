@@ -1,4 +1,5 @@
-﻿using static LeetCodeTasks.LeetCode.DataStructures;
+﻿using EdkoSKD.Common.Models;
+using static LeetCodeTasks.LeetCode.DataStructures;
 
 namespace LeetCodeTasks.Tests.LeetCode;
 
@@ -115,6 +116,98 @@ public sealed class DataStructuresFixture
                 );
             }
         }
+    }
+
+    #endregion
+
+    #region 173
+
+    [TestCaseSource(nameof(TestCases))]
+    public void BSTIterator_ShouldIterateInSortedOrder(TreeNode root, int[] expectedOrder)
+    {
+        // Arrange
+        var iterator = new BSTIterator(root);
+        var result = new List<int>();
+
+        // Act
+        while (iterator.HasNext())
+        {
+            result.Add(iterator.Next());
+        }
+
+        // Assert
+        CollectionAssert.AreEqual(expectedOrder, result);
+    }
+
+    public static IEnumerable<TestCaseData> TestCases()
+    {
+        // Empty tree
+        yield return new TestCaseData(
+            null,
+            new int[] { }
+        );
+
+        // Single node
+        yield return new TestCaseData(
+            new TreeNode(1),
+            new int[] { 1 }
+        );
+
+        // Simple BST
+        //    2
+        //   / \
+        //  1   3
+        yield return new TestCaseData(
+            new TreeNode(2,
+                new TreeNode(1),
+                new TreeNode(3)
+            ),
+            new int[] { 1, 2, 3 }
+        );
+
+        // LeetCode example
+        //      7
+        //     / \
+        //    3   15
+        //       /  \
+        //      9    20
+        yield return new TestCaseData(
+            new TreeNode(7,
+                new TreeNode(3),
+                new TreeNode(15,
+                    new TreeNode(9),
+                    new TreeNode(20)
+                )
+            ),
+            new int[] { 3, 7, 9, 15, 20 }
+        );
+
+        // Left-skewed tree
+        //  5
+        // /
+        //4
+        /// 
+        //3
+        yield return new TestCaseData(
+            new TreeNode(5,
+                new TreeNode(4,
+                    new TreeNode(3),
+                    null),
+                null
+            ),
+            new int[] { 3, 4, 5 }
+        );
+
+        // Right-skewed tree
+        yield return new TestCaseData(
+            new TreeNode(1,
+                null,
+                new TreeNode(2,
+                    null,
+                    new TreeNode(3))
+            ),
+            new int[] { 1, 2, 3 }
+        );
     }
 
     #endregion
