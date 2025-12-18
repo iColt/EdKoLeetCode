@@ -486,4 +486,108 @@ public class ArrayFixture
            }
        );
     }
-} 
+
+    #region 73
+
+    [TestCaseSource(nameof(TestCases))]
+    public void SetZeroes_ModifiesMatrixCorrectly(int[][] input, int[][] expected)
+    {
+        // Act
+        Arrays.SetZeroes(input);
+
+        // Assert
+        AssertMatricesAreEqual(expected, input);
+    }
+
+    public static IEnumerable<TestCaseData> TestCases()
+    {
+        // Single element non-zero
+        yield return new TestCaseData(
+            new int[][] { new[] { 1 } },
+            new int[][] { new[] { 1 } }
+        );
+
+        // Single element zero
+        yield return new TestCaseData(
+            new int[][] { new[] { 0 } },
+            new int[][] { new[] { 0 } }
+        );
+
+        // LeetCode example
+        yield return new TestCaseData(
+            new int[][]
+            {
+                new[] { 1, 1, 1 },
+                new[] { 1, 0, 1 },
+                new[] { 1, 1, 1 }
+            },
+            new int[][]
+            {
+                new[] { 1, 0, 1 },
+                new[] { 0, 0, 0 },
+                new[] { 1, 0, 1 }
+            }
+        );
+
+        // Multiple zeros
+        yield return new TestCaseData(
+            new int[][]
+            {
+                new[] { 0, 1, 2, 0 },
+                new[] { 3, 4, 5, 2 },
+                new[] { 1, 3, 1, 5 }
+            },
+            new int[][]
+            {
+                new[] { 0, 0, 0, 0 },
+                new[] { 0, 4, 5, 0 },
+                new[] { 0, 3, 1, 0 }
+            }
+        );
+
+        // Zero in first row
+        yield return new TestCaseData(
+            new int[][]
+            {
+                new[] { 1, 0, 3 },
+                new[] { 4, 5, 6 },
+                new[] { 7, 8, 9 }
+            },
+            new int[][]
+            {
+                new[] { 0, 0, 0 },
+                new[] { 4, 0, 6 },
+                new[] { 7, 0, 9 }
+            }
+        );
+
+        // Zero in first column
+        yield return new TestCaseData(
+            new int[][]
+            {
+                new[] { 1, 2, 3 },
+                new[] { 0, 5, 6 },
+                new[] { 7, 8, 9 }
+            },
+            new int[][]
+            {
+                new[] { 0, 2, 3 },
+                new[] { 0, 0, 0 },
+                new[] { 0, 8, 9 }
+            }
+        );
+    }
+
+    private void AssertMatricesAreEqual(int[][] expected, int[][] actual)
+    {
+        Assert.AreEqual(expected.Length, actual.Length);
+
+        for (int i = 0; i < expected.Length; i++)
+        {
+            CollectionAssert.AreEqual(expected[i], actual[i]);
+        }
+    }
+
+
+    #endregion
+}

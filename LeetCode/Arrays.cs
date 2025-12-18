@@ -519,6 +519,41 @@ public static class Arrays
 
     #endregion
 
+    #region 73 Set Matrix Zeroes
+
+    public static void SetZeroes(int[][] matrix)
+    {
+        HashSet<int> markedRows = new HashSet<int>();
+        HashSet<int> markedCols = new HashSet<int>();
+
+        for(int i = 0; i < matrix.Length; i++)
+        {
+            for(int j = 0; j < matrix[i].Length; j++)
+            {
+                if (matrix[i][j] == 0)
+                {
+                    markedRows.Add(i);
+                    markedCols.Add(j);
+                }
+            }
+        }
+
+        foreach(int i in markedRows)
+        {
+            for(int j = 0; j < matrix[i].Length; j++)
+            {
+                matrix[i][j] = 0;
+            }
+        }
+
+        //foreach (int i in markedCols)
+        //{
+        //    for(int j = 0; j < matrix)
+        //}
+    }
+
+    #endregion
+
     #region 88 Merge Sorted Array - 100/40.5 Non optimal memory
 
     public static void Merge(int[] nums1, int m, int[] nums2, int n)
