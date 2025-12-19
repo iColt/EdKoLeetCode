@@ -236,4 +236,13 @@ public static class Trees
     }
 
     #endregion
+
+    #region 226 Invert Binary Tree
+
+    public static TreeNode InvertTree(TreeNode root)
+    {
+        return new TreeNode(0);
+    }
+
+    #endregion
 }

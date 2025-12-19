@@ -512,4 +512,126 @@ public sealed class TreesFixture
         }
     }
     #endregion
+
+
+    #region 226
+
+    [TestCaseSource(nameof(TestCases))]
+    public void InvertTree_ShouldInvertCorrectly(TreeNode input, TreeNode expected)
+    {
+        // Act
+        var result = Trees.InvertTree(input);
+
+        // Assert
+        Assert.IsTrue(AreEqualTrees(expected, result));
+    }
+
+    public static object[] TestCases =
+    {
+        // Empty tree
+        new object[]
+        {
+            null,
+            null
+        },
+
+        // Single node
+        new object[]
+        {
+            new TreeNode(1),
+            new TreeNode(1)
+        },
+
+        // Simple tree
+        //   2          2
+        //  / \   ->   / \
+        // 1   3      3   1
+        new object[]
+        {
+            new TreeNode(2,
+                new TreeNode(1),
+                new TreeNode(3)
+            ),
+            new TreeNode(2,
+                new TreeNode(3),
+                new TreeNode(1)
+            )
+        },
+
+        // LeetCode example
+        //       4                 4
+        //     /   \     ->      /   \
+        //    2     7           7     2
+        //   / \   / \         / \   / \
+        //  1   3 6   9       9   6 3   1
+        new object[]
+        {
+            new TreeNode(4,
+                new TreeNode(2,
+                    new TreeNode(1),
+                    new TreeNode(3)
+                ),
+                new TreeNode(7,
+                    new TreeNode(6),
+                    new TreeNode(9)
+                )
+            ),
+            new TreeNode(4,
+                new TreeNode(7,
+                    new TreeNode(9),
+                    new TreeNode(6)
+                ),
+                new TreeNode(2,
+                    new TreeNode(3),
+                    new TreeNode(1)
+                )
+            )
+        },
+
+        // Left-skewed tree
+        new object[]
+        {
+            new TreeNode(3,
+                new TreeNode(2,
+                    new TreeNode(1),
+                    null),
+                null
+            ),
+            new TreeNode(3,
+                null,
+                new TreeNode(2,
+                    null,
+                    new TreeNode(1))
+            )
+        },
+
+        // Right-skewed tree
+        new object[]
+        {
+            new TreeNode(1,
+                null,
+                new TreeNode(2,
+                    null,
+                    new TreeNode(3))
+            ),
+            new TreeNode(1,
+                new TreeNode(2,
+                    new TreeNode(3),
+                    null),
+                null
+            )
+        }
+    };
+
+    private bool AreEqualTrees(TreeNode a, TreeNode b)
+    {
+        if (a == null && b == null) return true;
+        if (a == null || b == null) return false;
+        if (a.val != b.val) return false;
+
+        return AreEqualTrees(a.left, b.left)
+            && AreEqualTrees(a.right, b.right);
+    }
+
+    #endregion
 }
