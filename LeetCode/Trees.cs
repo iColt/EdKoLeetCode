@@ -237,10 +237,15 @@ public static class Trees
 
     #endregion
 
-    #region 226 Invert Binary Tree
+    #region 226 Invert Binary Tree - Not Solved
 
     public static TreeNode InvertTree(TreeNode root)
     {
+        if(root == null)
+        {
+            return null;
+        }
+
         return new TreeNode(0);
     }
 
