@@ -516,17 +516,17 @@ public sealed class TreesFixture
 
     #region 226
 
-    [TestCaseSource(nameof(TestCases))]
+    [TestCaseSource(nameof(InvertTreeTestCases))]
     public void InvertTree_ShouldInvertCorrectly(TreeNode input, TreeNode expected)
     {
         // Act
         var result = Trees.InvertTree(input);
 
         // Assert
-        Assert.IsTrue(AreEqualTrees(expected, result));
+        Assert.IsTrue(TreeHelpers.AreEqualTrees(expected, result));
     }
 
-    public static object[] TestCases =
+    public static object[] InvertTreeTestCases =
     {
         // Empty tree
         new object[]
@@ -622,16 +622,6 @@ public sealed class TreesFixture
             )
         }
     };
-
-    private bool AreEqualTrees(TreeNode a, TreeNode b)
-    {
-        if (a == null && b == null) return true;
-        if (a == null || b == null) return false;
-        if (a.val != b.val) return false;
-
-        return AreEqualTrees(a.left, b.left)
-            && AreEqualTrees(a.right, b.right);
-    }
 
     #endregion
 }
