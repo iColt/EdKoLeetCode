@@ -1,5 +1,6 @@
 ﻿using LeetCodeTasks.Helpers;
 using System.Text;
+using System.Text.Json.Serialization.Metadata;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -523,8 +524,7 @@ public static class Arrays
 
     public static void SetZeroes(int[][] matrix)
     {
-        HashSet<int> markedRows = new HashSet<int>();
-        HashSet<int> markedCols = new HashSet<int>();
+        int subArraySize = matrix[0].Length;
 
         for(int i = 0; i < matrix.Length; i++)
         {
@@ -532,24 +532,33 @@ public static class Arrays
             {
                 if (matrix[i][j] == 0)
                 {
-                    markedRows.Add(i);
-                    markedCols.Add(j);
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
                 }
             }
         }
 
-        foreach(int i in markedRows)
+        for(int i = 0; i < subArraySize; i++)
         {
-            for(int j = 0; j < matrix[i].Length; j++)
+            if (matrix[0][i] == 0)
             {
-                matrix[i][j] = 0;
+                for(int j = 0; j < matrix.Length; j++)
+                {
+                    matrix[j][i] = 0;
+                }
             }
         }
 
-        //foreach (int i in markedCols)
-        //{
-        //    for(int j = 0; j < matrix)
-        //}
+        for(int i = 0; i < matrix.Length; i++)
+        {
+            if (matrix[i][0] == 0)
+            {
+                for(int j = 0; j < matrix[i].Length; j++)
+                {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
     }
 
     #endregion

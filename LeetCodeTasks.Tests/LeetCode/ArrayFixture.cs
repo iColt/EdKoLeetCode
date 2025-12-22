@@ -489,7 +489,7 @@ public class ArrayFixture
 
     #region 73
 
-    [TestCaseSource(nameof(TestCases))]
+    [TestCaseSource(nameof(SetZeroesTestCases))]
     public void SetZeroes_ModifiesMatrixCorrectly(int[][] input, int[][] expected)
     {
         // Act
@@ -499,7 +499,7 @@ public class ArrayFixture
         AssertMatricesAreEqual(expected, input);
     }
 
-    public static IEnumerable<TestCaseData> TestCases()
+    public static IEnumerable<TestCaseData> SetZeroesTestCases()
     {
         // Single element non-zero
         yield return new TestCaseData(
