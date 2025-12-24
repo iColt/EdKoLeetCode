@@ -520,15 +520,37 @@ public static class Arrays
 
     #endregion
 
-    #region 73 Set Matrix Zeroes
+    #region 73 Set Matrix Zeroes - 100/21.9
 
     public static void SetZeroes(int[][] matrix)
     {
-        int subArraySize = matrix[0].Length;
+        int rows = matrix.Length;
+        int cols = matrix[0].Length;
 
-        for(int i = 0; i < matrix.Length; i++)
+        bool firstRowZero = false;
+        bool firstColZero = false;
+
+        for (int j = 0; j < cols; j++)
         {
-            for(int j = 0; j < matrix[i].Length; j++)
+            if (matrix[0][j] == 0)
+            {
+                firstRowZero = true;
+                break;
+            }
+        }
+
+        for (int i = 0; i < rows; i++)
+        {
+            if (matrix[i][0] == 0)
+            {
+                firstColZero = true;
+                break;
+            }
+        }
+
+        for (int i = 1; i < rows; i++)
+        {
+            for (int j = 1; j < cols; j++)
             {
                 if (matrix[i][j] == 0)
                 {
@@ -538,26 +560,38 @@ public static class Arrays
             }
         }
 
-        for(int i = 0; i < subArraySize; i++)
+        for (int j = 1; j < cols; j++)
         {
-            if (matrix[0][i] == 0)
+            if (matrix[0][j] == 0)
             {
-                for(int j = 0; j < matrix.Length; j++)
-                {
-                    matrix[j][i] = 0;
-                }
-            }
-        }
-
-        for(int i = 0; i < matrix.Length; i++)
-        {
-            if (matrix[i][0] == 0)
-            {
-                for(int j = 0; j < matrix[i].Length; j++)
+                for (int i = 1; i < rows; i++)
                 {
                     matrix[i][j] = 0;
                 }
             }
+        }
+
+        for (int i = 1; i < rows; i++)
+        {
+            if (matrix[i][0] == 0)
+            {
+                for (int j = 1; j < cols; j++)
+                {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+
+        if (firstRowZero)
+        {
+            for (int j = 0; j < cols; j++)
+                matrix[0][j] = 0;
+        }
+
+        if (firstColZero)
+        {
+            for (int i = 0; i < rows; i++)
+                matrix[i][0] = 0;
         }
     }
 
