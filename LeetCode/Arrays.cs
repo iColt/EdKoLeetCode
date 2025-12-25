@@ -1,6 +1,5 @@
 ﻿using LeetCodeTasks.Helpers;
 using System.Text;
-using System.Text.Json.Serialization.Metadata;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -777,9 +776,9 @@ public static class Arrays
 
     #endregion
 
-    #region 179 Largest Number
+    #region 179 Largest Number - 27/65 poor performance
 
-    public static string LargestNumber(int[] nums)
+    public static string LargestNumberOld(int[] nums)
     {
         Array.Sort(nums);
         StringBuilder sb = new();
@@ -837,6 +836,18 @@ public static class Arrays
         sb.Append(zeroEndingSb.ToString());
         sb.Append(zeroSB.ToString());
         return sb.ToString();
+    }
+
+    public static string LargestNumber(int[] nums)
+    {
+        var strings = nums.Select(n => n.ToString()).ToArray();
+
+        Array.Sort(strings, (a, b) => (b + a).CompareTo(a + b));
+
+        if (strings[0] == "0")
+            return "0";
+
+        return string.Concat(strings);
     }
 
     #endregion
