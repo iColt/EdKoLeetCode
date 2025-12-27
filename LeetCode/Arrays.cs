@@ -485,6 +485,15 @@ public static class Arrays
 
     #endregion
 
+    #region 56 Merge Intervals
+
+    public static int[][] Merge(int[][] intervals)
+    {
+        return intervals;
+    }
+
+    #endregion
+
     #region 66 - Plus one - 100/51
 
     public static int[] PlusOne(int[] digits)

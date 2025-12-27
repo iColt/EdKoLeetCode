@@ -487,6 +487,144 @@ public class ArrayFixture
        );
     }
 
+    #region 56
+
+    [TestCaseSource(nameof(TestCases))]
+    public void Merge_ShouldReturnExpectedIntervals(int[][] input, int[][] expected)
+    {
+        // Act
+        var result = Arrays.Merge(input);
+
+        // Assert
+        AssertIntervalsEqual(expected, result);
+    }
+
+    public static object[] TestCases =
+    {
+        // Example 1
+        new object[]
+        {
+            new[]
+            {
+                new[] {1, 3},
+                new[] {2, 6},
+                new[] {8, 10},
+                new[] {15, 18}
+            },
+            new[]
+            {
+                new[] {1, 6},
+                new[] {8, 10},
+                new[] {15, 18}
+            }
+        },
+
+        // Example 2
+        new object[]
+        {
+            new[]
+            {
+                new[] {1, 4},
+                new[] {4, 5}
+            },
+            new[]
+            {
+                new[] {1, 5}
+            }
+        },
+
+        // Single interval
+        new object[]
+        {
+            new[]
+            {
+                new[] {5, 7}
+            },
+            new[]
+            {
+                new[] {5, 7}
+            }
+        },
+
+        // Already merged
+        new object[]
+        {
+            new[]
+            {
+                new[] {1, 10},
+                new[] {2, 3},
+                new[] {4, 8}
+            },
+            new[]
+            {
+                new[] {1, 10}
+            }
+        },
+
+        // No overlaps
+        new object[]
+        {
+            new[]
+            {
+                new[] {1, 2},
+                new[] {3, 4},
+                new[] {5, 6}
+            },
+            new[]
+            {
+                new[] {1, 2},
+                new[] {3, 4},
+                new[] {5, 6}
+            }
+        },
+
+        // Unsorted input
+        new object[]
+        {
+            new[]
+            {
+                new[] {8, 10},
+                new[] {1, 3},
+                new[] {2, 6}
+            },
+            new[]
+            {
+                new[] {1, 6},
+                new[] {8, 10}
+            }
+        },
+
+        // Nested intervals
+        new object[]
+        {
+            new[]
+            {
+                new[] {1, 10},
+                new[] {2, 3},
+                new[] {4, 5},
+                new[] {6, 7}
+            },
+            new[]
+            {
+                new[] {1, 10}
+            }
+        }
+    };
+
+    private static void AssertIntervalsEqual(int[][] expected, int[][] actual)
+    {
+        Assert.AreEqual(expected.Length, actual.Length, "Interval count mismatch");
+
+        for (int i = 0; i < expected.Length; i++)
+        {
+            Assert.AreEqual(expected[i][0], actual[i][0], $"Start mismatch at index {i}");
+            Assert.AreEqual(expected[i][1], actual[i][1], $"End mismatch at index {i}");
+        }
+    }
+
+
+    #endregion
+
     #region 73
 
     [TestCaseSource(nameof(SetZeroesTestCases))]
