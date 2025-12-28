@@ -149,9 +149,9 @@ public class Subsequencies
     }
     #endregion
 
-    #region 128 Longest Consecutive Sequence - Not Solved
+    #region 128 Longest Consecutive Sequence - 60/58 performance/memory
 
-    public static int LongestConsecutive(int[] nums)
+    public static int LongestConsecutiveOld(int[] nums)
     {
         if(nums.Length < 2)
         {
@@ -197,6 +197,36 @@ public class Subsequencies
         }
 
         return longestLength > tempLength ? longestLength : tempLength;
+    }
+
+    public static int LongestConsecutive(int[] nums)
+    {
+        if (nums.Length == 0)
+            return 0;
+
+        var set = new HashSet<int>(nums);
+        int longest = 0;
+
+        foreach (int num in set)
+        {
+            // Only start counting if num is the beginning of a sequence
+            // the idea is that the current element - start of the sequence
+            if (!set.Contains(num - 1))
+            {
+                int current = num;
+                int length = 1;
+
+                while (set.Contains(current + 1))
+                {
+                    current++;
+                    length++;
+                }
+
+                longest = Math.Max(longest, length);
+            }
+        }
+
+        return longest;
     }
 
     #endregion
