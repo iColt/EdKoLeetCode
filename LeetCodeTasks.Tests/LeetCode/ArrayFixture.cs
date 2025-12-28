@@ -489,7 +489,7 @@ public class ArrayFixture
 
     #region 56
 
-    [TestCaseSource(nameof(TestCases))]
+    [TestCaseSource(nameof(MergeIntervalsTestCases))]
     public void Merge_ShouldReturnExpectedIntervals(int[][] input, int[][] expected)
     {
         // Act
@@ -499,22 +499,22 @@ public class ArrayFixture
         AssertIntervalsEqual(expected, result);
     }
 
-    public static object[] TestCases =
+    public static object[] MergeIntervalsTestCases =
     {
         // Example 1
         new object[]
         {
             new[]
             {
-                new[] {1, 3},
-                new[] {2, 6},
-                new[] {8, 10},
+                [1, 3],
+                [2, 6],
+                [8, 10],
                 new[] {15, 18}
             },
             new[]
             {
-                new[] {1, 6},
-                new[] {8, 10},
+                [1, 6],
+                [8, 10],
                 new[] {15, 18}
             }
         },
@@ -524,7 +524,7 @@ public class ArrayFixture
         {
             new[]
             {
-                new[] {1, 4},
+                [1, 4],
                 new[] {4, 5}
             },
             new[]
@@ -551,8 +551,8 @@ public class ArrayFixture
         {
             new[]
             {
-                new[] {1, 10},
-                new[] {2, 3},
+                [1, 10],
+                [2, 3],
                 new[] {4, 8}
             },
             new[]
@@ -566,14 +566,14 @@ public class ArrayFixture
         {
             new[]
             {
-                new[] {1, 2},
-                new[] {3, 4},
+                [1, 2],
+                [3, 4],
                 new[] {5, 6}
             },
             new[]
             {
-                new[] {1, 2},
-                new[] {3, 4},
+                [1, 2],
+                [3, 4],
                 new[] {5, 6}
             }
         },
@@ -583,13 +583,13 @@ public class ArrayFixture
         {
             new[]
             {
-                new[] {8, 10},
-                new[] {1, 3},
+                [8, 10],
+                [1, 3],
                 new[] {2, 6}
             },
             new[]
             {
-                new[] {1, 6},
+                [1, 6],
                 new[] {8, 10}
             }
         },
@@ -599,9 +599,9 @@ public class ArrayFixture
         {
             new[]
             {
-                new[] {1, 10},
-                new[] {2, 3},
-                new[] {4, 5},
+                [1, 10],
+                [2, 3],
+                [4, 5],
                 new[] {6, 7}
             },
             new[]
@@ -613,12 +613,12 @@ public class ArrayFixture
 
     private static void AssertIntervalsEqual(int[][] expected, int[][] actual)
     {
-        Assert.AreEqual(expected.Length, actual.Length, "Interval count mismatch");
+        Assert.That(actual.Length, Is.EqualTo(expected.Length), "Interval count mismatch");
 
         for (int i = 0; i < expected.Length; i++)
         {
-            Assert.AreEqual(expected[i][0], actual[i][0], $"Start mismatch at index {i}");
-            Assert.AreEqual(expected[i][1], actual[i][1], $"End mismatch at index {i}");
+            Assert.That(actual[i][0], Is.EqualTo(expected[i][0]), $"Start mismatch at index {i}");
+            Assert.That(actual[i][1], Is.EqualTo(expected[i][1]), $"End mismatch at index {i}");
         }
     }
 

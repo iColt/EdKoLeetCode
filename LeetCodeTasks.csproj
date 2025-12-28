@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EdkoSDK\src\EdkoSKD\EdkoSDK.Algorithms\EdkoSDK.Algorithms.csproj" />
     <ProjectReference Include="..\EdkoSDK\src\EdkoSKD\EdkoSKD.Common\EdkoSKD.Common.csproj" />
   </ItemGroup>
 

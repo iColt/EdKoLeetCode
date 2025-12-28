@@ -1,5 +1,6 @@
 ﻿using LeetCodeTasks.Helpers;
 using System.Text;
+using EdkoSDK.Algorithms.Arrays;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -485,11 +486,54 @@ public static class Arrays
 
     #endregion
 
-    #region 56 Merge Intervals
+    #region 56 Merge Intervals - 26/5 Poor solution
 
     public static int[][] Merge(int[][] intervals)
     {
-        return intervals;
+        if(intervals.Length < 2)
+        {
+            return intervals;
+        }
+
+        // sort array of array by first element
+        intervals.MergeSort2Dim();
+
+        // run iteration and merge intervals into new array
+        var result = new int[intervals.Length][];
+        int resultIterator = 0;
+        int iterator = 1;
+        int currentIntervalStart = intervals[0][0];
+        int currentIntervalEnd = intervals[0][1];
+
+        while(iterator < intervals.Length)
+        {
+            // case when [1,4] [2,3]
+            // or when [1,4] [2,5]
+            if (intervals[iterator][0] <= currentIntervalEnd)
+            {
+                if (intervals[iterator][1] > currentIntervalEnd)
+                {
+                    currentIntervalEnd = intervals[iterator][1];
+                }
+            } 
+            // case when [1, 4] [5, 7]
+            else
+            {
+                result[resultIterator] = [currentIntervalStart, currentIntervalEnd];
+                currentIntervalStart = intervals[iterator][0];
+                currentIntervalEnd = intervals[iterator][1];
+
+                resultIterator++;
+            }
+
+            iterator++;
+        }
+
+        // final fill
+        result[resultIterator++] = [currentIntervalStart, currentIntervalEnd];
+
+        Array.Resize(ref result, resultIterator);
+        return result;
     }
 
     #endregion
