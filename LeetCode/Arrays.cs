@@ -1147,6 +1147,31 @@ public static class Arrays
 
     #endregion
 
+    #region 448 Find All Numbers Disappeared in an Array - 20/59 poor performance
+
+    public static IList<int> FindDisappearedNumbers(int[] nums)
+    {
+        HashSet<int> hash = new HashSet<int>();
+        for(int i = 0; i < nums.Length; i++)
+        {
+            hash.Add(nums[i]);
+        }
+
+        IList<int> res = new List<int>();
+
+        for(int i = 1; i <= nums.Length; i++)
+        {
+            if (!hash.Contains(i))
+            {
+                res.Add(i);
+            }
+        }
+
+        return res;
+    }
+
+    #endregion
+
     #region #485 - Find Max Consecutive Ones - 100/81
 
     public static int FindMaxConsecutiveOnes(int[] nums)

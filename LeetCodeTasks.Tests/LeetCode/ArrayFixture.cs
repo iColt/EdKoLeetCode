@@ -846,6 +846,89 @@ public class ArrayFixture
 
     #endregion
 
+    #region 448
+
+    [TestCaseSource(nameof(FindDisappearedNumbersTestCases))]
+    public void FindDisappearedNumbers_ShouldReturnCorrectResult(
+      int[] input,
+      IList<int> expected)
+    {
+        // Act
+        var result = Arrays.FindDisappearedNumbers(input);
+
+        // Assert
+        AssertListsEqual(expected, result);
+    }
+
+    public static object[] FindDisappearedNumbersTestCases =
+    {
+        // LeetCode example
+        new object[]
+        {
+            new[] { 4, 3, 2, 7, 8, 2, 3, 1 },
+            new List<int> { 5, 6 }
+        },
+
+        // No missing numbers
+        new object[]
+        {
+            new[] { 1, 2, 3, 4, 5 },
+            new List<int>()
+        },
+
+        // All numbers missing except one
+        new object[]
+        {
+            new[] { 1, 1, 1, 1 },
+            new List<int> { 2, 3, 4 }
+        },
+
+        // Single element - no missing
+        new object[]
+        {
+            new[] { 1 },
+            new List<int>()
+        },
+
+        // Single element - missing one (not possible per constraints, but defensive)
+        new object[]
+        {
+            new[] { 1, 1 },
+            new List<int> { 2 }
+        },
+
+        // Reverse order with duplicates
+        new object[]
+        {
+            new[] { 5, 4, 3, 2, 1, 1 },
+            new List<int> { 6 }
+        },
+
+        // All elements the same
+        new object[]
+        {
+            new[] { 2, 2, 2, 2 },
+            new List<int> { 1, 3, 4 }
+        }
+    };
+
+    private static void AssertListsEqual(IList<int> expected, IList<int> actual)
+    {
+        Assert.AreEqual(expected.Count, actual.Count, "List count mismatch");
+
+        var sortedExpected = expected.OrderBy(x => x).ToList();
+        var sortedActual = actual.OrderBy(x => x).ToList();
+
+        for (int i = 0; i < sortedExpected.Count; i++)
+        {
+            Assert.AreEqual(sortedExpected[i], sortedActual[i],
+                $"Mismatch at index {i}");
+        }
+    }
+
+
+    #endregion
+
     #region 485
 
     [TestCase(new int[] { 1, 1, 1, 0, 1, 1, 1, 1 }, 4)]
