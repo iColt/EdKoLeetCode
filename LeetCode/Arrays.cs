@@ -997,6 +997,40 @@ public static class Arrays
 
     #endregion
 
+    #region 283 Move Zeroes - 96/47
+
+    public static void MoveZeroes(int[] nums)
+    {
+        if(nums.Length < 2)
+        {
+            return;
+        }
+
+        int currentFillingNumber = 0;
+        int currentIterator = 0;
+
+        while(currentIterator < nums.Length)
+        {
+            if(nums[currentIterator] != 0)
+            {
+                if (currentFillingNumber != currentIterator)
+                {
+                    nums[currentFillingNumber++] = nums[currentIterator];
+                }
+                else { currentFillingNumber++; }
+            }
+
+            currentIterator++;
+        }
+
+        for(int i = currentFillingNumber; i < nums.Length; i++)
+        {
+            nums[i] = 0;
+        }
+    }
+
+    #endregion
+
     #region 383 Ramsone note - Solved
 
     #region # 383 Ramsone note 61/19 - non optimal
