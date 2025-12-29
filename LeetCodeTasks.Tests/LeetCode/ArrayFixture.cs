@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace LeetCodeTasks.Tests.LeetCode;
 [TestFixture]
 public class ArrayFixture
@@ -9,22 +7,7 @@ public class ArrayFixture
     {
     }
 
-    [TestCase("aab", "baa", true)]
-    [TestCase("bg", "efjbdfbdgfjhhaiigfhbaejahgfbbgbjagbddfgdiaigdadhcfcj", true)]
-    [TestCase("aa", "ab", false)]
-    [TestCase("a", "b", false)]
-    public void Test_CanConstruct2(string ransom, string magaz, bool result)
-    {
-        Assert.That(Arrays.CanConstruct2(ransom, magaz), Is.EqualTo(result));
-    }
-
-    [TestCase(new int[] { 1, 1, 1, 0, 1, 1, 1, 1 }, 4)]
-    [TestCase(new int[] { 1, 1, 1, 0, 1, 1, 1, 1, 0 }, 4)]
-    [TestCase(new int[] { 1, 1, 1, 1, 0, 1, 1, 1, 0 }, 4)]
-    public void Test_MaxCons(int[] ints, int res)
-    {
-        Assert.That(Arrays.FindMaxConsecutiveOnes(ints), Is.EqualTo(res));
-    }
+    #region 1
 
     [TestCase(new int[] { 0, 3, 3, 0 }, 0, new int[] { 0, 3 })]
     [TestCase(new int[] { -3, 4, 3, 90 }, 0, new int[] { 0, 2 })]
@@ -38,12 +21,103 @@ public class ArrayFixture
         CollectionAssert.AreEquivalent(Arrays.TwoSum3(ints, res), output);
     }
 
-    [TestCase(new int[] { 3, 2, 2, 3 }, 3, 2)]
-    [TestCase(new int[] { 0, 1, 2, 2, 3, 0, 4, 2 }, 2, 5)]
-    public void Test_RemoveElements(int[] ints, int value, int length)
+    #endregion
+
+    #region 15
+
+    [TestCaseSource(typeof(ThreeSumTestData), nameof(ThreeSumTestData.TestCases))]
+    public void Test_ThreeSum(int[] nums, IList<IList<int>> expected)
     {
-        Assert.That(Arrays.RemoveElement(ints, value), Is.EqualTo(length));
+        var result = Arrays.ThreeSum(nums);
+
+        var normExpected = NormalizeResult(expected);
+        var normResult = NormalizeResult(result);
+
+        Assert.That(normResult, Is.EqualTo(normExpected));
     }
+
+    public static class ThreeSumTestData
+    {
+        public static IEnumerable<TestCaseData> TestCases
+        {
+            get
+            {
+                yield return new TestCaseData(
+                    new int[] { -1, 0, 1, 2, -1, -4 },
+                    new List<IList<int>>
+                    {
+                    new List<int> { -1, -1, 2 },
+                    new List<int> { -1, 0, 1 }
+                    }
+                );
+                yield return new TestCaseData(
+                   new int[] { -1, 0, 1, 2, -1, -1, -1, -1, -4 },
+                   new List<IList<int>>
+                   {
+                    new List<int> { -1, -1, 2 },
+                    new List<int> { -1, 0, 1 }
+                   }
+               );
+                yield return new TestCaseData(
+                  new int[] { -1, 0, 1, 0 },
+                  new List<IList<int>>
+                  {
+                    new List<int> { -1,0,1 },
+                  }
+              );
+                yield return new TestCaseData(
+                  new int[] { 1, 1, -2 },
+                  new List<IList<int>>
+                  {
+                    new List<int> { -2,1,1 },
+                  }
+              );
+                yield return new TestCaseData(
+                   new int[] { 0, 0, 0 },
+                   new List<IList<int>>
+                   {
+                    new List<int> { 0, 0, 0 }
+                   }
+               );
+                yield return new TestCaseData(
+                    new int[] { 0, 1, 1 },
+                    new List<IList<int>>() // no triplets
+                );
+                yield return new TestCaseData(
+                    new int[] { -2, 0, 1, 1, 2 },
+                    new List<IList<int>>
+                    {
+                    new List<int> { -2, 0, 2 },
+                    new List<int> { -2, 1, 1 }
+                    }
+                );
+
+            }
+        }
+    }
+
+    // ---------------- Helper Methods ----------------
+
+    private static List<IList<int>> NormalizeResult(IList<IList<int>> list)
+    {
+        if (list == null)
+            return new List<IList<int>>();
+
+        var sortedTriplets = list
+            .Select(t => t.OrderBy(x => x).ToList())
+            .ToList();
+
+        return sortedTriplets
+            .OrderBy(t => t[0])
+            .ThenBy(t => t[1])
+            .ThenBy(t => t[2])
+            .Select(t => (IList<int>)t)
+            .ToList();
+    }
+
+    #endregion
+
+    #region 26
 
     [TestCase(new int[] { 1, 1, 2 }, 2)]
     [TestCase(new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 }, 5)]
@@ -53,43 +127,27 @@ public class ArrayFixture
         Assert.That(Arrays.RemoveDuplicates(ints), Is.EqualTo(length));
     }
 
+    #endregion
+
+    #region 27
+
+    [TestCase(new int[] { 3, 2, 2, 3 }, 3, 2)]
+    [TestCase(new int[] { 0, 1, 2, 2, 3, 0, 4, 2 }, 2, 5)]
+    public void Test_RemoveElements(int[] ints, int value, int length)
+    {
+        Assert.That(Arrays.RemoveElement(ints, value), Is.EqualTo(length));
+    }
+
+    #endregion
+
+    #region 35
+
     [TestCase(new int[] { 1, 3, 5, 6 }, 5, 2)]
     [TestCase(new int[] { 1, 3, 5, 6 }, 2, 1)]
     [TestCase(new int[] { 1, 3, 5, 6 }, 7, 4)]
     public void Test_SearchInsert(int[] nums, int target, int pos)
     {
         Assert.That(Arrays.SearchInsert(nums, target), Is.EqualTo(pos));
-    }
-
-    #region 66 - Plus One
-
-    [TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2, 4 })]
-    [TestCase(new int[] { 1, 2, 9 }, new int[] { 1, 3, 0 })]
-    [TestCase(new int[] { 9, 9, 9 }, new int[] { 1, 0, 0, 0 })]
-    [TestCase(new int[] { 1, 0, 0 }, new int[] { 1, 0, 1 })]
-    [TestCase(new int[] { 9 }, new int[] { 1, 0 })]
-    [TestCase(new int[] { 7 }, new int[] { 8 })]
-    [TestCase(new int[] { 2, 3, 4 }, new int[] { 2, 3, 5 })]
-    [TestCase(new int[] { 4, 3, 9, 9 }, new int[] { 4, 4, 0, 0 })]
-    [TestCase(new int[] { 2, 3, 4 }, new int[] { 2, 3, 5 })]
-    public void Tets_PlusOne(int[] nums, int[] expected)
-    {
-        int[] result = Arrays.PlusOne(nums);
-        Assert.That(result, Is.EqualTo(expected));
-    }
-
-    [Test]
-    public void Tets_PlusOne_ShouldHandleLargeNumber()
-    {
-        int[] input = new int[100];
-        for (int i = 0; i < input.Length; i++)
-            input[i] = 9;
-
-        int[] result = Arrays.PlusOne(input);
-
-        Assert.That(result.Length, Is.EqualTo(101));
-        Assert.That(result[0], Is.EqualTo(1));
-        Assert.That(result[1], Is.EqualTo(0));
     }
 
     #endregion
@@ -199,293 +257,6 @@ public class ArrayFixture
         }
     }
     #endregion
-
-    // Format:
-    // nums1, m, nums2, n, expected
-    [TestCase(new int[] { 1, 2, 3, 0, 0, 0 }, 3, new int[] { 2, 5, 6 }, 3, new int[] { 1, 2, 2, 3, 5, 6 })]
-    [TestCase(new int[] { 1 }, 1, new int[] { }, 0, new int[] { 1 })]
-    [TestCase(new int[] { 0 }, 0, new int[] { 1 }, 1, new int[] { 1 })]
-    [TestCase(new int[] { 2, 0 }, 1, new int[] { 1 }, 1, new int[] { 1, 2 })]
-    [TestCase(new int[] { 4, 5, 6, 0, 0, 0 }, 3, new int[] { 1, 2, 3 }, 3, new int[] { 1, 2, 3, 4, 5, 6 })]
-    [TestCase(new int[] { 1, 2, 4, 5, 6, 0 }, 5, new int[] { 3 }, 1, new int[] { 1, 2, 3, 4, 5, 6 })]
-    [TestCase(new int[] { 0, 0, 0 }, 0, new int[] { 2, 4, 6 }, 3, new int[] { 2, 4, 6 })]
-    [TestCase(new int[] { 1, 3, 5, 0, 0, 0 }, 3, new int[] { 2, 4, 6 }, 3, new int[] { 1, 2, 3, 4, 5, 6 })]
-    [TestCase(new int[] { 1, 2, 3, 0, 0, 0 }, 3, new int[] { 4, 5, 6 }, 3, new int[] { 1, 2, 3, 4, 5, 6 })]
-    [TestCase(new int[] { 4, 0, 0, 0, 0 }, 1, new int[] { 1, 2, 3, 5 }, 4, new int[] { 1, 2, 3, 4, 5 })]
-    public void Test_Merge(int[] nums1, int m, int[] nums2, int n, int[] expected)
-    {
-        Arrays.Merge(nums1, m, nums2, n);
-        Assert.That(nums1, Is.EqualTo(expected));
-    }
-
-    #region 15
-
-    [TestCaseSource(typeof(ThreeSumTestData), nameof(ThreeSumTestData.TestCases))]
-    public void Test_ThreeSum(int[] nums, IList<IList<int>> expected)
-    {
-        var result = Arrays.ThreeSum(nums);
-
-        var normExpected = NormalizeResult(expected);
-        var normResult = NormalizeResult(result);
-
-        Assert.That(normResult, Is.EqualTo(normExpected));
-    }
-
-    public static class ThreeSumTestData
-    {
-        public static IEnumerable<TestCaseData> TestCases
-        {
-            get
-            {
-                yield return new TestCaseData(
-                    new int[] { -1, 0, 1, 2, -1, -4 },
-                    new List<IList<int>>
-                    {
-                    new List<int> { -1, -1, 2 },
-                    new List<int> { -1, 0, 1 }
-                    }
-                );
-                yield return new TestCaseData(
-                   new int[] { -1, 0, 1, 2, -1, -1, -1, -1, -4 },
-                   new List<IList<int>>
-                   {
-                    new List<int> { -1, -1, 2 },
-                    new List<int> { -1, 0, 1 }
-                   }
-               );
-                yield return new TestCaseData(
-                  new int[] { -1, 0, 1, 0 },
-                  new List<IList<int>>
-                  {
-                    new List<int> { -1,0,1 },
-                  }
-              );
-                yield return new TestCaseData(
-                  new int[] { 1, 1, -2 },
-                  new List<IList<int>>
-                  {
-                    new List<int> { -2,1,1 },
-                  }
-              );
-                yield return new TestCaseData(
-                   new int[] { 0, 0, 0 },
-                   new List<IList<int>>
-                   {
-                    new List<int> { 0, 0, 0 }
-                   }
-               );
-                yield return new TestCaseData(
-                    new int[] { 0, 1, 1 },
-                    new List<IList<int>>() // no triplets
-                );
-                yield return new TestCaseData(
-                    new int[] { -2, 0, 1, 1, 2 },
-                    new List<IList<int>>
-                    {
-                    new List<int> { -2, 0, 2 },
-                    new List<int> { -2, 1, 1 }
-                    }
-                );
-
-            }
-        }
-    }
-
-    // ---------------- Helper Methods ----------------
-
-    private static List<IList<int>> NormalizeResult(IList<IList<int>> list)
-    {
-        if (list == null)
-            return new List<IList<int>>();
-
-        var sortedTriplets = list
-            .Select(t => t.OrderBy(x => x).ToList())
-            .ToList();
-
-        return sortedTriplets
-            .OrderBy(t => t[0])
-            .ThenBy(t => t[1])
-            .ThenBy(t => t[2])
-            .Select(t => (IList<int>)t)
-            .ToList();
-    }
-
-    #endregion
-
-    [TestCase(new int[] { 1, 3, 2, 2, 5, 2, 3, 7 }, 5)]
-    [TestCase(new int[] { 1, 2, 3, 4 }, 2)]
-    [TestCase(new int[] { 1, 1, 1, 1 }, 0)]
-    [TestCase(new int[] { 1, 1, 3, 4 }, 2)]
-    [TestCase(new int[] { 3, 4, 1, 1 }, 2)]
-    [TestCase(new int[] { 3 }, 0)]
-    [TestCase(new int[] { }, 0)]
-    public void Test_FindLHS(int[] nums, int length)
-    {
-        Assert.That(Arrays.FindLHS(nums), Is.EqualTo(length));
-    }
-
-    [TestCase(new int[] { 2, 2, 1 }, 1)]
-    [TestCase(new int[] { 4, 1, 2, 1, 2 }, 4)]
-    [TestCase(new int[] { 1 }, 1)]
-    public void Test_SingleNumber(int[] nums, int unique)
-    {
-        Assert.That(Arrays.SingleNumber(nums), Is.EqualTo(unique));
-    }
-
-    [TestCase(new int[] { 2, 2, 3, 2 }, 3)]
-    [TestCase(new int[] { 0, 1, 0, 1, 0, 1, 99 }, 99)]
-    [TestCase(new int[] { 1, 1, 1, 4 }, 4)]
-    public void Test_SingleNumberII(int[] nums, int unique)
-    {
-        Assert.That(Arrays.SingleNumberII(nums), Is.EqualTo(unique));
-    }
-
-    [TestCase(new int[] { 1, 2, 1, 3, 2, 5 }, 2)]
-    [TestCase(new int[] { -1, 0 }, 2)]
-    [TestCase(new int[] { 0, 1 }, 2)]
-    public void Test_SingleNumberIII(int[] nums, int unique)
-    {
-        Assert.That(Arrays.SingleNumberIII(nums).Count, Is.EqualTo(unique));
-    }
-
-    [TestCase(new int[] { 9, 8, 99, 98 }, "999988")]
-    [TestCase(new int[] { 10, 2 }, "210")]
-    [TestCase(new int[] { 10, 2, 110 }, "211010")]
-    [TestCase(new int[] { 3, 30, 34, 5, 9 }, "9534330")]
-    [TestCase(new int[] { 10, 2, 2100000000 }, "2210000000010")]
-    [TestCase(new int[] { 10, 2, 2140000000 }, "2214000000010")]
-    public void Test_LargestNumber(int[] nums, string output)
-    {
-        Assert.That(Arrays.LargestNumber(nums), Is.EqualTo(output));
-    }
-
-    [TestCase(1)]
-    [TestCase(2)]
-    [TestCase(5)]
-    [TestCase(6)]
-    public void Test_Generate_ReturnsCorrectTriangle(int numRows)
-    {
-        // Arrange: expected results
-        var expected = numRows switch
-        {
-            1 => new List<IList<int>>
-            {
-                new List<int>{ 1 }
-            },
-
-            2 => new List<IList<int>>
-            {
-                new List<int>{ 1 },
-                new List<int>{ 1, 1 },
-            },
-
-            5 => new List<IList<int>>
-            {
-                new List<int>{ 1 },
-                new List<int>{ 1, 1 },
-                new List<int>{ 1, 2, 1 },
-                new List<int>{ 1, 3, 3, 1 },
-                new List<int>{ 1, 4, 6, 4, 1 },
-            },
-
-            6 => new List<IList<int>>
-            {
-                new List<int>{ 1 },
-                new List<int>{ 1, 1 },
-                new List<int>{ 1, 2, 1 },
-                new List<int>{ 1, 3, 3, 1 },
-                new List<int>{ 1, 4, 6, 4, 1 },
-                new List<int>{ 1, 5, 10, 10, 5, 1 },
-            },
-
-            _ => null
-        };
-
-        // Act
-        var result = Arrays.Generate(numRows);
-
-        // Assert count
-        Assert.That(numRows, Is.EqualTo(result.Count));
-
-        // Assert row contents
-        for (int i = 0; i < numRows; i++)
-        {
-            CollectionAssert.AreEqual(expected[i], result[i]);
-        }
-    }
-
-    [TestCaseSource(nameof(SummaryRangeTestCases))]
-    public void SummaryRanges_ReturnsExpectedResult(int[] nums, IList<string> expected)
-    {
-        // Act
-        var result = Arrays.SummaryRanges(nums);
-
-        // Assert
-        CollectionAssert.AreEqual(expected, result);
-    }
-
-    public static IEnumerable<TestCaseData> SummaryRangeTestCases()
-    {
-        yield return new TestCaseData(
-            new int[] { },
-            new List<string> { }
-        );
-
-        yield return new TestCaseData(
-            new int[] { 5 },
-            new List<string> { "5" }
-        );
-
-        yield return new TestCaseData(
-            new int[] { 0, 1, 2, 4, 5, 7 },
-            new List<string> { "0->2", "4->5", "7" }
-        );
-
-        yield return new TestCaseData(
-            new int[] { 0, 2, 3, 4, 6, 8, 9 },
-            new List<string> { "0", "2->4", "6", "8->9" }
-        );
-
-        yield return new TestCaseData(
-            new int[] { -3, -2, -1, 0, 1 },
-            new List<string> { "-3->1" }
-        );
-
-        yield return new TestCaseData(
-            new int[] { int.MinValue, int.MinValue + 1, 0, int.MaxValue },
-            new List<string>
-            {
-                 $"{int.MinValue}->{int.MinValue + 1}",
-                 "0",
-                 $"{int.MaxValue}"
-            }
-        );
-        yield return new TestCaseData(
-           new int[] { int.MinValue + 1, 2, 3, 4 },
-           new List<string>
-           {
-                 $"{int.MinValue + 1}",
-                 "2->4"
-           }
-       );
-        yield return new TestCaseData(
-           new int[] { -100, -99, int.MaxValue },
-           new List<string>
-           {
-                "-100->-99",
-                $"{int.MaxValue}"
-           }
-       );
-        yield return new TestCaseData(
-           new int[] { int.MinValue, 0, 2, 3, 4 },
-           new List<string>
-           {
-                $"{int.MinValue}",
-                "0",
-                "2->4"
-           }
-       );
-    }
 
     #region 56
 
@@ -625,6 +396,39 @@ public class ArrayFixture
 
     #endregion
 
+    #region 66 - Plus One
+
+    [TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2, 4 })]
+    [TestCase(new int[] { 1, 2, 9 }, new int[] { 1, 3, 0 })]
+    [TestCase(new int[] { 9, 9, 9 }, new int[] { 1, 0, 0, 0 })]
+    [TestCase(new int[] { 1, 0, 0 }, new int[] { 1, 0, 1 })]
+    [TestCase(new int[] { 9 }, new int[] { 1, 0 })]
+    [TestCase(new int[] { 7 }, new int[] { 8 })]
+    [TestCase(new int[] { 2, 3, 4 }, new int[] { 2, 3, 5 })]
+    [TestCase(new int[] { 4, 3, 9, 9 }, new int[] { 4, 4, 0, 0 })]
+    [TestCase(new int[] { 2, 3, 4 }, new int[] { 2, 3, 5 })]
+    public void Tets_PlusOne(int[] nums, int[] expected)
+    {
+        int[] result = Arrays.PlusOne(nums);
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void Tets_PlusOne_ShouldHandleLargeNumber()
+    {
+        int[] input = new int[100];
+        for (int i = 0; i < input.Length; i++)
+            input[i] = 9;
+
+        int[] result = Arrays.PlusOne(input);
+
+        Assert.That(result.Length, Is.EqualTo(101));
+        Assert.That(result[0], Is.EqualTo(1));
+        Assert.That(result[1], Is.EqualTo(0));
+    }
+
+    #endregion
+
     #region 73
 
     [TestCaseSource(nameof(SetZeroesTestCases))]
@@ -728,4 +532,346 @@ public class ArrayFixture
 
 
     #endregion
+
+    #region 88
+
+    // Format:
+    // nums1, m, nums2, n, expected
+    [TestCase(new int[] { 1, 2, 3, 0, 0, 0 }, 3, new int[] { 2, 5, 6 }, 3, new int[] { 1, 2, 2, 3, 5, 6 })]
+    [TestCase(new int[] { 1 }, 1, new int[] { }, 0, new int[] { 1 })]
+    [TestCase(new int[] { 0 }, 0, new int[] { 1 }, 1, new int[] { 1 })]
+    [TestCase(new int[] { 2, 0 }, 1, new int[] { 1 }, 1, new int[] { 1, 2 })]
+    [TestCase(new int[] { 4, 5, 6, 0, 0, 0 }, 3, new int[] { 1, 2, 3 }, 3, new int[] { 1, 2, 3, 4, 5, 6 })]
+    [TestCase(new int[] { 1, 2, 4, 5, 6, 0 }, 5, new int[] { 3 }, 1, new int[] { 1, 2, 3, 4, 5, 6 })]
+    [TestCase(new int[] { 0, 0, 0 }, 0, new int[] { 2, 4, 6 }, 3, new int[] { 2, 4, 6 })]
+    [TestCase(new int[] { 1, 3, 5, 0, 0, 0 }, 3, new int[] { 2, 4, 6 }, 3, new int[] { 1, 2, 3, 4, 5, 6 })]
+    [TestCase(new int[] { 1, 2, 3, 0, 0, 0 }, 3, new int[] { 4, 5, 6 }, 3, new int[] { 1, 2, 3, 4, 5, 6 })]
+    [TestCase(new int[] { 4, 0, 0, 0, 0 }, 1, new int[] { 1, 2, 3, 5 }, 4, new int[] { 1, 2, 3, 4, 5 })]
+    public void Test_Merge(int[] nums1, int m, int[] nums2, int n, int[] expected)
+    {
+        Arrays.Merge(nums1, m, nums2, n);
+        Assert.That(nums1, Is.EqualTo(expected));
+    }
+
+    #endregion
+
+    #region 118
+
+    [TestCase(1)]
+    [TestCase(2)]
+    [TestCase(5)]
+    [TestCase(6)]
+    public void Test_Generate_ReturnsCorrectTriangle(int numRows)
+    {
+        // Arrange: expected results
+        var expected = numRows switch
+        {
+            1 => new List<IList<int>>
+            {
+                new List<int>{ 1 }
+            },
+
+            2 => new List<IList<int>>
+            {
+                new List<int>{ 1 },
+                new List<int>{ 1, 1 },
+            },
+
+            5 => new List<IList<int>>
+            {
+                new List<int>{ 1 },
+                new List<int>{ 1, 1 },
+                new List<int>{ 1, 2, 1 },
+                new List<int>{ 1, 3, 3, 1 },
+                new List<int>{ 1, 4, 6, 4, 1 },
+            },
+
+            6 => new List<IList<int>>
+            {
+                new List<int>{ 1 },
+                new List<int>{ 1, 1 },
+                new List<int>{ 1, 2, 1 },
+                new List<int>{ 1, 3, 3, 1 },
+                new List<int>{ 1, 4, 6, 4, 1 },
+                new List<int>{ 1, 5, 10, 10, 5, 1 },
+            },
+
+            _ => null
+        };
+
+        // Act
+        var result = Arrays.Generate(numRows);
+
+        // Assert count
+        Assert.That(numRows, Is.EqualTo(result.Count));
+
+        // Assert row contents
+        for (int i = 0; i < numRows; i++)
+        {
+            CollectionAssert.AreEqual(expected[i], result[i]);
+        }
+    }
+
+    #endregion
+
+    #region 136
+
+    [TestCase(new int[] { 2, 2, 1 }, 1)]
+    [TestCase(new int[] { 4, 1, 2, 1, 2 }, 4)]
+    [TestCase(new int[] { 1 }, 1)]
+    public void Test_SingleNumber(int[] nums, int unique)
+    {
+        Assert.That(Arrays.SingleNumber(nums), Is.EqualTo(unique));
+    }
+
+    #endregion
+
+    #region 137
+
+    [TestCase(new int[] { 2, 2, 3, 2 }, 3)]
+    [TestCase(new int[] { 0, 1, 0, 1, 0, 1, 99 }, 99)]
+    [TestCase(new int[] { 1, 1, 1, 4 }, 4)]
+    public void Test_SingleNumberII(int[] nums, int unique)
+    {
+        Assert.That(Arrays.SingleNumberII(nums), Is.EqualTo(unique));
+    }
+
+    #endregion
+
+    #region 179
+
+    [TestCase(new int[] { 9, 8, 99, 98 }, "999988")]
+    [TestCase(new int[] { 10, 2 }, "210")]
+    [TestCase(new int[] { 10, 2, 110 }, "211010")]
+    [TestCase(new int[] { 3, 30, 34, 5, 9 }, "9534330")]
+    [TestCase(new int[] { 10, 2, 2100000000 }, "2210000000010")]
+    [TestCase(new int[] { 10, 2, 2140000000 }, "2214000000010")]
+    public void Test_LargestNumber(int[] nums, string output)
+    {
+        Assert.That(Arrays.LargestNumber(nums), Is.EqualTo(output));
+    }
+
+    #endregion
+
+    #region 228
+
+    [TestCaseSource(nameof(SummaryRangeTestCases))]
+    public void SummaryRanges_ReturnsExpectedResult(int[] nums, IList<string> expected)
+    {
+        // Act
+        var result = Arrays.SummaryRanges(nums);
+
+        // Assert
+        CollectionAssert.AreEqual(expected, result);
+    }
+
+    public static IEnumerable<TestCaseData> SummaryRangeTestCases()
+    {
+        yield return new TestCaseData(
+            new int[] { },
+            new List<string> { }
+        );
+
+        yield return new TestCaseData(
+            new int[] { 5 },
+            new List<string> { "5" }
+        );
+
+        yield return new TestCaseData(
+            new int[] { 0, 1, 2, 4, 5, 7 },
+            new List<string> { "0->2", "4->5", "7" }
+        );
+
+        yield return new TestCaseData(
+            new int[] { 0, 2, 3, 4, 6, 8, 9 },
+            new List<string> { "0", "2->4", "6", "8->9" }
+        );
+
+        yield return new TestCaseData(
+            new int[] { -3, -2, -1, 0, 1 },
+            new List<string> { "-3->1" }
+        );
+
+        yield return new TestCaseData(
+            new int[] { int.MinValue, int.MinValue + 1, 0, int.MaxValue },
+            new List<string>
+            {
+                 $"{int.MinValue}->{int.MinValue + 1}",
+                 "0",
+                 $"{int.MaxValue}"
+            }
+        );
+        yield return new TestCaseData(
+           new int[] { int.MinValue + 1, 2, 3, 4 },
+           new List<string>
+           {
+                 $"{int.MinValue + 1}",
+                 "2->4"
+           }
+       );
+        yield return new TestCaseData(
+           new int[] { -100, -99, int.MaxValue },
+           new List<string>
+           {
+                "-100->-99",
+                $"{int.MaxValue}"
+           }
+       );
+        yield return new TestCaseData(
+           new int[] { int.MinValue, 0, 2, 3, 4 },
+           new List<string>
+           {
+                $"{int.MinValue}",
+                "0",
+                "2->4"
+           }
+       );
+    }
+
+    #endregion
+
+    #region 260
+
+    [TestCase(new int[] { 1, 2, 1, 3, 2, 5 }, 2)]
+    [TestCase(new int[] { -1, 0 }, 2)]
+    [TestCase(new int[] { 0, 1 }, 2)]
+    public void Test_SingleNumberIII(int[] nums, int unique)
+    {
+        Assert.That(Arrays.SingleNumberIII(nums).Count, Is.EqualTo(unique));
+    }
+
+    #endregion
+
+    #region 283
+
+    [TestCaseSource(nameof(MoveZeroesTestCases))]
+    public void MoveZeroes_ShouldMoveCorrectly(int[] input, int[] expected)
+    {
+        // Act
+        Arrays.MoveZeroes(input);
+
+        // Assert
+        AssertArraysEqual(expected, input);
+    }
+
+    public static object[] MoveZeroesTestCases =
+    {
+        // LeetCode example
+        new object[]
+        {
+            new[] { 0, 1, 0, 3, 12 },
+            new[] { 1, 3, 12, 0, 0 }
+        },
+
+        // No zeros
+        new object[]
+        {
+            new[] { 1, 2, 3 },
+            new[] { 1, 2, 3 }
+        },
+
+        // All zeros
+        new object[]
+        {
+            new[] { 0, 0, 0 },
+            new[] { 0, 0, 0 }
+        },
+
+        // Zero at end
+        new object[]
+        {
+            new[] { 1, 2, 3, 0 },
+            new[] { 1, 2, 3, 0 }
+        },
+
+        // Zero at start
+        new object[]
+        {
+            new[] { 0, 1, 2, 3 },
+            new[] { 1, 2, 3, 0 }
+        },
+
+        // Multiple zeros in middle
+        new object[]
+        {
+            new[] { 1, 0, 2, 0, 3, 0 },
+            new[] { 1, 2, 3, 0, 0, 0 }
+        },
+
+        // Single element - zero
+        new object[]
+        {
+            new[] { 0 },
+            new[] { 0 }
+        },
+
+        // Single element - non-zero
+        new object[]
+        {
+            new[] { 5 },
+            new[] { 5 }
+        },
+
+        // Negative numbers
+        new object[]
+        {
+            new[] { 0, -1, 0, -2, 3 },
+            new[] { -1, -2, 3, 0, 0 }
+        }
+    };
+
+    private static void AssertArraysEqual(int[] expected, int[] actual)
+    {
+        Assert.That(actual.Length, Is.EqualTo(expected.Length), "Array length mismatch");
+
+        for (int i = 0; i < expected.Length; i++)
+        {
+            Assert.That(actual[i], Is.EqualTo(expected[i]), $"Mismatch at index {i}");
+        }
+    }
+
+
+    #endregion
+
+    #region 383
+
+    [TestCase("aab", "baa", true)]
+    [TestCase("bg", "efjbdfbdgfjhhaiigfhbaejahgfbbgbjagbddfgdiaigdadhcfcj", true)]
+    [TestCase("aa", "ab", false)]
+    [TestCase("a", "b", false)]
+    public void Test_CanConstruct2(string ransom, string magaz, bool result)
+    {
+        Assert.That(Arrays.CanConstruct2(ransom, magaz), Is.EqualTo(result));
+    }
+
+    #endregion
+
+    #region 485
+
+    [TestCase(new int[] { 1, 1, 1, 0, 1, 1, 1, 1 }, 4)]
+    [TestCase(new int[] { 1, 1, 1, 0, 1, 1, 1, 1, 0 }, 4)]
+    [TestCase(new int[] { 1, 1, 1, 1, 0, 1, 1, 1, 0 }, 4)]
+    public void Test_MaxCons(int[] ints, int res)
+    {
+        Assert.That(Arrays.FindMaxConsecutiveOnes(ints), Is.EqualTo(res));
+    }
+
+    #endregion
+
+    #region 594
+
+    [TestCase(new int[] { 1, 3, 2, 2, 5, 2, 3, 7 }, 5)]
+    [TestCase(new int[] { 1, 2, 3, 4 }, 2)]
+    [TestCase(new int[] { 1, 1, 1, 1 }, 0)]
+    [TestCase(new int[] { 1, 1, 3, 4 }, 2)]
+    [TestCase(new int[] { 3, 4, 1, 1 }, 2)]
+    [TestCase(new int[] { 3 }, 0)]
+    [TestCase(new int[] { }, 0)]
+    public void Test_FindLHS(int[] nums, int length)
+    {
+        Assert.That(Arrays.FindLHS(nums), Is.EqualTo(length));
+    }
+
+    #endregion
+
 }
