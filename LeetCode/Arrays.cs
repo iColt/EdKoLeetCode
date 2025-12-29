@@ -1200,6 +1200,15 @@ public static class Arrays
 
     #endregion
 
+    #region 496
+
+    public static int[] NextGreaterElement(int[] nums1, int[] nums2)
+    {
+        return nums1;
+    }
+
+    #endregion
+
     #region 594 - Longest harmonious subsequence 34/95 runtime+memory. Sorting takes time, but saves memory
 
     public static int FindLHS(int[] nums)

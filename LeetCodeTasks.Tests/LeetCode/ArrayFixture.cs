@@ -1,3 +1,5 @@
+using EdkoSKD.Common.Arrays;
+
 namespace LeetCodeTasks.Tests.LeetCode;
 [TestFixture]
 public class ArrayFixture
@@ -751,7 +753,7 @@ public class ArrayFixture
         Arrays.MoveZeroes(input);
 
         // Assert
-        AssertArraysEqual(expected, input);
+        Assert.That(ArrayHelpers.AssertArraysEqual(expected, input));
     }
 
     public static object[] MoveZeroesTestCases =
@@ -819,17 +821,6 @@ public class ArrayFixture
             new[] { -1, -2, 3, 0, 0 }
         }
     };
-
-    private static void AssertArraysEqual(int[] expected, int[] actual)
-    {
-        Assert.That(actual.Length, Is.EqualTo(expected.Length), "Array length mismatch");
-
-        for (int i = 0; i < expected.Length; i++)
-        {
-            Assert.That(actual[i], Is.EqualTo(expected[i]), $"Mismatch at index {i}");
-        }
-    }
-
 
     #endregion
 
@@ -938,6 +929,82 @@ public class ArrayFixture
     {
         Assert.That(Arrays.FindMaxConsecutiveOnes(ints), Is.EqualTo(res));
     }
+
+    #endregion
+
+    #region 496
+
+    [TestCaseSource(nameof(TestCases))]
+    public void NextGreaterElement_ShouldReturnCorrectResult(
+       int[] nums1,
+       int[] nums2,
+       int[] expected)
+    {
+        // Act
+        var result = Arrays.NextGreaterElement(nums1, nums2);
+
+        // Assert
+        Assert.That(ArrayHelpers.AssertArraysEqual(expected, result));
+    }
+
+    public static object[] TestCases =
+    {
+        // LeetCode example 1
+        new object[]
+        {
+            new[] { 4, 1, 2 },
+            new[] { 1, 3, 4, 2 },
+            new[] { -1, 3, -1 }
+        },
+
+        // LeetCode example 2
+        new object[]
+        {
+            new[] { 2, 4 },
+            new[] { 1, 2, 3, 4 },
+            new[] { 3, -1 }
+        },
+
+        // Single element
+        new object[]
+        {
+            new[] { 1 },
+            new[] { 1 },
+            new[] { -1 }
+        },
+
+        // nums1 == nums2
+        new object[]
+        {
+            new[] { 1, 3, 2 },
+            new[] { 1, 3, 2 },
+            new[] { 3, -1, -1 }
+        },
+
+        // Strictly decreasing nums2
+        new object[]
+        {
+            new[] { 5, 4, 3 },
+            new[] { 5, 4, 3, 2, 1 },
+            new[] { -1, -1, -1 }
+        },
+
+        // nums1 elements appear later in nums2
+        new object[]
+        {
+            new[] { 2, 1 },
+            new[] { 3, 2, 1, 4 },
+            new[] { 4, 4 }
+        },
+
+        // nums1 empty
+        new object[]
+        {
+            new int[] { },
+            new[] { 1, 2, 3 },
+            new int[] { }
+        }
+    };
 
     #endregion
 
