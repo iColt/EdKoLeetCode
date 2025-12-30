@@ -1,6 +1,8 @@
 ﻿using LeetCodeTasks.Helpers;
 using System.Text;
 using EdkoSDK.Algorithms.Arrays;
+using System.Collections.Specialized;
+using System.Linq;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -1200,11 +1202,29 @@ public static class Arrays
 
     #endregion
 
-    #region 496
+    #region 496 - 13/98 poor performace
 
     public static int[] NextGreaterElement(int[] nums1, int[] nums2)
     {
-        return nums1;
+        int[] result = new int[nums1.Length];
+
+        for(int i = 0; i < nums1.Length; i++)
+        {
+            int greater = -1;
+            for (int j = nums2.Length - 1; j >= 0; j--)
+            {
+                if (nums1[i] == nums2[j])
+                {
+                    result[i] = greater > 0 ? greater : -1;
+                    break;
+                } else if (nums2[j] > nums1[i])
+                {
+                    greater = nums2[j];
+                }
+            }
+        }
+
+        return result;
     }
 
     #endregion

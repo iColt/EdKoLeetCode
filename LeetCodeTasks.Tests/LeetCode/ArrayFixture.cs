@@ -934,7 +934,7 @@ public class ArrayFixture
 
     #region 496
 
-    [TestCaseSource(nameof(TestCases))]
+    [TestCaseSource(nameof(NextGreaterElementTestCases))]
     public void NextGreaterElement_ShouldReturnCorrectResult(
        int[] nums1,
        int[] nums2,
@@ -947,7 +947,7 @@ public class ArrayFixture
         Assert.That(ArrayHelpers.AssertArraysEqual(expected, result));
     }
 
-    public static object[] TestCases =
+    public static object[] NextGreaterElementTestCases =
     {
         // LeetCode example 1
         new object[]
