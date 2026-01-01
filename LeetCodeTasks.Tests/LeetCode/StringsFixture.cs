@@ -134,4 +134,50 @@ public sealed class StringsFixture
         // Assert
         Assert.That(result, Is.EqualTo(expected));
     }
+
+    #region 409
+
+    [TestCaseSource(nameof(LongestPalindromeTestCases))]
+    public void LongestPalindrome_ShouldReturnCorrectLength(string input, int expected)
+    {
+        // Act
+        var result = Strings.LongestPalindrome(input);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    public static object[] LongestPalindromeTestCases =
+    {
+        // LeetCode examples
+        new object[] { "abccccdd", 7 },
+        new object[] { "a", 1 },
+
+        // All characters even count
+        new object[] { "aabbcc", 6 },
+
+        // One odd count allowed in center
+        new object[] { "aaabbbb", 7 },
+
+        // Multiple odd counts (only one can be used fully)
+        new object[] { "abc", 1 },
+
+        // Mixed uppercase and lowercase
+        new object[] { "Aa", 1 },
+        new object[] { "AaBb", 1 },
+
+        // Empty string
+        new object[] { "", 0 },
+
+        // Single repeated character
+        new object[] { "zzzz", 4 },
+
+        // Long mixed string
+        new object[] { "bananas", 5 }, // "anana"
+
+        // Two odd counts
+        new object[] { "aabbc", 5 }
+    };
+
+    #endregion
 }

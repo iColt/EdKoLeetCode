@@ -328,4 +328,22 @@ public static class Strings
     }
 
     #endregion
+
+    #region 409 Longest Palindrome
+
+    public static int LongestPalindrome(string s)
+    {
+        int longestPalindrome = 0;
+
+        if(s.Length < 2)
+        {
+            return longestPalindrome;
+        }
+
+
+
+        return longestPalindrome;
+    }
+
+    #endregion
 }
