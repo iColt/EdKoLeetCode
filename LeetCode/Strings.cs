@@ -333,14 +333,29 @@ public static class Strings
 
     public static int LongestPalindrome(string s)
     {
-        int longestPalindrome = 0;
+        int longestPalindrome = 1;
 
-        if(s.Length < 2)
+        if(s.Length == 0)
         {
-            return longestPalindrome;
+            return 0;
         }
 
+        // Run from the first letter
+        var charArray = s.ToCharArray();
 
+        for(int i = 0; i < s.Length - 1; i++)
+        {
+            // if current 
+            if(longestPalindrome > s.Length - i)
+            {
+                break;
+            }
+
+            // run from the end of array to the beginning
+            var currentChar = charArray[i];
+
+            //if the same found - check if Palindrome
+        }
 
         return longestPalindrome;
     }
