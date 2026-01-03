@@ -1,4 +1,5 @@
-﻿using LeetCodeTasks.Helpers;
+﻿using EdkoSKD.Common.Helpers;
+using LeetCodeTasks.Helpers;
 using System.Text;
 
 namespace LeetCodeTasks.LeetCode;
@@ -345,16 +346,23 @@ public static class Strings
 
         for(int i = 0; i < s.Length - 1; i++)
         {
-            // if current 
             if(longestPalindrome > s.Length - i)
             {
                 break;
             }
 
-            // run from the end of array to the beginning
             var currentChar = charArray[i];
 
-            //if the same found - check if Palindrome
+            for(int j = s.Length - 1; j > i; j--)
+            {
+                if (charArray[j] == currentChar)
+                {
+                    if(charArray.IsPalindrome(i, j) && longestPalindrome < j - i)
+                    {
+                        longestPalindrome = j - i;
+                    }
+                }
+            }
         }
 
         return longestPalindrome;
