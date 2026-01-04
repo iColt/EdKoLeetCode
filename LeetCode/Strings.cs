@@ -330,39 +330,45 @@ public static class Strings
 
     #endregion
 
-    #region 409 Longest Palindrome
+    #region 409 Longest Palindrome - 7/11 worst performance
 
     public static int LongestPalindrome(string s)
     {
-        int longestPalindrome = 1;
+        int longestPalindrome = 0;
 
-        if(s.Length == 0)
+        if(s.Length < 2)
         {
-            return 0;
+            return s.Length;
         }
 
-        // Run from the first letter
         var charArray = s.ToCharArray();
+        Array.Sort(charArray);
 
-        for(int i = 0; i < s.Length - 1; i++)
+        char currentChar = charArray[0];
+        int iterator = 1;
+        int currentSimilarCharCount = 1;
+
+        while (iterator < charArray.Length)
         {
-            if(longestPalindrome > s.Length - i)
+            while (iterator < s.Length && (int)charArray[iterator] == (int)currentChar)
+            {
+                iterator++;
+                currentSimilarCharCount++;
+            }
+
+            longestPalindrome += currentSimilarCharCount % 2 == 0 ? currentSimilarCharCount : currentSimilarCharCount - 1;
+
+            if(iterator > s.Length - 1)
             {
                 break;
             }
+            currentChar = charArray[iterator++];
+            currentSimilarCharCount = 1;
+        }
 
-            var currentChar = charArray[i];
-
-            for(int j = s.Length - 1; j > i; j--)
-            {
-                if (charArray[j] == currentChar)
-                {
-                    if(charArray.IsPalindrome(i, j) && longestPalindrome < j - i)
-                    {
-                        longestPalindrome = j - i;
-                    }
-                }
-            }
+        if(s.Length > longestPalindrome)
+        {
+            longestPalindrome++;
         }
 
         return longestPalindrome;
