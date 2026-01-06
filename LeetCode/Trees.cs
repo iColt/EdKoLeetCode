@@ -1,4 +1,6 @@
 ﻿using EdkoSKD.Common.Models;
+using EdkoSKD.Common.Trees;
+using System.Numerics;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -255,10 +257,10 @@ public static class Trees
 
     #endregion
 
-    #region 563 - Binary Tree Tilt - 5/71 poor performance
+    #region 563 - Binary Tree Tilt - 5/71 poor performance || 10/6 2nd attempt, poorest :) || 100/22 slow memory for some reason :)
 
     // Improvement idea - create second tree, where sum will be calculated 
-    public static int FindTilt(TreeNode root)
+    public static int FindTiltOld(TreeNode root)
     {
         int sum = 0;
 
@@ -267,23 +269,48 @@ public static class Trees
             return 0;
         }
 
-        sum += Math.Abs(FindSum(root.left) - FindSum(root.right));
+        sum += Math.Abs(root.left.FindBinaryTreeNodeSum() - root.right.FindBinaryTreeNodeSum());
 
         sum += FindTilt(root.left);
         sum += FindTilt(root.right);
 
-        int FindSum(TreeNode node)
+        return sum;
+    }
+
+    public static int FindTiltOld2(TreeNode root) {
+
+        if (root == null || (root.left == null && root.right == null))
         {
-            if(node == null)
+            return 0;
+        }
+
+        var tiltTree = root.BuildTiltTree();
+
+        return tiltTree.FindBinaryTreeNodeSum();
+    }
+
+    public static int FindTilt(TreeNode root)
+    {
+        int sum = 0;
+
+        DFS(root);
+
+        int DFS(TreeNode root)
+        {
+            if (root == null)
             {
                 return 0;
             }
 
-            return node.val + FindSum(node.left) + FindSum(node.right);
+            int leftSum = DFS(root.left);
+            int rightSum = DFS(root.right);
+
+            sum += Math.Abs(leftSum - rightSum);
+
+            return root.val + leftSum + rightSum;
         }
 
         return sum;
     }
-
     #endregion
 }
