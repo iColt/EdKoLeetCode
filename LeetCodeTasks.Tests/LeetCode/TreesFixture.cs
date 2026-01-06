@@ -513,7 +513,6 @@ public sealed class TreesFixture
     }
     #endregion
 
-
     #region 226
 
     [TestCaseSource(nameof(InvertTreeTestCases))]
@@ -621,6 +620,116 @@ public sealed class TreesFixture
                 null
             )
         }
+    };
+
+    #endregion
+
+    #region 563
+
+    [TestCaseSource(nameof(FindTiltTestCases))]
+    public void FindTilt_ShouldReturnCorrectTilt(TreeNode input, int expected)
+    {
+        // Act
+        var result = Trees.FindTilt(input);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    public static object[] FindTiltTestCases =
+    {
+       
+        // Linear left tree
+        //   4
+        //  /
+        // 2
+        //  /
+        // 3
+        // Tilt = |5 - 0| + |3 - 0| = 5 + 3 = 8
+        new object[]
+        {
+            new TreeNode(4,
+                new TreeNode(2,
+                    new TreeNode(3),
+                    null),
+                null
+            ),
+            8
+        },
+
+        // Balanced tree
+        //       4
+        //     /   \
+        //    2     9
+        //   / \     \
+        //  3   5     7
+        // Tilt = |(3+5+2) - (9+7)| + |3-5| + |0-7| = 6 + 2 + 7 = 15
+        new object[]
+        {
+            new TreeNode(4,
+                new TreeNode(2,
+                    new TreeNode(3),
+                    new TreeNode(5)
+                ),
+                new TreeNode(9,
+                    null,
+                    new TreeNode(7)
+                )
+            ),
+            15
+        },
+
+        // Tree with negative values
+        //   -1
+        //   / \
+        // -2  -3
+        // Tilt = |-2 - (-3)| = 1
+        new object[]
+        {
+            new TreeNode(-1,
+                new TreeNode(-2),
+                new TreeNode(-3)
+            ),
+            1
+        },
+
+        // All zero values
+        new object[]
+        {
+            new TreeNode(0,
+                new TreeNode(0),
+                new TreeNode(0)
+            ),
+            0
+        },
+         // Empty tree
+        new object[]
+        {
+            null,
+            0
+        },
+
+        // Single node
+        new object[]
+        {
+            new TreeNode(1),
+            0
+        },
+
+        // LeetCode example
+        //   1
+        //  / \
+        // 2   3
+        // Tilt = |2 - 3| = 1
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2),
+                new TreeNode(3)
+            ),
+            1
+        },
+
     };
 
     #endregion

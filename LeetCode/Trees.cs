@@ -255,11 +255,33 @@ public static class Trees
 
     #endregion
 
-    #region 563 - Binary Tree Tilt
+    #region 563 - Binary Tree Tilt - 5/71 poor performance
 
+    // Improvement idea - create second tree, where sum will be calculated 
     public static int FindTilt(TreeNode root)
     {
         int sum = 0;
+
+        if(root == null || (root.left == null && root.right == null))
+        {
+            return 0;
+        }
+
+        sum += Math.Abs(FindSum(root.left) - FindSum(root.right));
+
+        sum += FindTilt(root.left);
+        sum += FindTilt(root.right);
+
+        int FindSum(TreeNode node)
+        {
+            if(node == null)
+            {
+                return 0;
+            }
+
+            return node.val + FindSum(node.left) + FindSum(node.right);
+        }
+
         return sum;
     }
 
