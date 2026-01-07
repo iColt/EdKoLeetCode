@@ -733,4 +733,129 @@ public sealed class TreesFixture
     };
 
     #endregion
+
+    #region 617
+
+    [TestCaseSource(nameof(MergeTreesTestCases))]
+    public void MergeTrees_ShouldMergeCorrectly(
+       TreeNode root1,
+       TreeNode root2,
+       TreeNode expected)
+    {
+        // Act
+        var result = Trees.MergeTrees(root1, root2);
+
+        // Assert
+        TreeHelpers.AreEqualTrees(expected, result);
+    }
+
+    public static object[] MergeTreesTestCases =
+    {
+        // Both trees empty
+        new object[]
+        {
+            null,
+            null,
+            null
+        },
+
+        // One tree empty
+        new object[]
+        {
+            new TreeNode(1),
+            null,
+            new TreeNode(1)
+        },
+
+        new object[]
+        {
+            null,
+            new TreeNode(2),
+            new TreeNode(2)
+        },
+
+        // LeetCode example
+        // Tree 1:        Tree 2:
+        //      1              2
+        //     / \            / \
+        //    3   2          1   3
+        //   /                \   \
+        //  5                  4   7
+        //
+        // Result:
+        //      3
+        //     / \
+        //    4   5
+        //   / \   \
+        //  5   4   7
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(3,
+                    new TreeNode(5),
+                    null),
+                new TreeNode(2)
+            ),
+            new TreeNode(2,
+                new TreeNode(1,
+                    null,
+                    new TreeNode(4)),
+                new TreeNode(3,
+                    null,
+                    new TreeNode(7))
+            ),
+            new TreeNode(3,
+                new TreeNode(4,
+                    new TreeNode(5),
+                    new TreeNode(4)),
+                new TreeNode(5,
+                    null,
+                    new TreeNode(7))
+            )
+        },
+
+        // Both trees single node
+        new object[]
+        {
+            new TreeNode(5),
+            new TreeNode(7),
+            new TreeNode(12)
+        },
+
+        // One-sided trees
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2),
+                null
+            ),
+            new TreeNode(3,
+                null,
+                new TreeNode(4)
+            ),
+            new TreeNode(4,
+                new TreeNode(2),
+                new TreeNode(4)
+            )
+        },
+
+        // Trees with negative values
+        new object[]
+        {
+            new TreeNode(-1,
+                new TreeNode(-2),
+                null
+            ),
+            new TreeNode(1,
+                null,
+                new TreeNode(3)
+            ),
+            new TreeNode(0,
+                new TreeNode(-2),
+                new TreeNode(3)
+            )
+        }
+    };
+
+    #endregion
 }

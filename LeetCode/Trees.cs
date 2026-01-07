@@ -1,6 +1,5 @@
 ﻿using EdkoSKD.Common.Models;
 using EdkoSKD.Common.Trees;
-using System.Numerics;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -312,5 +311,14 @@ public static class Trees
 
         return sum;
     }
+    #endregion
+
+    #region 617
+
+    public static TreeNode MergeTrees(TreeNode root1, TreeNode root2)
+    {
+        return root1;
+    }
+
     #endregion
 }
