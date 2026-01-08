@@ -313,11 +313,28 @@ public static class Trees
     }
     #endregion
 
-    #region 617
+    #region 617 - 100/39 not optimal memory
 
     public static TreeNode MergeTrees(TreeNode root1, TreeNode root2)
     {
+        if(root2 == null)
+        {
+            return root1;
+        }
+
+        if(root1 == null)
+        {
+            root1 = root2;
+            return root1;
+        }
+
+        root1.val += root2.val;
+
+        root1.left = MergeTrees(root1.left, root2.left);
+        root1.right = MergeTrees(root1.right, root2.right);
+        
         return root1;
+
     }
 
     #endregion

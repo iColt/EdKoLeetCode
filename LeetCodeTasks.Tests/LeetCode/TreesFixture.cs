@@ -746,7 +746,7 @@ public sealed class TreesFixture
         var result = Trees.MergeTrees(root1, root2);
 
         // Assert
-        TreeHelpers.AreEqualTrees(expected, result);
+        Assert.That(TreeHelpers.AreEqualTrees(expected, result));
     }
 
     public static object[] MergeTreesTestCases =
