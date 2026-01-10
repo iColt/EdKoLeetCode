@@ -624,6 +624,149 @@ public sealed class TreesFixture
 
     #endregion
 
+    #region 257
+
+    [TestCaseSource(nameof(BinaryTreePathsTestCases))]
+    public void BinaryTreePaths_ShouldReturnAllRootToLeafPaths(
+       TreeNode root,
+       IList<string> expected)
+    {
+        // Act
+        var result = Trees.BinaryTreePaths(root);
+
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        CollectionAssert.AreEquivalent(expected, result);
+    }
+
+    public static object[] BinaryTreePathsTestCases =
+    {
+        // Empty tree
+        new object[]
+        {
+            null,
+            new List<string>()
+        },
+
+        // Single node
+        new object[]
+        {
+            new TreeNode(1),
+            new List<string> { "1" }
+        },
+
+        // Simple tree
+        //     1
+        //    / \
+        //   2   3
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2),
+                new TreeNode(3)
+            ),
+            new List<string>
+            {
+                "1->2",
+                "1->3"
+            }
+        },
+
+        // LeetCode example
+        //     1
+        //    / \
+        //   2   3
+        //    \
+        //     5
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2,
+                    null,
+                    new TreeNode(5)),
+                new TreeNode(3)
+            ),
+            new List<string>
+            {
+                "1->2->5",
+                "1->3"
+            }
+        },
+
+        // Left-skewed tree
+        // 1 -> 2 -> 3 -> 4
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2,
+                    new TreeNode(3,
+                        new TreeNode(4),
+                        null),
+                    null),
+                null
+            ),
+            new List<string>
+            {
+                "1->2->3->4"
+            }
+        },
+
+        // Right-skewed tree
+        new object[]
+        {
+            new TreeNode(1,
+                null,
+                new TreeNode(2,
+                    null,
+                    new TreeNode(3))
+            ),
+            new List<string>
+            {
+                "1->2->3"
+            }
+        },
+
+        // Tree with negative values
+        new object[]
+        {
+            new TreeNode(-1,
+                new TreeNode(-2),
+                new TreeNode(3)
+            ),
+            new List<string>
+            {
+                "-1->-2",
+                "-1->3"
+            }
+        },
+
+        // More complex tree
+        //        10
+        //       /  \
+        //      5    15
+        //     / \     \
+        //    3   7     18
+        new object[]
+        {
+            new TreeNode(10,
+                new TreeNode(5,
+                    new TreeNode(3),
+                    new TreeNode(7)),
+                new TreeNode(15,
+                    null,
+                    new TreeNode(18))
+            ),
+            new List<string>
+            {
+                "10->5->3",
+                "10->5->7",
+                "10->15->18"
+            }
+        }
+    };
+
+    #endregion
+
     #region 563
 
     [TestCaseSource(nameof(FindTiltTestCases))]

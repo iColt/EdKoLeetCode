@@ -256,6 +256,17 @@ public static class Trees
 
     #endregion
 
+    #region 257 Binary Tree Path
+
+    public static IList<string> BinaryTreePaths(TreeNode root)
+    {
+        var list = new List<string>();
+
+        return list;
+    }
+
+    #endregion
+
     #region 563 - Binary Tree Tilt - 5/71 poor performance || 10/6 2nd attempt, poorest :) || 100/22 slow memory for some reason :)
 
     // Improvement idea - create second tree, where sum will be calculated 
