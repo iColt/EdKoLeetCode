@@ -383,4 +383,15 @@ public static class Trees
     }
 
     #endregion
+
+    #region 652
+
+    public static IList<TreeNode> FindDuplicateSubtrees(TreeNode root)
+    {
+        var result = new List<TreeNode>();
+
+        return result;
+    }
+
+    #endregion
 }

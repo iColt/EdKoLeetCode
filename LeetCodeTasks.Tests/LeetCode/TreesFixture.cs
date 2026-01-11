@@ -1002,4 +1002,165 @@ public sealed class TreesFixture
     };
 
     #endregion
+
+    #region 652
+
+    [TestCaseSource(nameof(TestCases))]
+    public void FindDuplicateSubtrees_ShouldReturnDuplicateRoots(
+       TreeNode root,
+       IList<TreeNode> expected)
+    {
+        // Act
+        var result = Trees.FindDuplicateSubtrees(root);
+
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        AssertDuplicateSubtrees(expected, result);
+    }
+
+    public static object[] TestCases =
+    {
+        // Empty tree
+        new object[]
+        {
+            null,
+            new List<TreeNode>()
+        },
+
+        // Single node (no duplicates)
+        new object[]
+        {
+            new TreeNode(1),
+            new List<TreeNode>()
+        },
+
+        // Two identical leaf nodes
+        //    1
+        //   / \
+        //  2   2
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2),
+                new TreeNode(2)
+            ),
+            new List<TreeNode>
+            {
+                new TreeNode(2)
+            }
+        },
+
+        // LeetCode example
+        //        1
+        //       / \
+        //      2   3
+        //     /   / \
+        //    4   2   4
+        //       /
+        //      4
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2,
+                    new TreeNode(4),
+                    null),
+                new TreeNode(3,
+                    new TreeNode(2,
+                        new TreeNode(4),
+                        null),
+                    new TreeNode(4))
+            ),
+            new List<TreeNode>
+            {
+                new TreeNode(2,
+                    new TreeNode(4),
+                    null),
+                new TreeNode(4)
+            }
+        },
+
+        // Multiple duplicates of same subtree (should return once)
+        //        1
+        //       / \
+        //      2   2
+        //     /   /
+        //    3   3
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2,
+                    new TreeNode(3),
+                    null),
+                new TreeNode(2,
+                    new TreeNode(3),
+                    null)
+            ),
+            new List<TreeNode>
+            {
+                new TreeNode(2,
+                    new TreeNode(3),
+                    null),
+                new TreeNode(3)
+            }
+        },
+
+        // No duplicates
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2),
+                new TreeNode(3)
+            ),
+            new List<TreeNode>()
+        },
+
+        // Duplicate complex subtrees
+        //        5
+        //       / \
+        //      1   1
+        //     / \ / \
+        //    2  3 2  3
+        new object[]
+        {
+            new TreeNode(5,
+                new TreeNode(1,
+                    new TreeNode(2),
+                    new TreeNode(3)),
+                new TreeNode(1,
+                    new TreeNode(2),
+                    new TreeNode(3))
+            ),
+            new List<TreeNode>
+            {
+                new TreeNode(1,
+                    new TreeNode(2),
+                    new TreeNode(3)),
+                new TreeNode(2),
+                new TreeNode(3)
+            }
+        }
+    };
+
+    // ----------------------
+    // Helper assertions
+    // ----------------------
+    private static void AssertDuplicateSubtrees(
+        IList<TreeNode> expected,
+        IList<TreeNode> actual)
+    {
+        Assert.That(actual.Count, Is.EqualTo(expected.Count), "Duplicate count mismatch");
+
+        var expectedSerialized = expected
+            .Select(TreeHelpers.SerializeTree)
+            .ToHashSet();
+
+        var actualSerialized = actual
+            .Select(TreeHelpers.SerializeTree)
+            .ToHashSet();
+
+        CollectionAssert.AreEquivalent(expectedSerialized, actualSerialized);
+    }
+
+
+    #endregion
 }
