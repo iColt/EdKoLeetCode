@@ -641,6 +641,24 @@ public sealed class TreesFixture
 
     public static object[] BinaryTreePathsTestCases =
     {
+         // Left-skewed tree
+        // 1 -> 2 -> 3 -> 4
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2,
+                    new TreeNode(3,
+                        new TreeNode(4),
+                        null),
+                    null),
+                null
+            ),
+            new List<string>
+            {
+                "1->2->3->4"
+            }
+        },
+
         // Empty tree
         new object[]
         {
@@ -693,24 +711,7 @@ public sealed class TreesFixture
             }
         },
 
-        // Left-skewed tree
-        // 1 -> 2 -> 3 -> 4
-        new object[]
-        {
-            new TreeNode(1,
-                new TreeNode(2,
-                    new TreeNode(3,
-                        new TreeNode(4),
-                        null),
-                    null),
-                null
-            ),
-            new List<string>
-            {
-                "1->2->3->4"
-            }
-        },
-
+       
         // Right-skewed tree
         new object[]
         {

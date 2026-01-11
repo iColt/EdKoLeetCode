@@ -1,5 +1,6 @@
 ﻿using EdkoSKD.Common.Models;
 using EdkoSKD.Common.Trees;
+using System.Text;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -256,11 +257,44 @@ public static class Trees
 
     #endregion
 
-    #region 257 Binary Tree Path
+    #region 257 Binary Tree Path - 54/13.7 memory unoptimal
 
     public static IList<string> BinaryTreePaths(TreeNode root)
     {
         var list = new List<string>();
+
+        if(root == null)
+        {
+            return list;
+        }
+       
+        StringBuilder currentPath = new StringBuilder(root.val.ToString());
+
+        Iterate(root);
+
+        void Iterate(TreeNode node)
+        {
+            if(node.left == null && node.right == null)
+            {
+                list.Add(currentPath.ToString());
+                return;
+            }
+
+            int currentPathLength = currentPath.Length;
+            if(node.left != null)
+            {
+                currentPath.Append("->" + node.left.val.ToString());
+                Iterate(node.left);
+                currentPath.Remove(currentPathLength, currentPath.Length - currentPathLength);
+            }
+            if(node.right != null)
+            {
+                currentPath.Append("->" + node.right.val.ToString());
+                Iterate(node.right);
+                currentPath.Remove(currentPathLength, currentPath.Length - currentPathLength);
+            }
+            
+        }
 
         return list;
     }
