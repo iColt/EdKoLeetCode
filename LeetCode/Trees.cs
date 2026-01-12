@@ -26,6 +26,15 @@ public static class Trees
 
     #endregion
 
+    #region 98 Valid binary tree - Not Solved
+
+    public static bool IsValidBST(TreeNode root)
+    {
+        return false;
+    }
+
+    #endregion
+
     #region 100 Same tree - 100/35
 
     public static bool IsSameTree(TreeNode p, TreeNode q)
@@ -384,7 +393,7 @@ public static class Trees
 
     #endregion
 
-    #region 652
+    #region 652 Find Duplicate Subtrees - Not Solved
 
     public static IList<TreeNode> FindDuplicateSubtrees(TreeNode root)
     {

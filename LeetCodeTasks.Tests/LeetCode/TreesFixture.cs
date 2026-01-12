@@ -59,6 +59,137 @@ public sealed class TreesFixture
     }
     #endregion
 
+    #region 98 Validate Binary Tree
+
+    [TestCaseSource(nameof(IsValidBSTTestCases))]
+    public void IsValidBST_ShouldValidateCorrectly(
+        TreeNode root,
+        bool expected)
+    {
+        // Act
+        var result = Trees.IsValidBST(root);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    public static object[] IsValidBSTTestCases =
+    {
+        // Empty tree (valid BST)
+        new object[]
+        {
+            null,
+            true
+        },
+
+        // Single node
+        new object[]
+        {
+            new TreeNode(1),
+            true
+        },
+
+        // Simple valid BST
+        //     2
+        //    / \
+        //   1   3
+        new object[]
+        {
+            new TreeNode(2,
+                new TreeNode(1),
+                new TreeNode(3)
+            ),
+            true
+        },
+
+        // Invalid: left child greater than root
+        new object[]
+        {
+            new TreeNode(2,
+                new TreeNode(3),
+                new TreeNode(1)
+            ),
+            false
+        },
+
+        // Invalid deeper violation
+        //       5
+        //      / \
+        //     1   6
+        //        / \
+        //       3   7
+        new object[]
+        {
+            new TreeNode(5,
+                new TreeNode(1),
+                new TreeNode(6,
+                    new TreeNode(3),
+                    new TreeNode(7))
+            ),
+            false
+        },
+
+        // Valid BST with negative values
+        new object[]
+        {
+            new TreeNode(0,
+                new TreeNode(-3),
+                new TreeNode(9)
+            ),
+            true
+        },
+
+        // Invalid because of duplicate values
+        //     2
+        //    / \
+        //   2   3
+        new object[]
+        {
+            new TreeNode(2,
+                new TreeNode(2),
+                new TreeNode(3)
+            ),
+            false
+        },
+
+        // Invalid: right subtree contains smaller value
+        //       10
+        //      /  \
+        //     5    15
+        //         / \
+        //        6   20
+        new object[]
+        {
+            new TreeNode(10,
+                new TreeNode(5),
+                new TreeNode(15,
+                    new TreeNode(6),
+                    new TreeNode(20))
+            ),
+            false
+        },
+
+        // Valid large BST
+        new object[]
+        {
+            new TreeNode(8,
+                new TreeNode(3,
+                    new TreeNode(1),
+                    new TreeNode(6,
+                        new TreeNode(4),
+                        new TreeNode(7))),
+                new TreeNode(10,
+                    null,
+                    new TreeNode(14,
+                        new TreeNode(13),
+                        null))
+            ),
+            true
+        }
+    };
+
+    #endregion
+
     #region 100
 
     [TestCaseSource(typeof(SameTreeTestData), nameof(SameTreeTestData.TestCases))]
@@ -1005,7 +1136,7 @@ public sealed class TreesFixture
 
     #region 652
 
-    [TestCaseSource(nameof(TestCases))]
+    [TestCaseSource(nameof(FindDuplicateSubtreesTestCases))]
     public void FindDuplicateSubtrees_ShouldReturnDuplicateRoots(
        TreeNode root,
        IList<TreeNode> expected)
@@ -1018,7 +1149,7 @@ public sealed class TreesFixture
         AssertDuplicateSubtrees(expected, result);
     }
 
-    public static object[] TestCases =
+    public static object[] FindDuplicateSubtreesTestCases =
     {
         // Empty tree
         new object[]
