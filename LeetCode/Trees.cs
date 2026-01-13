@@ -30,7 +30,34 @@ public static class Trees
 
     public static bool IsValidBST(TreeNode root)
     {
-        return false;
+        //go to childs and return min and max val
+        //on parent level, check that min left < max left < val && val < min right < max right
+        bool IsValidBTSInternal(TreeNode node, int level, bool higher, bool leftTree)
+        {
+            if (node == null)
+            {
+                return true;
+            }
+
+            if(higher)
+            {
+                if(node.val < level)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if(node.val > level)
+                {
+                    return false;
+                }
+            }
+
+            return IsValidBTSInternal(node.left, node.val, false, leftTree) && IsValidBTSInternal(node.right, node.val, true, leftTree);
+        }
+
+        return IsValidBTSInternal(root, root.val, true, true) && IsValidBTSInternal(root, root.val, true, false);
     }
 
     #endregion
