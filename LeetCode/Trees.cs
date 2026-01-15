@@ -26,38 +26,53 @@ public static class Trees
 
     #endregion
 
-    #region 98 Valid binary tree - Not Solved
+    #region 98 Valid binary tree - 17/5 poor performance
 
     public static bool IsValidBST(TreeNode root)
     {
         //go to childs and return min and max val
         //on parent level, check that min left < max left < val && val < min right < max right
-        bool IsValidBTSInternal(TreeNode node, int level, bool higher, bool leftTree)
+
+        TreeValidityModel IsValidBTSInternal(TreeNode node)
         {
-            if (node == null)
+            if(node == null)
             {
-                return true;
+                return TreeValidityModel.New(null, null);
             }
 
-            if(higher)
+            var leftState = IsValidBTSInternal(node.left);
+            var rightState = IsValidBTSInternal(node.right);
+
+            if(!leftState.IsTreeValid || !rightState.IsTreeValid)
             {
-                if(node.val < level)
-                {
-                    return false;
-                }
+                leftState.IsTreeValid = false;
+                return leftState;
+            }
+
+            if(leftState.MinValue == null && leftState.MaxValue == null)
+            {
+                leftState.MinValue = node.val;
+            }
+
+            if(leftState.MaxValue >= node.val ||  rightState.MinValue <= node.val)
+            {
+                leftState.IsTreeValid = false;
+                return leftState;
+            }
+
+            if(rightState.MaxValue != null)
+            {
+                leftState.MaxValue = rightState.MaxValue;
             }
             else
             {
-                if(node.val > level)
-                {
-                    return false;
-                }
+                leftState.MaxValue = node.val;
             }
 
-            return IsValidBTSInternal(node.left, node.val, false, leftTree) && IsValidBTSInternal(node.right, node.val, true, leftTree);
+            return leftState;
         }
 
-        return IsValidBTSInternal(root, root.val, true, true) && IsValidBTSInternal(root, root.val, true, false);
+        return IsValidBTSInternal(root).IsTreeValid;
     }
 
     #endregion

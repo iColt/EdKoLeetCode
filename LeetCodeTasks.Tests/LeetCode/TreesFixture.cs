@@ -75,6 +75,20 @@ public sealed class TreesFixture
 
     public static object[] IsValidBSTTestCases =
     {
+        new object[]
+        {
+            //[3,null,30,10,null,null,15,null,45],
+             new TreeNode(3,
+                null,
+                new TreeNode(30, 
+                    new TreeNode(10, 
+                        null, 
+                        new TreeNode(15, 
+                            null, 
+                            new TreeNode(45)))
+                    )),
+            false
+        },
         // Empty tree (valid BST)
         new object[]
         {
