@@ -435,13 +435,35 @@ public static class Trees
 
     #endregion
 
-    #region 652 Find Duplicate Subtrees - Not Solved
+    #region 652 Find Duplicate Subtrees - 5/7.7 poor performance and memory management
 
     public static IList<TreeNode> FindDuplicateSubtrees(TreeNode root)
     {
-        var result = new List<TreeNode>();
+        HashSet<string> serializedTrees = new HashSet<string>();
+        Dictionary<string, TreeNode> uniqueDuplicatedTrees = new Dictionary<string, TreeNode>();
 
-        return result;
+        ProcessTree(root);
+
+        void ProcessTree(TreeNode node)
+        {
+            if(node == null)
+            {
+                return;
+            }
+
+            var serializedTree = TreeHelpers.SerializeTree(node);
+            var currentSerializedTreeCount = serializedTrees.Count;
+            serializedTrees.Add(serializedTree);
+            if(serializedTrees.Count == currentSerializedTreeCount)
+            {
+                uniqueDuplicatedTrees.TryAdd(serializedTree,node);
+            }
+
+            ProcessTree(node.left);
+            ProcessTree(node.right);
+        }
+
+        return uniqueDuplicatedTrees.Select(x => x.Value).ToList();
     }
 
     #endregion
