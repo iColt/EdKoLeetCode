@@ -1023,6 +1023,127 @@ public sealed class TreesFixture
 
     #endregion
 
+    #region 606
+
+    [TestCaseSource(nameof(Tree2strTestCases))]
+    public void Tree2str_ShouldConstructCorrectString(
+       TreeNode root,
+       string expected)
+    {
+        // Act
+        var result = Trees.Tree2str(root);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    public static object[] Tree2strTestCases =
+    {
+        // Empty tree
+        new object[]
+        {
+            null,
+            string.Empty
+        },
+
+        // Single node
+        new object[]
+        {
+            new TreeNode(1),
+            "1"
+        },
+
+        // Simple tree
+        //     1
+        //    / \
+        //   2   3
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2),
+                new TreeNode(3)
+            ),
+            "1(2)(3)"
+        },
+
+        // LeetCode example 1
+        //     1
+        //    / \
+        //   2   3
+        //    \
+        //     4
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2,
+                    null,
+                    new TreeNode(4)),
+                new TreeNode(3)
+            ),
+            "1(2()(4))(3)"
+        },
+
+        // LeetCode example 2
+        //     1
+        //    /
+        //   2
+        //  /
+        // 3
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2,
+                    new TreeNode(3),
+                    null),
+                null
+            ),
+            "1(2(3))"
+        },
+
+        // Right child only (must include empty parentheses)
+        //     1
+        //      \
+        //       2
+        new object[]
+        {
+            new TreeNode(1,
+                null,
+                new TreeNode(2)
+            ),
+            "1()(2)"
+        },
+
+        // More complex tree
+        //        10
+        //       /  \
+        //      5    15
+        //       \
+        //        7
+        new object[]
+        {
+            new TreeNode(10,
+                new TreeNode(5,
+                    null,
+                    new TreeNode(7)),
+                new TreeNode(15)
+            ),
+            "10(5()(7))(15)"
+        },
+
+        // Tree with negative values
+        new object[]
+        {
+            new TreeNode(-1,
+                new TreeNode(-2),
+                new TreeNode(3)
+            ),
+            "-1(-2)(3)"
+        }
+    };
+
+
+    #endregion
+
     #region 617
 
     [TestCaseSource(nameof(MergeTreesTestCases))]

@@ -409,6 +409,39 @@ public static class Trees
     }
     #endregion
 
+    #region 606 Construct String from Binary Tree - 70.3/70.3 Pretty nice performance from the first attempt
+
+    public static string Tree2str(TreeNode root)
+    {
+        StringBuilder sb = new StringBuilder();
+        
+        PreOrderTrav(root, true);
+
+        void PreOrderTrav(TreeNode node, bool isHead = false, bool isLeft = false)
+        {
+            if(node == null) { 
+                if(isLeft)
+                {
+                    sb.Append("()");
+                }
+                return; 
+            }
+            if(!isHead)
+            {
+                sb.Append("(");
+            }
+            sb.Append($"{node.val}");
+            PreOrderTrav(node.left, false, node.right != null);
+            PreOrderTrav(node.right);
+            if(!isHead)
+            sb.Append(")");
+        }
+
+        return sb.ToString();
+    }
+
+    #endregion
+
     #region 617 - 100/39 not optimal memory
 
     public static TreeNode MergeTrees(TreeNode root1, TreeNode root2)
