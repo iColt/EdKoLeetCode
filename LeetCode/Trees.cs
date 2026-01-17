@@ -352,6 +352,26 @@ public static class Trees
 
     #endregion
 
+    #region 449 Serialize and Deserialize BST
+
+    public class Codec
+    {
+
+        // Encodes a tree to a single string.
+        public string serialize(TreeNode root)
+        {
+            return root.SerializeTree();
+        }
+
+        // Decodes your encoded data to tree.
+        public TreeNode deserialize(string data)
+        {
+            return new TreeNode(0);
+        }
+    }
+
+    #endregion
+
     #region 563 - Binary Tree Tilt - 5/71 poor performance || 10/6 2nd attempt, poorest :) || 100/22 slow memory for some reason :)
 
     // Improvement idea - create second tree, where sum will be calculated 

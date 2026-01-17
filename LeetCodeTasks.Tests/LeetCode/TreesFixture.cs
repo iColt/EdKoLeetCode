@@ -1,5 +1,6 @@
 ﻿using EdkoSKD.Common.Models;
 using EdkoSKD.Common.Trees;
+using static LeetCodeTasks.LeetCode.Trees;
 
 namespace LeetCodeTasks.Tests.LeetCode;
 
@@ -908,6 +909,116 @@ public sealed class TreesFixture
                 "10->5->7",
                 "10->15->18"
             }
+        }
+    };
+
+    #endregion
+
+    #region 449
+
+    [TestCaseSource(nameof(TestCases))]
+    public void SerializeDeserializeBST_ShouldPreserveTreeStructure(TreeNode root)
+    {
+        // Arrange
+        var codec = new Codec();
+
+        // Act
+        var serialized = codec.serialize(root);
+        var deserialized = codec.deserialize(serialized);
+
+        // Assert
+        TreeHelpers.AreEqualTrees(root, deserialized);
+    }
+
+    public static object[] TestCases =
+    {
+        // Empty tree
+        new object[]
+        {
+            null
+        },
+
+        // Single node
+        new object[]
+        {
+            new TreeNode(1)
+        },
+
+        // Simple BST
+        //     2
+        //    / \
+        //   1   3
+        new object[]
+        {
+            new TreeNode(2,
+                new TreeNode(1),
+                new TreeNode(3)
+            )
+        },
+
+        // Left-skewed BST
+        // 5 -> 4 -> 3 -> 2 -> 1
+        new object[]
+        {
+            new TreeNode(5,
+                new TreeNode(4,
+                    new TreeNode(3,
+                        new TreeNode(2,
+                            new TreeNode(1),
+                            null),
+                        null),
+                    null),
+                null
+            )
+        },
+
+        // Right-skewed BST
+        new object[]
+        {
+            new TreeNode(1,
+                null,
+                new TreeNode(2,
+                    null,
+                    new TreeNode(3,
+                        null,
+                        new TreeNode(4)))
+            )
+        },
+
+        // Balanced BST
+        //        8
+        //       / \
+        //      3   10
+        //     / \    \
+        //    1   6    14
+        //       / \   /
+        //      4   7 13
+        new object[]
+        {
+            new TreeNode(8,
+                new TreeNode(3,
+                    new TreeNode(1),
+                    new TreeNode(6,
+                        new TreeNode(4),
+                        new TreeNode(7))),
+                new TreeNode(10,
+                    null,
+                    new TreeNode(14,
+                        new TreeNode(13),
+                        null))
+            )
+        },
+
+        // BST with negative values
+        new object[]
+        {
+            new TreeNode(0,
+                new TreeNode(-3,
+                    new TreeNode(-10),
+                    null),
+                new TreeNode(9,
+                    new TreeNode(5),
+                    null))
         }
     };
 
