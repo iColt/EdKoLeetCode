@@ -280,6 +280,114 @@ public sealed class TreesFixture
     }
     #endregion
 
+    #region 104
+
+    [TestCaseSource(nameof(TestCases))]
+    public void MaxDepth_ShouldReturnCorrectDepth(
+       TreeNode root,
+       int expected)
+    {
+        // Act
+        var result = Trees.MaxDepth(root);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    public static object[] TestCases =
+    {
+        // Empty tree
+        new object[]
+        {
+            null,
+            0
+        },
+
+        // Single node
+        new object[]
+        {
+            new TreeNode(1),
+            1
+        },
+
+        // Balanced tree
+        //       3
+        //      / \
+        //     9  20
+        //        / \
+        //       15  7
+        new object[]
+        {
+            new TreeNode(3,
+                new TreeNode(9),
+                new TreeNode(20,
+                    new TreeNode(15),
+                    new TreeNode(7))
+            ),
+            3
+        },
+
+        // Left-skewed tree
+        // 1 -> 2 -> 3 -> 4
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2,
+                    new TreeNode(3,
+                        new TreeNode(4),
+                        null),
+                    null),
+                null
+            ),
+            4
+        },
+
+        // Right-skewed tree
+        new object[]
+        {
+            new TreeNode(1,
+                null,
+                new TreeNode(2,
+                    null,
+                    new TreeNode(3))
+            ),
+            3
+        },
+
+        // Complete binary tree
+        //        1
+        //       / \
+        //      2   3
+        //     / \  /
+        //    4  5 6
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2,
+                    new TreeNode(4),
+                    new TreeNode(5)),
+                new TreeNode(3,
+                    new TreeNode(6),
+                    null)
+            ),
+            3
+        },
+
+        // Tree with negative values
+        new object[]
+        {
+            new TreeNode(-1,
+                new TreeNode(-2,
+                    new TreeNode(-3),
+                    null),
+                null
+            ),
+            3
+        }
+    };
+
+    #endregion
+
     #region 110
 
     [TestCaseSource(typeof(BalancedTreeTestData), nameof(BalancedTreeTestData.TestCases))]

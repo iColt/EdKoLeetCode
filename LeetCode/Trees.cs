@@ -138,6 +138,15 @@ public static class Trees
 
     #endregion
 
+    #region 104 Max Depth of Binary Tree - 100/27.3
+
+    public static int MaxDepth(TreeNode root)
+    {
+        return root.MaxDepth();
+    }
+
+    #endregion
+
     #region 108 Convert sorted array to Binary Search tree - 100/66
 
     public static TreeNode SortedArrayToBST(int[] nums)
