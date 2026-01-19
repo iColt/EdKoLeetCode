@@ -352,7 +352,7 @@ public static class Trees
 
     #endregion
 
-    #region 449 Serialize and Deserialize BST
+    #region 449 Serialize and Deserialize BST - 70/16 bad memory management
 
     public class Codec
     {
@@ -366,7 +366,7 @@ public static class Trees
         // Decodes your encoded data to tree.
         public TreeNode deserialize(string data)
         {
-            return new TreeNode(0);
+            return TreeSerializator.Deserialize(data);
         }
     }
 

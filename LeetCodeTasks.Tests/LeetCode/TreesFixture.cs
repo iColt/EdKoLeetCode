@@ -916,7 +916,7 @@ public sealed class TreesFixture
 
     #region 449
 
-    [TestCaseSource(nameof(TestCases))]
+    [TestCaseSource(nameof(SerializeDeserializeBSTTestCases))]
     public void SerializeDeserializeBST_ShouldPreserveTreeStructure(TreeNode root)
     {
         // Arrange
@@ -927,10 +927,10 @@ public sealed class TreesFixture
         var deserialized = codec.deserialize(serialized);
 
         // Assert
-        TreeHelpers.AreEqualTrees(root, deserialized);
+        Assert.That(TreeHelpers.AreEqualTrees(root, deserialized));
     }
 
-    public static object[] TestCases =
+    public static object[] SerializeDeserializeBSTTestCases =
     {
         // Empty tree
         new object[]
