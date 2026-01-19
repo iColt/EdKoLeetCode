@@ -282,7 +282,7 @@ public sealed class TreesFixture
 
     #region 104
 
-    [TestCaseSource(nameof(TestCases))]
+    [TestCaseSource(nameof(MaxDepthTestCases))]
     public void MaxDepth_ShouldReturnCorrectDepth(
        TreeNode root,
        int expected)
@@ -294,7 +294,7 @@ public sealed class TreesFixture
         Assert.That(result, Is.EqualTo(expected));
     }
 
-    public static object[] TestCases =
+    public static object[] MaxDepthTestCases =
     {
         // Empty tree
         new object[]
@@ -1646,6 +1646,145 @@ public sealed class TreesFixture
         CollectionAssert.AreEquivalent(expectedSerialized, actualSerialized);
     }
 
+
+    #endregion
+
+    #region 2458
+
+    [TestCaseSource(nameof(TreeQueriesTestCases))]
+    public void TreeQueries_ShouldReturnCorrectHeights(
+        TreeNode root,
+        int[] queries,
+        int[] expected)
+    {
+        // Act
+        var result = TreeQueries(root, queries);
+
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        CollectionAssert.AreEqual(expected, result);
+    }
+
+    public static object[] TreeQueriesTestCases =
+    {
+        // LeetCode example
+        //        1
+        //       / \
+        //      3   4
+        //     /   / \
+        //    2   6   5
+        //
+        // Heights (edges):
+        // Full tree height = 2
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(3,
+                    new TreeNode(2),
+                    null),
+                new TreeNode(4,
+                    new TreeNode(6),
+                    new TreeNode(5))
+            ),
+            new[] { 4, 3, 6 },
+            new[] { 2, 2, 2 }
+        },
+
+        // Removing root → empty tree
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2),
+                new TreeNode(3)
+            ),
+            new[] { 1 },
+            new[] { 0 }
+        },
+
+        // Skewed left tree
+        // 1 - 2 - 3 - 4
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2,
+                    new TreeNode(3,
+                        new TreeNode(4),
+                        null),
+                    null),
+                null
+            ),
+            new[] { 4, 3, 2 },
+            new[] { 2, 1, 0 }
+        },
+
+        // Skewed right tree
+        new object[]
+        {
+            new TreeNode(1,
+                null,
+                new TreeNode(2,
+                    null,
+                    new TreeNode(3,
+                        null,
+                        new TreeNode(4)))
+            ),
+            new[] { 2, 3 },
+            new[] { 0, 1 }
+        },
+
+        // Balanced tree
+        //        10
+        //       /  \
+        //      5    15
+        //     / \     \
+        //    3   7     18
+        new object[]
+        {
+            new TreeNode(10,
+                new TreeNode(5,
+                    new TreeNode(3),
+                    new TreeNode(7)),
+                new TreeNode(15,
+                    null,
+                    new TreeNode(18))
+            ),
+            new[] { 5, 15, 3 },
+            new[] { 2, 2, 2 }
+        },
+
+        // Leaf removals only
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2),
+                new TreeNode(3)
+            ),
+            new[] { 2, 3 },
+            new[] { 1, 1 }
+        },
+
+        // Deep subtree removal changes height
+        //        1
+        //       / \
+        //      2   3
+        //         /
+        //        4
+        //       /
+        //      5
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2),
+                new TreeNode(3,
+                    new TreeNode(4,
+                        new TreeNode(5),
+                        null),
+                    null)
+            ),
+            new[] { 3, 4 },
+            new[] { 1, 2 }
+        }
+    };
 
     #endregion
 }

@@ -546,4 +546,57 @@ public static class Trees
     }
 
     #endregion
+
+    #region 2458 Height of binary tree after sub tree removal queries
+
+    public static int[] TreeQueries(TreeNode root, int[] queries)
+    {
+
+        List<int> MaxDepthPath(TreeNode node)
+        {
+            if(node == null)
+            {
+                return new List<int>();
+            }
+
+            if(node.left == null && node.right == null)
+            {
+                return new List<int> { node.val };
+            }
+
+            var leftSideDepth = MaxDepthPath(node.left);
+            var rightSideDepth = MaxDepthPath(node.right);
+
+            if(leftSideDepth.Count > rightSideDepth.Count)
+            {
+                leftSideDepth.Add(node.val);
+                return leftSideDepth;
+            } else
+            {
+                rightSideDepth.Add(node.val);
+                return rightSideDepth;
+            }
+        }
+
+        int[] results = new int[queries.Length];
+
+        var maxDepthPath = MaxDepthPath(root);
+        maxDepthPath.Sort();
+        var arr = maxDepthPath.ToArray<int>();
+
+        for (int i = 0; i < queries.Length; i++)
+        {
+            if(Array.BinarySearch(arr, queries[i]) >= 0)
+            {
+                results[i] = maxDepthPath.Count;
+            } else
+            {
+                results[i] = maxDepthPath.Count - 1;
+            }
+        }
+
+        return results;
+    }
+
+    #endregion
 }
