@@ -352,12 +352,29 @@ public static class Trees
 
     #endregion
 
+    #region 297 Serialize/Deserialize BST 2
+
+    public class Codec2
+    {
+        public string serialize(TreeNode root)
+        {
+            return root.SerializeTree();
+        }
+
+        // Decodes your encoded data to tree.
+        public TreeNode deserialize(string data)
+        {
+            return TreeSerializator.Deserialize(data);
+        }
+    }
+
+    #endregion
+
     #region 449 Serialize and Deserialize BST - 70/16 bad memory management
 
     public class Codec
     {
 
-        // Encodes a tree to a single string.
         public string serialize(TreeNode root)
         {
             return root.SerializeTree();
