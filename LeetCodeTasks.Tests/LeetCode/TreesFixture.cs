@@ -7,11 +7,35 @@ namespace LeetCodeTasks.Tests.LeetCode;
 [TestFixture]
 public sealed class TreesFixture
 {
+    private static readonly TreeNode OneNodeBST = new(1);
+    private static readonly TreeNode SimpleBST = new(2,
+                    OneNodeBST,
+                    new TreeNode(3)
+                );
+
+    private static readonly TreeNode SimpleBST2 = new TreeNode(1,
+                    new TreeNode(2),
+                    new TreeNode(3)
+                );
+    private static readonly TreeNode LeftSkewedBST = new TreeNode(3,
+                    new TreeNode(2,
+                        OneNodeBST,
+                        null),
+                    null
+                );
+    private static readonly TreeNode LeftSkewedBST2 = new TreeNode(1,
+                    new TreeNode(2,
+                        new TreeNode(3,
+                            new TreeNode(4),
+                            null),
+                        null),
+                    null
+                );
     #region 94
     [TestCaseSource(typeof(InorderTraversalTestData), nameof(InorderTraversalTestData.TestCases))]
     public void Test_InorderTraversal(TreeNode root, IList<int> expected)
     {
-        var result = Trees.InorderTraversal(root);
+        var result = InorderTraversal(root);
 
         Assert.That(result, Is.EqualTo(expected));
     }
@@ -68,7 +92,7 @@ public sealed class TreesFixture
         bool expected)
     {
         // Act
-        var result = Trees.IsValidBST(root);
+        var result = IsValidBST(root);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
@@ -100,7 +124,7 @@ public sealed class TreesFixture
         // Single node
         new object[]
         {
-            new TreeNode(1),
+            OneNodeBST,
             true
         },
 
@@ -110,10 +134,7 @@ public sealed class TreesFixture
         //   1   3
         new object[]
         {
-            new TreeNode(2,
-                new TreeNode(1),
-                new TreeNode(3)
-            ),
+            SimpleBST,
             true
         },
 
@@ -122,7 +143,7 @@ public sealed class TreesFixture
         {
             new TreeNode(2,
                 new TreeNode(3),
-                new TreeNode(1)
+                OneNodeBST
             ),
             false
         },
@@ -136,7 +157,7 @@ public sealed class TreesFixture
         new object[]
         {
             new TreeNode(5,
-                new TreeNode(1),
+                OneNodeBST,
                 new TreeNode(6,
                     new TreeNode(3),
                     new TreeNode(7))
@@ -189,7 +210,7 @@ public sealed class TreesFixture
         {
             new TreeNode(8,
                 new TreeNode(3,
-                    new TreeNode(1),
+                    OneNodeBST,
                     new TreeNode(6,
                         new TreeNode(4),
                         new TreeNode(7))),
@@ -210,7 +231,7 @@ public sealed class TreesFixture
     [TestCaseSource(typeof(SameTreeTestData), nameof(SameTreeTestData.TestCases))]
     public void Test_IsSameTree(TreeNode p, TreeNode q, bool expected)
     {
-        bool result = Trees.IsSameTree(p, q);
+        bool result = IsSameTree(p, q);
 
         Assert.That(result, Is.EqualTo(expected));
     }
@@ -288,7 +309,7 @@ public sealed class TreesFixture
        int expected)
     {
         // Act
-        var result = Trees.MaxDepth(root);
+        var result = MaxDepth(root);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
@@ -306,7 +327,7 @@ public sealed class TreesFixture
         // Single node
         new object[]
         {
-            new TreeNode(1),
+            OneNodeBST,
             1
         },
 
@@ -331,14 +352,7 @@ public sealed class TreesFixture
         // 1 -> 2 -> 3 -> 4
         new object[]
         {
-            new TreeNode(1,
-                new TreeNode(2,
-                    new TreeNode(3,
-                        new TreeNode(4),
-                        null),
-                    null),
-                null
-            ),
+            LeftSkewedBST2,
             4
         },
 
@@ -393,7 +407,7 @@ public sealed class TreesFixture
     [TestCaseSource(typeof(BalancedTreeTestData), nameof(BalancedTreeTestData.TestCases))]
     public void TestBalancedBinaryTree(TreeNode root, bool expected)
     {
-        Assert.That(Trees.IsBalanced(root), Is.EqualTo(expected));
+        Assert.That(IsBalanced(root), Is.EqualTo(expected));
     }
 
     public class BalancedTreeTestData
@@ -507,22 +521,20 @@ public sealed class TreesFixture
         yield return new TestCaseData(
            new int[] { 1, 2, 3, 4, 5, 6, 7 },
            new TreeNode(4,
-               new TreeNode(2,
-                   new TreeNode(1),
-                   new TreeNode(3)),
+               SimpleBST,
                new TreeNode(6,
                    new TreeNode(5),
                    new TreeNode(7)))
        );
         yield return new TestCaseData(
             new int[] { 1 },
-            new TreeNode(1)
+            OneNodeBST
         );
 
         yield return new TestCaseData(
             new int[] { 1, 3 },
             new TreeNode(3,
-                new TreeNode(1),
+                OneNodeBST,
                 null)
         );
 
@@ -541,7 +553,7 @@ public sealed class TreesFixture
     [TestCaseSource(nameof(ConvertTestCases))]
     public void SortedArrayToBST_ShouldBuildCorrectTree(int[] nums, TreeNode expected)
     {
-        var result = Trees.SortedArrayToBST(nums);
+        var result = SortedArrayToBST(nums);
 
         Assert.IsTrue(TreeHelpers.AreEqualTrees(expected, result), "Generated tree does not match expected");
     }
@@ -553,7 +565,7 @@ public sealed class TreesFixture
     [TestCaseSource(typeof(PathSumTestData), nameof(PathSumTestData.TestCases))]
     public void Test_HasPathSum(TreeNode root, int targetSum, bool expected)
     {
-        bool result = Trees.HasPathSum(root, targetSum);
+        bool result = HasPathSum(root, targetSum);
 
         Assert.That(result, Is.EqualTo(expected));
     }
@@ -629,7 +641,7 @@ public sealed class TreesFixture
     [TestCaseSource(typeof(PreorderTraversalTestData), nameof(PreorderTraversalTestData.TestCases))]
     public void Test_PreorderTraversal(TreeNode root, IList<int> expected)
     {
-        var result = Trees.PreorderTraversal(root);
+        var result = PreorderTraversal(root);
 
         Assert.That(result, Is.EqualTo(expected));
     }
@@ -700,7 +712,7 @@ public sealed class TreesFixture
     [TestCaseSource(typeof(PostorderTraversalTestData), nameof(PostorderTraversalTestData.TestCases))]
     public void Test_PostorderTraversal(TreeNode root, IList<int> expected)
     {
-        var result = Trees.PostorderTraversal(root);
+        var result = PostorderTraversal(root);
 
         Assert.That(result, Is.EqualTo(expected));
     }
@@ -773,7 +785,7 @@ public sealed class TreesFixture
     public void InvertTree_ShouldInvertCorrectly(TreeNode input, TreeNode expected)
     {
         // Act
-        var result = Trees.InvertTree(input);
+        var result = InvertTree(input);
 
         // Assert
         Assert.IsTrue(TreeHelpers.AreEqualTrees(expected, result));
@@ -791,8 +803,8 @@ public sealed class TreesFixture
         // Single node
         new object[]
         {
-            new TreeNode(1),
-            new TreeNode(1)
+            OneNodeBST,
+            OneNodeBST
         },
 
         // Simple tree
@@ -801,13 +813,10 @@ public sealed class TreesFixture
         // 1   3      3   1
         new object[]
         {
-            new TreeNode(2,
-                new TreeNode(1),
-                new TreeNode(3)
-            ),
+            SimpleBST,
             new TreeNode(2,
                 new TreeNode(3),
-                new TreeNode(1)
+                OneNodeBST
             )
         },
 
@@ -820,10 +829,7 @@ public sealed class TreesFixture
         new object[]
         {
             new TreeNode(4,
-                new TreeNode(2,
-                    new TreeNode(1),
-                    new TreeNode(3)
-                ),
+                SimpleBST,
                 new TreeNode(7,
                     new TreeNode(6),
                     new TreeNode(9)
@@ -836,7 +842,7 @@ public sealed class TreesFixture
                 ),
                 new TreeNode(2,
                     new TreeNode(3),
-                    new TreeNode(1)
+                    OneNodeBST
                 )
             )
         },
@@ -844,17 +850,12 @@ public sealed class TreesFixture
         // Left-skewed tree
         new object[]
         {
-            new TreeNode(3,
-                new TreeNode(2,
-                    new TreeNode(1),
-                    null),
-                null
-            ),
+            LeftSkewedBST,
             new TreeNode(3,
                 null,
                 new TreeNode(2,
                     null,
-                    new TreeNode(1))
+                    OneNodeBST)
             )
         },
 
@@ -886,7 +887,7 @@ public sealed class TreesFixture
        IList<string> expected)
     {
         // Act
-        var result = Trees.BinaryTreePaths(root);
+        var result = BinaryTreePaths(root);
 
         // Assert
         Assert.That(result, Is.Not.Null);
@@ -899,14 +900,7 @@ public sealed class TreesFixture
         // 1 -> 2 -> 3 -> 4
         new object[]
         {
-            new TreeNode(1,
-                new TreeNode(2,
-                    new TreeNode(3,
-                        new TreeNode(4),
-                        null),
-                    null),
-                null
-            ),
+            LeftSkewedBST2,
             new List<string>
             {
                 "1->2->3->4"
@@ -923,7 +917,7 @@ public sealed class TreesFixture
         // Single node
         new object[]
         {
-            new TreeNode(1),
+            OneNodeBST,
             new List<string> { "1" }
         },
 
@@ -933,10 +927,7 @@ public sealed class TreesFixture
         //   2   3
         new object[]
         {
-            new TreeNode(1,
-                new TreeNode(2),
-                new TreeNode(3)
-            ),
+            SimpleBST2,
             new List<string>
             {
                 "1->2",
@@ -1049,7 +1040,7 @@ public sealed class TreesFixture
         // Single node
         new object[]
         {
-            new TreeNode(1)
+            OneNodeBST
         },
 
         // Simple BST
@@ -1058,10 +1049,7 @@ public sealed class TreesFixture
         //   1   3
         new object[]
         {
-            new TreeNode(2,
-                new TreeNode(1),
-                new TreeNode(3)
-            )
+            SimpleBST
         },
 
         // Left-skewed BST
@@ -1070,11 +1058,7 @@ public sealed class TreesFixture
         {
             new TreeNode(5,
                 new TreeNode(4,
-                    new TreeNode(3,
-                        new TreeNode(2,
-                            new TreeNode(1),
-                            null),
-                        null),
+                    LeftSkewedBST,
                     null),
                 null
             )
@@ -1105,7 +1089,7 @@ public sealed class TreesFixture
         {
             new TreeNode(8,
                 new TreeNode(3,
-                    new TreeNode(1),
+                    OneNodeBST,
                     new TreeNode(6,
                         new TreeNode(4),
                         new TreeNode(7))),
@@ -1138,7 +1122,7 @@ public sealed class TreesFixture
     public void FindTilt_ShouldReturnCorrectTilt(TreeNode input, int expected)
     {
         // Act
-        var result = Trees.FindTilt(input);
+        var result = FindTilt(input);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
@@ -1220,7 +1204,7 @@ public sealed class TreesFixture
         // Single node
         new object[]
         {
-            new TreeNode(1),
+            OneNodeBST,
             0
         },
 
@@ -1231,10 +1215,7 @@ public sealed class TreesFixture
         // Tilt = |2 - 3| = 1
         new object[]
         {
-            new TreeNode(1,
-                new TreeNode(2),
-                new TreeNode(3)
-            ),
+            SimpleBST2,
             1
         },
 
@@ -1250,7 +1231,7 @@ public sealed class TreesFixture
        string expected)
     {
         // Act
-        var result = Trees.Tree2str(root);
+        var result = Tree2str(root);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
@@ -1268,7 +1249,7 @@ public sealed class TreesFixture
         // Single node
         new object[]
         {
-            new TreeNode(1),
+            OneNodeBST,
             "1"
         },
 
@@ -1278,10 +1259,7 @@ public sealed class TreesFixture
         //   2   3
         new object[]
         {
-            new TreeNode(1,
-                new TreeNode(2),
-                new TreeNode(3)
-            ),
+            SimpleBST2,
             "1(2)(3)"
         },
 
@@ -1372,7 +1350,7 @@ public sealed class TreesFixture
        TreeNode expected)
     {
         // Act
-        var result = Trees.MergeTrees(root1, root2);
+        var result = MergeTrees(root1, root2);
 
         // Assert
         Assert.That(TreeHelpers.AreEqualTrees(expected, result));
@@ -1391,9 +1369,9 @@ public sealed class TreesFixture
         // One tree empty
         new object[]
         {
-            new TreeNode(1),
+            OneNodeBST,
             null,
-            new TreeNode(1)
+            OneNodeBST
         },
 
         new object[]
@@ -1496,7 +1474,7 @@ public sealed class TreesFixture
        IList<TreeNode> expected)
     {
         // Act
-        var result = Trees.FindDuplicateSubtrees(root);
+        var result = FindDuplicateSubtrees(root);
 
         // Assert
         Assert.That(result, Is.Not.Null);
@@ -1515,7 +1493,7 @@ public sealed class TreesFixture
         // Single node (no duplicates)
         new object[]
         {
-            new TreeNode(1),
+            OneNodeBST,
             new List<TreeNode>()
         },
 
@@ -1592,10 +1570,7 @@ public sealed class TreesFixture
         // No duplicates
         new object[]
         {
-            new TreeNode(1,
-                new TreeNode(2),
-                new TreeNode(3)
-            ),
+            SimpleBST2,
             new List<TreeNode>()
         },
 
@@ -1608,18 +1583,12 @@ public sealed class TreesFixture
         new object[]
         {
             new TreeNode(5,
-                new TreeNode(1,
-                    new TreeNode(2),
-                    new TreeNode(3)),
-                new TreeNode(1,
-                    new TreeNode(2),
-                    new TreeNode(3))
+                SimpleBST2,
+                SimpleBST2
             ),
             new List<TreeNode>
             {
-                new TreeNode(1,
-                    new TreeNode(2),
-                    new TreeNode(3)),
+                SimpleBST2,
                 new TreeNode(2),
                 new TreeNode(3)
             }
@@ -1693,10 +1662,7 @@ public sealed class TreesFixture
         // Removing root → empty tree
         new object[]
         {
-            new TreeNode(1,
-                new TreeNode(2),
-                new TreeNode(3)
-            ),
+            SimpleBST2,
             new[] { 1 },
             new[] { 0 }
         },
@@ -1705,14 +1671,7 @@ public sealed class TreesFixture
         // 1 - 2 - 3 - 4
         new object[]
         {
-            new TreeNode(1,
-                new TreeNode(2,
-                    new TreeNode(3,
-                        new TreeNode(4),
-                        null),
-                    null),
-                null
-            ),
+            LeftSkewedBST2,
             new[] { 4, 3, 2 },
             new[] { 2, 1, 0 }
         },
@@ -1755,10 +1714,7 @@ public sealed class TreesFixture
         // Leaf removals only
         new object[]
         {
-            new TreeNode(1,
-                new TreeNode(2),
-                new TreeNode(3)
-            ),
+            SimpleBST2,
             new[] { 2, 3 },
             new[] { 1, 1 }
         },
