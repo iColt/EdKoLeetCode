@@ -361,7 +361,7 @@ public static class Trees
 
     #endregion
 
-    #region 297 Serialize/Deserialize BST 2
+    #region 297 Serialize/Deserialize BST 2 - 41/96
 
     public class Codec2
     {
@@ -488,9 +488,9 @@ public static class Trees
 
     #endregion
 
-    #region 617 - 100/39 not optimal memory
+    #region 617 - 100/39 not optimal memory || 6/22 bad performance when no mutation on first tree || 33/37 still not optimal memory
 
-    public static TreeNode MergeTrees(TreeNode root1, TreeNode root2)
+    public static TreeNode MergeTreesMy(TreeNode root1, TreeNode root2)
     {
         if(root2 == null)
         {
@@ -505,11 +505,53 @@ public static class Trees
 
         root1.val += root2.val;
 
-        root1.left = MergeTrees(root1.left, root2.left);
-        root1.right = MergeTrees(root1.right, root2.right);
+        root1.left = MergeTreesMy(root1.left, root2.left);
+        root1.right = MergeTreesMy(root1.right, root2.right);
         
         return root1;
 
+    }
+
+    public static TreeNode MergeTreesSecond(TreeNode root1, TreeNode root2)
+    {
+        if (root1 == null && root2 == null)
+            return null;
+
+        int val = (root1?.val ?? 0) + (root2?.val ?? 0);
+
+        return new TreeNode(val)
+        {
+            left = MergeTreesSecond(root1?.left, root2?.left),
+            right = MergeTreesSecond(root1?.right, root2?.right)
+        };
+    }
+
+    public static TreeNode MergeTrees(TreeNode root1, TreeNode root2)
+    {
+        if (root1 == null) return root2;
+        if (root2 == null) return root1;
+
+        var stack = new Stack<(TreeNode, TreeNode)>();
+        stack.Push((root1, root2));
+
+        while (stack.Count > 0)
+        {
+            var (n1, n2) = stack.Pop();
+
+            n1.val += n2.val;
+
+            if (n1.left == null)
+                n1.left = n2.left;
+            else if (n2.left != null)
+                stack.Push((n1.left, n2.left));
+
+            if (n1.right == null)
+                n1.right = n2.right;
+            else if (n2.right != null)
+                stack.Push((n1.right, n2.right));
+        }
+
+        return root1;
     }
 
     #endregion
@@ -547,7 +589,7 @@ public static class Trees
 
     #endregion
 
-    #region 2458 Height of binary tree after sub tree removal queries
+    #region 2458 Height of binary tree after sub tree removal queries - Not solved
 
     public static int[] TreeQueries(TreeNode root, int[] queries)
     {
