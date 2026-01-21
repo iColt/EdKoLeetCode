@@ -261,6 +261,57 @@ public static class Trees
 
     #endregion
 
+    #region 107 Binary Tree Level Order Traversal BFS
+
+    public static IList<IList<int>> LevelOrderBottom(TreeNode root)
+    {
+        var result = new List<IList<int>>();
+        if (root == null)
+        {
+            return result;
+        }
+        var stack = new Stack<int>();
+
+        var queue = new Queue<TreeNode>();
+        queue.Enqueue(root);
+
+        while(queue.Count > 0)
+        {
+            int size = queue.Count;
+            var level = new List<int> { size };
+            result.Add(level);
+
+            for (int i = 0; i < size; i++)
+            {
+                var node = queue.Dequeue();
+                stack.Push(node.val) ;
+
+                if (node.left != null)
+                {
+                    queue.Enqueue(node.left);
+                }
+
+                if (node.right != null)
+                {
+                    queue.Enqueue(node.right);
+                }
+            }
+        }
+
+        for(int i = result.Count - 1; i >= 0 ; i--)
+        {
+            var size = result[i][0];
+            for (int j = 0; j < size; j++)
+            {
+                result[i][j] = stack.Pop();
+            }
+        }
+
+        return result;
+    }
+
+    #endregion
+
     #region 110 Balanced Binary Tree - 100/17.8 non effective memory consumption
 
     public static bool IsBalanced(TreeNode root)
