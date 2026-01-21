@@ -188,6 +188,41 @@ public static class Trees
 
     #endregion
 
+    #region 102 Binary Tree Level Order Traversal - 100/15.3 bad memory
+
+    public static IList<IList<int>> LevelOrder(TreeNode root)
+    {
+        var result = new List<IList<int>>();
+
+        if(root == null)
+        {
+            return result;
+        }
+
+        result.Add(new List<int>());
+        LevelOrderInternal(root, 0);
+
+        void LevelOrderInternal(TreeNode node, int level)
+        {
+            if(node == null)
+            {
+                return;
+            }
+
+            if(result.Count <= level)
+            {
+                result.Add(new List<int>());
+            }
+            result[level].Add(node.val);
+
+            LevelOrderInternal(node.left, level + 1);
+            LevelOrderInternal(node.right, level + 1);
+        }
+        return result;
+    }
+
+    #endregion
+
     #region 110 Balanced Binary Tree - 100/17.8 non effective memory consumption
 
     public static bool IsBalanced(TreeNode root)

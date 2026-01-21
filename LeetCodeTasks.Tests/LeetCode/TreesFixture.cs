@@ -308,6 +308,127 @@ public sealed class TreesFixture
     }
     #endregion
 
+    #region 102
+
+    [TestCaseSource(nameof(LevelOrderTestCases))]
+    public void LevelOrder_ShouldReturnCorrectLevels(
+       TreeNode root,
+       IList<IList<int>> expected)
+    {
+        // Act
+        var result = LevelOrder(root);
+
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        AssertLevelsEqual(expected, result);
+    }
+
+    public static object[] LevelOrderTestCases =
+    {
+        // Empty tree
+        new object[]
+        {
+            null,
+            new List<IList<int>>()
+        },
+
+        // Single node
+        new object[]
+        {
+            OneNodeBST,
+            new List<IList<int>>
+            {
+                new List<int> { 1 }
+            }
+        },
+
+        // Simple BST: 2 -> (1, 3)
+        new object[]
+        {
+            SimpleBST,
+            new List<IList<int>>
+            {
+                new List<int> { 2 },
+                new List<int> { 1, 3 }
+            }
+        },
+
+        // Simple BST 2: 1 -> (2, 3)
+        new object[]
+        {
+            SimpleBST2,
+            new List<IList<int>>
+            {
+                new List<int> { 1 },
+                new List<int> { 2, 3 }
+            }
+        },
+
+        // Left skewed BST
+        // 3
+        // |
+        // 2
+        // |
+        // 1
+        new object[]
+        {
+            LeftSkewedBST,
+            new List<IList<int>>
+            {
+                new List<int> { 3 },
+                new List<int> { 2 },
+                new List<int> { 1 }
+            }
+        },
+
+        // Deep left skewed BST
+        new object[]
+        {
+            LeftSkewedBST2,
+            new List<IList<int>>
+            {
+                new List<int> { 1 },
+                new List<int> { 2 },
+                new List<int> { 3 },
+                new List<int> { 4 }
+            }
+        },
+
+        // Right skewed BST
+        new object[]
+        {
+            RightSkewedBST,
+            new List<IList<int>>
+            {
+                new List<int> { 1 },
+                new List<int> { 2 },
+                new List<int> { 3 }
+            }
+        }
+    };
+
+    // ----------------------
+    // Helper assertion
+    // ----------------------
+    private static void AssertLevelsEqual(
+        IList<IList<int>> expected,
+        IList<IList<int>> actual)
+    {
+        Assert.AreEqual(expected.Count, actual.Count, "Level count mismatch");
+
+        for (int i = 0; i < expected.Count; i++)
+        {
+            CollectionAssert.AreEqual(
+                expected[i],
+                actual[i],
+                $"Mismatch at level {i}"
+            );
+        }
+    }
+
+
+    #endregion
+
     #region 104
 
     [TestCaseSource(nameof(MaxDepthTestCases))]
