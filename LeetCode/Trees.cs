@@ -188,9 +188,9 @@ public static class Trees
 
     #endregion
 
-    #region 102 Binary Tree Level Order Traversal - 100/15.3 bad memory
+    #region 102 Binary Tree Level Order Traversal - 100/15.3 bad memory for DFS || 100/53.7 improvement with BFS
 
-    public static IList<IList<int>> LevelOrder(TreeNode root)
+    public static IList<IList<int>> LevelOrderDFS(TreeNode root)
     {
         var result = new List<IList<int>>();
 
@@ -218,6 +218,44 @@ public static class Trees
             LevelOrderInternal(node.left, level + 1);
             LevelOrderInternal(node.right, level + 1);
         }
+        return result;
+    }
+
+    public static IList<IList<int>> LevelOrder(TreeNode root)
+    {
+        var result = new List<IList<int>>();
+        if (root == null)
+        {
+            return result;
+        }
+
+        var queue = new Queue<TreeNode>();
+        queue.Enqueue(root);
+
+        while (queue.Count > 0)
+        {
+            int size = queue.Count;
+            var level = new List<int>(size);
+
+            for (int i = 0; i < size; i++)
+            {
+                var node = queue.Dequeue();
+                level.Add(node.val);
+
+                if (node.left != null)
+                {
+                    queue.Enqueue(node.left);
+                }
+
+                if (node.right != null)
+                {
+                    queue.Enqueue(node.right);
+                }
+            }
+
+            result.Add(level);
+        }
+
         return result;
     }
 
