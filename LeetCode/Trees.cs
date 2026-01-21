@@ -239,6 +239,38 @@ public static class Trees
 
     #endregion
 
+    #region 111 - 23/29.7 poor perf
+
+    public static int MinDepth(TreeNode root)
+    {
+        if(root ==null)
+        {
+            return 0;
+        }
+
+        return MinDepth(root);
+
+        int MinDepth(TreeNode? node)
+        {
+            if (node == null)
+            {
+                return int.MaxValue;
+            }
+
+            if(node.left == null && node.right  == null)
+            {
+                return 1;
+            }
+
+            int leftDepth = MinDepth(node.left);
+            int rightDepth = MinDepth(node.right);
+
+            return Math.Min(leftDepth, rightDepth) + 1;
+        }
+    }
+
+    #endregion
+
     #region 112 Path Sum - 100/58.7
 
     public static bool HasPathSum(TreeNode root, int targetSum)
@@ -594,48 +626,7 @@ public static class Trees
     public static int[] TreeQueries(TreeNode root, int[] queries)
     {
 
-        List<int> MaxDepthPath(TreeNode node)
-        {
-            if(node == null)
-            {
-                return new List<int>();
-            }
-
-            if(node.left == null && node.right == null)
-            {
-                return new List<int> { node.val };
-            }
-
-            var leftSideDepth = MaxDepthPath(node.left);
-            var rightSideDepth = MaxDepthPath(node.right);
-
-            if(leftSideDepth.Count > rightSideDepth.Count)
-            {
-                leftSideDepth.Add(node.val);
-                return leftSideDepth;
-            } else
-            {
-                rightSideDepth.Add(node.val);
-                return rightSideDepth;
-            }
-        }
-
         int[] results = new int[queries.Length];
-
-        var maxDepthPath = MaxDepthPath(root);
-        maxDepthPath.Sort();
-        var arr = maxDepthPath.ToArray<int>();
-
-        for (int i = 0; i < queries.Length; i++)
-        {
-            if(Array.BinarySearch(arr, queries[i]) >= 0)
-            {
-                results[i] = maxDepthPath.Count;
-            } else
-            {
-                results[i] = maxDepthPath.Count - 1;
-            }
-        }
 
         return results;
     }

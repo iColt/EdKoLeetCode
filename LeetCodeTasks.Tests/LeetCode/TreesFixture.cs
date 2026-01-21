@@ -31,6 +31,13 @@ public sealed class TreesFixture
                         null),
                     null
                 );
+
+    private static readonly TreeNode RightSkewedBST = new TreeNode(1,
+                    null,
+                    new TreeNode(2,
+                        null,
+                        new TreeNode(3))
+                );
     #region 94
     [TestCaseSource(typeof(InorderTraversalTestData), nameof(InorderTraversalTestData.TestCases))]
     public void Test_InorderTraversal(TreeNode root, IList<int> expected)
@@ -359,12 +366,7 @@ public sealed class TreesFixture
         // Right-skewed tree
         new object[]
         {
-            new TreeNode(1,
-                null,
-                new TreeNode(2,
-                    null,
-                    new TreeNode(3))
-            ),
+            RightSkewedBST,
             3
         },
 
@@ -399,6 +401,52 @@ public sealed class TreesFixture
             3
         }
     };
+
+    #endregion
+
+    #region 108
+
+    public static IEnumerable<TestCaseData> ConvertTestCases()
+    {
+        yield return new TestCaseData(
+           new int[] { 1, 2, 3, 4, 5, 6, 7 },
+           new TreeNode(4,
+               SimpleBST,
+               new TreeNode(6,
+                   new TreeNode(5),
+                   new TreeNode(7)))
+       );
+        yield return new TestCaseData(
+            new int[] { 1 },
+            OneNodeBST
+        );
+
+        yield return new TestCaseData(
+            new int[] { 1, 3 },
+            new TreeNode(3,
+                OneNodeBST,
+                null)
+        );
+
+        yield return new TestCaseData(
+            new int[] { -10, -3, 0, 5, 9 },
+            new TreeNode(0,
+                new TreeNode(-3,
+                    new TreeNode(-10),
+                    null),
+                new TreeNode(9,
+                    new TreeNode(5),
+                    null))
+        );
+    }
+
+    [TestCaseSource(nameof(ConvertTestCases))]
+    public void SortedArrayToBST_ShouldBuildCorrectTree(int[] nums, TreeNode expected)
+    {
+        var result = SortedArrayToBST(nums);
+
+        Assert.IsTrue(TreeHelpers.AreEqualTrees(expected, result), "Generated tree does not match expected");
+    }
 
     #endregion
 
@@ -514,49 +562,104 @@ public sealed class TreesFixture
     }
     #endregion
 
-    #region 108
+    #region 111 
 
-    public static IEnumerable<TestCaseData> ConvertTestCases()
+    [TestCaseSource(nameof(MinDepthTestCases))]
+    public void MinDepth_ShouldReturnCorrectDepth(
+        TreeNode root,
+        int expected)
     {
-        yield return new TestCaseData(
-           new int[] { 1, 2, 3, 4, 5, 6, 7 },
-           new TreeNode(4,
-               SimpleBST,
-               new TreeNode(6,
-                   new TreeNode(5),
-                   new TreeNode(7)))
-       );
-        yield return new TestCaseData(
-            new int[] { 1 },
-            OneNodeBST
-        );
+        // Act
+        var result = MinDepth(root);
 
-        yield return new TestCaseData(
-            new int[] { 1, 3 },
-            new TreeNode(3,
-                OneNodeBST,
-                null)
-        );
-
-        yield return new TestCaseData(
-            new int[] { -10, -3, 0, 5, 9 },
-            new TreeNode(0,
-                new TreeNode(-3,
-                    new TreeNode(-10),
-                    null),
-                new TreeNode(9,
-                    new TreeNode(5),
-                    null))
-        );
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
     }
 
-    [TestCaseSource(nameof(ConvertTestCases))]
-    public void SortedArrayToBST_ShouldBuildCorrectTree(int[] nums, TreeNode expected)
+    public static object[] MinDepthTestCases =
     {
-        var result = SortedArrayToBST(nums);
+        // Empty tree
+        new object[]
+        {
+            null,
+            0
+        },
 
-        Assert.IsTrue(TreeHelpers.AreEqualTrees(expected, result), "Generated tree does not match expected");
-    }
+        // Single node
+        new object[]
+        {
+            OneNodeBST,
+            1
+        },
+
+        // Simple balanced tree
+        //     1
+        //    / \
+        //   2   3
+        new object[]
+        {
+           SimpleBST2,
+            2
+        },
+
+        // Left-skewed tree
+        // 1 -> 2 -> 3 -> 4
+        new object[]
+        {
+            LeftSkewedBST2,
+            4
+        },
+
+        // Right-skewed tree
+        new object[]
+        {
+            RightSkewedBST,
+            3
+        },
+
+        // One child only (must not take min of 0)
+        //     1
+        //    /
+        //   2
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2),
+                null
+            ),
+            2
+        },
+
+        // Leaf on one side only
+        //     1
+        //      \
+        //       2
+        new object[]
+        {
+            new TreeNode(1,
+                null,
+                new TreeNode(2)
+            ),
+            2
+        },
+
+        // More complex tree
+        //        10
+        //       /  \
+        //      5    15
+        //           \
+        //            18
+        new object[]
+        {
+            new TreeNode(10,
+                new TreeNode(5),
+                new TreeNode(15,
+                    null,
+                    new TreeNode(18))
+            ),
+            2
+        }
+    };
 
     #endregion
 
@@ -862,12 +965,7 @@ public sealed class TreesFixture
         // Right-skewed tree
         new object[]
         {
-            new TreeNode(1,
-                null,
-                new TreeNode(2,
-                    null,
-                    new TreeNode(3))
-            ),
+            RightSkewedBST,
             new TreeNode(1,
                 new TreeNode(2,
                     new TreeNode(3),
@@ -960,12 +1058,7 @@ public sealed class TreesFixture
         // Right-skewed tree
         new object[]
         {
-            new TreeNode(1,
-                null,
-                new TreeNode(2,
-                    null,
-                    new TreeNode(3))
-            ),
+            RightSkewedBST,
             new List<string>
             {
                 "1->2->3"
