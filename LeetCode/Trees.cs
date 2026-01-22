@@ -261,7 +261,7 @@ public static class Trees
 
     #endregion
 
-    #region 107 Binary Tree Level Order Traversal BFS
+    #region 107 Binary Tree Level Order Traversal BFS 0 100/55.6 good results with easy trick
 
     public static IList<IList<int>> LevelOrderBottom(TreeNode root)
     {
@@ -270,21 +270,19 @@ public static class Trees
         {
             return result;
         }
-        var stack = new Stack<int>();
 
         var queue = new Queue<TreeNode>();
         queue.Enqueue(root);
 
-        while(queue.Count > 0)
+        while (queue.Count > 0)
         {
             int size = queue.Count;
-            var level = new List<int> { size };
-            result.Add(level);
+            var level = new List<int>(size);
 
             for (int i = 0; i < size; i++)
             {
                 var node = queue.Dequeue();
-                stack.Push(node.val) ;
+                level.Add(node.val);
 
                 if (node.left != null)
                 {
@@ -296,17 +294,11 @@ public static class Trees
                     queue.Enqueue(node.right);
                 }
             }
+
+            result.Add(level);
         }
 
-        for(int i = result.Count - 1; i >= 0 ; i--)
-        {
-            var size = result[i][0];
-            for (int j = 0; j < size; j++)
-            {
-                result[i][j] = stack.Pop();
-            }
-        }
-
+        result.Reverse();
         return result;
     }
 
