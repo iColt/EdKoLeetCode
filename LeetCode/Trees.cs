@@ -704,6 +704,47 @@ public static class Trees
 
     #endregion
 
+    #region 637 - 96.7/53.5 good performance, easy BFS
+
+    public static IList<double> AverageOfLevels(TreeNode root)
+    {
+        var result = new List<double>();
+        if (root == null)
+        {
+            return result;
+        }
+
+        var queue = new Queue<TreeNode>();
+        queue.Enqueue(root);
+
+        while (queue.Count > 0)
+        {
+            int size = queue.Count;
+            double level = 0;
+
+            for (int i = 0; i < size; i++)
+            {
+                var node = queue.Dequeue();
+                level += node.val;
+
+                if (node.left != null)
+                {
+                    queue.Enqueue(node.left);
+                }
+
+                if (node.right != null)
+                {
+                    queue.Enqueue(node.right);
+                }
+            }
+
+            result.Add(level / size);
+        }
+        return result;
+    }
+
+    #endregion
+
     #region 652 Find Duplicate Subtrees - 5/7.7 poor performance and memory management
 
     public static IList<TreeNode> FindDuplicateSubtrees(TreeNode root)
