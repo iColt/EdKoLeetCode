@@ -778,6 +778,45 @@ public static class Trees
 
     #endregion
 
+    #region 2265 Count Nodes Equal to Average of Subtree - 9/77.2 bad performance
+
+    public static int AverageOfSubtree(TreeNode root)
+    {
+        int result = 0;
+
+        AverageOfSubtree(root);
+
+        (int elCount, int subtreeSum) AverageOfSubtree(TreeNode node)
+        {
+            if(node == null)
+            {
+                return (0, 0);
+            }
+
+            if(node.left == null && node.right == null) {
+                result++;
+                return (1, node.val);
+            }
+
+            var leftState = AverageOfSubtree(node.left);
+            var rightState = AverageOfSubtree(node.right);
+
+            int currentSubtreeSum = node.val + leftState.subtreeSum + rightState.subtreeSum;
+            int currentSubtreeNodeCount = leftState.elCount + rightState.elCount + 1; 
+
+            if(currentSubtreeSum / currentSubtreeNodeCount == node.val)
+            {
+                result++;
+            }
+
+            return (currentSubtreeNodeCount, currentSubtreeSum);
+        }
+
+        return result;
+    }
+
+    #endregion
+
     #region 2458 Height of binary tree after sub tree removal queries - Not solved
 
     public static int[] TreeQueries(TreeNode root, int[] queries)

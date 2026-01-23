@@ -1918,6 +1918,158 @@ public sealed class TreesFixture
 
     #endregion
 
+    #region 2265
+
+    [TestCaseSource(nameof(AverageOfSubtreeTestCases))]
+    public void AverageOfSubtree_ShouldReturnCorrectCount(
+        TreeNode root,
+        int expected)
+    {
+        // Act
+        var result = AverageOfSubtree(root);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    public static object[] AverageOfSubtreeTestCases =
+    {
+        
+        // Left skewed tree
+        // 3
+        // |
+        // 3
+        // |
+        // 3
+        new object[]
+        {
+            new TreeNode(3,
+                new TreeNode(3,
+                    new TreeNode(3),
+                    null),
+                null
+            ),
+            3
+        },
+
+        // Empty tree
+        new object[]
+        {
+            null,
+            0
+        },
+
+        // Single node (always valid)
+        new object[]
+        {
+            new TreeNode(5),
+            1
+        },
+
+        // Example-like tree
+        //        4
+        //       / \
+        //      8   5
+        //     / \   \
+        //    0   1   6
+        //
+        // Valid nodes: 0,1,6,5,4 => 5
+        new object[]
+        {
+            new TreeNode(4,
+                new TreeNode(8,
+                    new TreeNode(0),
+                    new TreeNode(1)
+                ),
+                new TreeNode(5,
+                    null,
+                    new TreeNode(6)
+                )
+            ),
+            5
+        },
+
+        // All nodes equal
+        //        2
+        //       / \
+        //      2   2
+        new object[]
+        {
+            new TreeNode(2,
+                new TreeNode(2),
+                new TreeNode(2)
+            ),
+            3
+        },
+
+        // No node matches except leaves
+        //        10
+        //       /  \
+        //      5    15
+        new object[]
+        {
+            new TreeNode(10,
+                new TreeNode(5),
+                new TreeNode(15)
+            ),
+            3
+        },
+
+        // Right skewed tree with mixed values
+        // 5
+        //  \
+        //   1
+        //    \
+        //     3
+        new object[]
+        {
+            new TreeNode(5,
+                null,
+                new TreeNode(1,
+                    null,
+                    new TreeNode(3))
+            ),
+            1
+        },
+
+        // Larger balanced tree
+        //           6
+        //         /   \
+        //        1     12
+        //       / \    / \
+        //      1   1  12  12
+        new object[]
+        {
+            new TreeNode(6,
+                new TreeNode(1,
+                    new TreeNode(1),
+                    new TreeNode(1)
+                ),
+                new TreeNode(12,
+                    new TreeNode(12),
+                    new TreeNode(12)
+                )
+            ),
+            7
+        },
+
+        // Subtree average truncation test
+        //        7
+        //       / \
+        //      3   4
+        // Avg(7+3+4)/3 = 14/3 = 4 -> root NOT counted
+        new object[]
+        {
+            new TreeNode(7,
+                new TreeNode(3),
+                new TreeNode(4)
+            ),
+            2
+        }
+    };
+
+    #endregion
+
     #region 2458
 
     [TestCaseSource(nameof(TreeQueriesTestCases))]
