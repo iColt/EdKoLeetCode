@@ -819,10 +819,42 @@ public static class Trees
 
     #region 2458 Height of binary tree after sub tree removal queries - Not solved
 
+
+    // implement BFS to create a map
+    // we will know, if there is there is subtree with more or equal height
+    // 
     public static int[] TreeQueries(TreeNode root, int[] queries)
     {
-
         int[] results = new int[queries.Length];
+
+        //implement BFS to calculate height of subtree for all nodes
+        Queue<TreeNode> bfsQueue = new Queue<TreeNode>();
+        bfsQueue.Enqueue(root);
+
+        TreeSubTreeHeightAwareModel heightTreeRoot = new TreeSubTreeHeightAwareModel();
+        heightTreeRoot.Value = root.val;
+
+        while( bfsQueue.Count > 0 )
+        {
+            int size = bfsQueue.Count;
+
+            for (int i = 0; i < size; i++)
+            {
+                var node = bfsQueue.Dequeue();
+
+
+                if (node.left != null)
+                {
+                    bfsQueue.Enqueue(node.left);
+                }
+
+                if (node.right != null)
+                {
+                    bfsQueue.Enqueue(node.right);
+                }
+            }
+
+        }
 
         return results;
     }
