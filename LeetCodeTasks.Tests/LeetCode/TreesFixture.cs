@@ -946,6 +946,178 @@ public sealed class TreesFixture
 
     #endregion
 
+    #region 124
+
+    [TestCaseSource(nameof(MaxPathSumTestCases))]
+    public void MaxPathSum_ShouldReturnCorrectValue(
+        TreeNode root,
+        int expected)
+    {
+        // Act
+        var result = MaxPathSum(root);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    public static object[] MaxPathSumTestCases =
+    {
+        // Two nodes 2
+        new object[]
+        {
+            new TreeNode(2,
+                new TreeNode(-1),
+                null
+            ),
+            2
+        },
+        // Two nodes
+        new object[]
+        {
+            new TreeNode(-2,
+                new TreeNode(-1),
+                null
+            ),
+            -1
+        },
+        // Single node
+        new object[]
+        {
+            new TreeNode(1),
+            1
+        },
+
+        // Simple positive tree
+        //   1
+        //  / \
+        // 2   3
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2),
+                new TreeNode(3)
+            ),
+            6
+        },
+
+        // Path does NOT include root
+        //   -10
+        //    / \
+        //   9  20
+        //      / \
+        //     15  7
+        new object[]
+        {
+            new TreeNode(-10,
+                new TreeNode(9),
+                new TreeNode(20,
+                    new TreeNode(15),
+                    new TreeNode(7)
+                )
+            ),
+            42
+        },
+
+        // All negative values
+        new object[]
+        {
+            new TreeNode(-3),
+            -3
+        },
+
+        // Mixed positive and negative
+        //     2
+        //    / \
+        //  -1   3
+        new object[]
+        {
+            new TreeNode(2,
+                new TreeNode(-1),
+                new TreeNode(3)
+            ),
+            5
+        },
+
+        // Left skewed tree
+        // 1 -> 2 -> 3 -> 4
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2,
+                    new TreeNode(3,
+                        new TreeNode(4),
+                        null),
+                    null),
+                null
+            ),
+            10
+        },
+
+        // Right skewed with negatives
+        // 5 -> -2 -> 3
+        new object[]
+        {
+            new TreeNode(5,
+                null,
+                new TreeNode(-2,
+                    null,
+                    new TreeNode(3))
+            ),
+            6
+        },
+
+        // Root should NOT be included
+        //      -5
+        //      / \
+        //     4   6
+        new object[]
+        {
+            new TreeNode(-5,
+                new TreeNode(4),
+                new TreeNode(6)
+            ),
+            6
+        },
+
+        // Zero values
+        new object[]
+        {
+            new TreeNode(0,
+                new TreeNode(0),
+                new TreeNode(0)
+            ),
+            0
+        },
+
+        // Complex tree
+        //         10
+        //        /  \
+        //       2    10
+        //      / \     \
+        //     20  1     -25
+        //                / \
+        //               3   4
+        new object[]
+        {
+            new TreeNode(10,
+                new TreeNode(2,
+                    new TreeNode(20),
+                    new TreeNode(1)
+                ),
+                new TreeNode(10,
+                    null,
+                    new TreeNode(-25,
+                        new TreeNode(3),
+                        new TreeNode(4)
+                    )
+                )
+            ),
+            42
+        }
+    };
+
+    #endregion
+
     #region 144
 
     [TestCaseSource(typeof(PreorderTraversalTestData), nameof(PreorderTraversalTestData.TestCases))]

@@ -406,6 +406,63 @@ public static class Trees
 
     #endregion
 
+    #region 124 Binary Tree Max Path sum - 100/23.4 memory as usual
+     
+    public static int MaxPathSum(TreeNode root)
+    {
+        int maxPathSum = int.MinValue;
+
+        int DFS(TreeNode node)
+        {
+            if(node == null)
+            {
+                return int.MinValue;
+            }
+
+            if(node.left == null && node.right == null)
+            {
+                maxPathSum = node.val > maxPathSum ? node.val : maxPathSum;
+                return node.val;
+            }
+            
+            int leftPathSum = DFS(node.left);
+            int rightPathSum = DFS(node.right);
+
+            int maxPathSubTrees = Math.Max(leftPathSum, rightPathSum);
+
+            if(maxPathSubTrees != int.MinValue) {
+                if (maxPathSubTrees >= maxPathSum)
+                {
+                    maxPathSum = maxPathSubTrees;
+                }
+                if (maxPathSubTrees + node.val > maxPathSum)
+                {
+                    maxPathSum = maxPathSubTrees + node.val;
+                }
+                if (rightPathSum != int.MinValue && leftPathSum != int.MinValue && leftPathSum + rightPathSum + node.val > maxPathSum)
+                {
+                    maxPathSum = leftPathSum + rightPathSum + node.val;
+                }
+
+                return maxPathSubTrees + node.val > node.val ? maxPathSubTrees + node.val : node.val;
+            } else
+            {
+                return node.val;
+            }
+
+            
+        }
+
+        int result = DFS(root);
+
+        if(result > maxPathSum) 
+        { return result; }
+
+        return maxPathSum;
+    }
+
+    #endregion
+
     #region 144 Binary Tree Preorder traversal - 100/53
 
     public static IList<int> PreorderTraversal(TreeNode root)
