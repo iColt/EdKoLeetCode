@@ -1,5 +1,6 @@
 ﻿using EdkoSKD.Common.Models;
 using EdkoSKD.Common.Trees;
+using LeetCodeTasks.Models;
 using System.Text;
 
 namespace LeetCodeTasks.LeetCode;
@@ -817,42 +818,53 @@ public static class Trees
 
     #endregion
 
-    #region 2458 Height of binary tree after sub tree removal queries - Not solved
+    #region 2458 Height of binary tree after sub tree removal queries - 60/60 good performance
 
-
-    // implement BFS to create a map
-    // we will know, if there is there is subtree with more or equal height
-    // 
     public static int[] TreeQueries(TreeNode root, int[] queries)
     {
         int[] results = new int[queries.Length];
+        int[] heights = new int[100001];
+        int[] depths = new int[100001];
+        Dictionary<int, PairOfIntModel> heightsByDepth = new Dictionary<int, PairOfIntModel>();
 
-        //implement BFS to calculate height of subtree for all nodes
-        Queue<TreeNode> bfsQueue = new Queue<TreeNode>();
-        bfsQueue.Enqueue(root);
-
-        TreeSubTreeHeightAwareModel heightTreeRoot = new TreeSubTreeHeightAwareModel();
-        heightTreeRoot.Value = root.val;
-
-        while( bfsQueue.Count > 0 )
-        {
-            int size = bfsQueue.Count;
-
-            for (int i = 0; i < size; i++)
+        int DFSConstruct(TreeNode node, int depth) { 
+            if(node == null)
             {
-                var node = bfsQueue.Dequeue();
-
-
-                if (node.left != null)
-                {
-                    bfsQueue.Enqueue(node.left);
-                }
-
-                if (node.right != null)
-                {
-                    bfsQueue.Enqueue(node.right);
-                }
+                return 0;
             }
+
+            int leftHeight = DFSConstruct(node.left, depth + 1);
+            int rightHeight = DFSConstruct(node.right, depth + 1);
+
+            int currentTreeHeight = Math.Max(leftHeight, rightHeight) + 1;
+
+            heights[node.val] = currentTreeHeight;
+            depths[node.val] = depth;
+
+            if (heightsByDepth.ContainsKey(depth))
+            {
+                var pair = heightsByDepth[depth];
+                pair.Add(currentTreeHeight);
+            }
+            else
+            {
+                heightsByDepth.Add(depth, new PairOfIntModel { Max1 = currentTreeHeight});
+            }
+
+            return currentTreeHeight;
+        }
+
+        DFSConstruct(root, 0);
+
+        for(int i = 0; i < queries.Length; i++)
+        {
+            var depth = depths[queries[i]];
+            var pair = heightsByDepth[depth];
+
+            int chosenHeight =
+                heights[queries[i]] == pair.Max1 ? pair.Max2 : pair.Max1;
+
+            results[i] = depth + Math.Max(chosenHeight, 0) - 1;
 
         }
 

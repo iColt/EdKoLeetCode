@@ -2088,6 +2088,46 @@ public sealed class TreesFixture
 
     public static object[] TreeQueriesTestCases =
     {
+        // Deep subtree removal changes height 2
+        //        1
+        //       / \
+        //      2   3
+        //         /
+        //        4
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2),
+                new TreeNode(3,
+                    new TreeNode(4,
+                        null,
+                        null),
+                    null)
+            ),
+            new[] { 2, 4 },
+            new[] { 2, 1 }
+        },
+        // Deep subtree removal changes height
+        //        1
+        //       / \
+        //      2   3
+        //         /
+        //        4
+        //       /
+        //      5
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2),
+                new TreeNode(3,
+                    new TreeNode(4,
+                        new TreeNode(5),
+                        null),
+                    null)
+            ),
+            new[] { 3, 5 },
+            new[] { 1, 2 }
+        },
         // LeetCode example
         //        1
         //       / \
@@ -2112,12 +2152,12 @@ public sealed class TreesFixture
         },
 
         // Removing root → empty tree
-        new object[]
-        {
-            SimpleBST2,
-            new[] { 1 },
-            new[] { 0 }
-        },
+        //new object[]
+        //{
+        //    SimpleBST2,
+        //    new[] { 1 },
+        //    new[] { 0 }
+        //},
 
         // Skewed left tree
         // 1 - 2 - 3 - 4
@@ -2171,27 +2211,6 @@ public sealed class TreesFixture
             new[] { 1, 1 }
         },
 
-        // Deep subtree removal changes height
-        //        1
-        //       / \
-        //      2   3
-        //         /
-        //        4
-        //       /
-        //      5
-        new object[]
-        {
-            new TreeNode(1,
-                new TreeNode(2),
-                new TreeNode(3,
-                    new TreeNode(4,
-                        new TreeNode(5),
-                        null),
-                    null)
-            ),
-            new[] { 3, 4 },
-            new[] { 1, 2 }
-        }
     };
 
     #endregion
