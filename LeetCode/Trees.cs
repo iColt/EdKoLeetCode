@@ -27,6 +27,35 @@ public static class Trees
 
     #endregion
 
+    #region 96 Unique Binary Search Tree
+
+    public static int NumTrees(int n)
+    {
+        if(n == 0)
+        {
+            return 1;
+        }
+        if(n < 3)
+        {
+            return n;
+        }
+        if(n == 3)
+        {
+            return 5;
+        }
+
+        int sum = 0;
+
+        while(n > 2)
+        {
+            sum += 2 * NumTrees(--n);
+        }
+
+        return sum;
+    }
+
+    #endregion
+
     #region 98 Valid binary tree - 17/5 poor performance
 
     public static bool IsValidBST(TreeNode root)
