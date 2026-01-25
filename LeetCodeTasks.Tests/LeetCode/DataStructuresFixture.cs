@@ -122,7 +122,7 @@ public sealed class DataStructuresFixture
 
     #region 173
 
-    [TestCaseSource(nameof(TestCases))]
+    [TestCaseSource(nameof(BSTIteratorTestCases))]
     public void BSTIterator_ShouldIterateInSortedOrder(TreeNode root, int[] expectedOrder)
     {
         // Arrange
@@ -139,7 +139,7 @@ public sealed class DataStructuresFixture
         CollectionAssert.AreEqual(expectedOrder, result);
     }
 
-    public static IEnumerable<TestCaseData> TestCases()
+    public static IEnumerable<TestCaseData> BSTIteratorTestCases()
     {
         // Empty tree
         yield return new TestCaseData(

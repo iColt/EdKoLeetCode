@@ -1,5 +1,4 @@
-﻿
-using EdkoSKD.Common.Models;
+﻿using EdkoSKD.Common.Models;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -28,14 +27,13 @@ public static class DataStructures
 
     #endregion
 
-    #region 173 Binary Search Tree Iterator - Not Solved
+    #region 173 Binary Search Tree Iterator - 100/12.6 poor memory
 
     public class BSTIterator
     {
         private TreeNode _root;
-        private TreeNode _previousValue;
-        private ListNode _rootNode;
-        private ListNode _currentIterator;
+        private int _iterator = 0;
+        private IList<int> _flattenTree = new List<int>();
 
         public BSTIterator(TreeNode root)
         {
@@ -45,18 +43,32 @@ public static class DataStructures
 
         public int Next()
         {
-            _currentIterator = _currentIterator.next;
-            return _currentIterator.val;
+            return _flattenTree[_iterator++];
         }
 
         public bool HasNext()
         {
-            return _currentIterator.next != null;
+            return _iterator < _flattenTree.Count;
         }
 
-        private ListNode BuildListFromTreeNode(TreeNode root)
+        private void BuildListFromTreeNode(TreeNode? node)
         {
-            return new ListNode();
+            if(node == null)
+            {
+                return;
+            }
+
+            if(node.left == null && node.right == null)
+            {
+                _flattenTree.Add(node.val);
+                return;
+            }
+
+            BuildListFromTreeNode(node.left);
+
+            _flattenTree.Add(node.val);
+
+            BuildListFromTreeNode(node.right);
         }
     }
 
