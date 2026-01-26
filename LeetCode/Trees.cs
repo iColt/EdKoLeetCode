@@ -633,6 +633,53 @@ public static class Trees
 
     #endregion
 
+    #region 530 Minimum Absolute Difference in BST
+
+    public static int GetMinimumDifference(TreeNode root)
+    {
+        int minAbsDiff = 100001;
+
+        int DFS(TreeNode node, bool left)
+        {
+            if(node == null)
+            {
+                return left? int.MinValue : int.MaxValue;
+            }
+
+            int leftValMax = DFS(node.left, true);
+            int rightValMin = DFS(node.right, false);
+
+
+            if (leftValMax == int.MinValue)
+            {
+                leftValMax = node.val;
+            }
+            else
+            if (node.val - leftValMax < minAbsDiff)
+            {
+                minAbsDiff = node.val - leftValMax;
+            }
+
+            if (rightValMin == int.MaxValue)
+            {
+                rightValMin = node.val;
+            }
+            else
+            if (rightValMin - node.val < minAbsDiff)
+            {
+                minAbsDiff = rightValMin - node.val;
+            }
+
+            return left ? Math.Max(leftValMax, rightValMin) : Math.Min(leftValMax, rightValMin);
+        }
+
+        DFS(root, false);
+
+        return minAbsDiff;
+    }
+
+    #endregion
+
     #region 563 - Binary Tree Tilt - 5/71 poor performance || 10/6 2nd attempt, poorest :) || 100/22 slow memory for some reason :)
 
     // Improvement idea - create second tree, where sum will be calculated 

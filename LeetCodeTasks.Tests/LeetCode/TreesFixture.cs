@@ -92,6 +92,46 @@ public sealed class TreesFixture
     }
     #endregion
 
+    #region 96
+
+    [TestCaseSource(nameof(NumTreesTestCases))]
+    public void NumTrees_ShouldReturnCorrectCount(
+       int n,
+       int expected)
+    {
+        // Act
+        var result = NumTrees(n);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    public static object[] NumTreesTestCases =
+    {
+        // Base cases
+        new object[] { 0, 1 }, // empty tree
+        new object[] { 1, 1 },
+        new object[] { 2, 2 },
+        new object[] { 3, 5 },
+
+        // Medium values
+        new object[] { 4, 14 },
+        new object[] { 5, 42 },
+        new object[] { 6, 132 },
+        new object[] { 7, 429 },
+
+        // Larger values
+        new object[] { 8, 1430 },
+        new object[] { 9, 4862 },
+        new object[] { 10, 16796 },
+
+        // Upper constraint edge
+        new object[] { 15, 9694845 },
+        new object[] { 19, 1767263190 }
+    };
+
+    #endregion
+
     #region 98 Validate Binary Tree
 
     [TestCaseSource(nameof(IsValidBSTTestCases))]
@@ -1583,6 +1623,81 @@ public sealed class TreesFixture
                 new TreeNode(9,
                     new TreeNode(5),
                     null))
+        }
+    };
+
+    #endregion
+
+    #region 530
+
+    [TestCaseSource(nameof(GetMinimumDifferenceTestCases))]
+    public void GetMinimumDifference_ShouldReturnCorrectTilt(TreeNode input, int expected)
+    {
+        // Act
+        var result = GetMinimumDifference(input);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    public static object[] GetMinimumDifferenceTestCases =
+    {
+         // Binary tree 1
+        new object[]
+        {
+            new TreeNode(4,
+                new TreeNode(2,
+                    new TreeNode(1),
+                    new TreeNode(3)
+                ),
+                new TreeNode(6,
+                    null,
+                    null
+                )
+            ),
+            1
+        },
+         // Binary tree 2
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(0,
+                    null,
+                    null
+                ),
+                new TreeNode(48,
+                    new TreeNode(12),
+                    new TreeNode(49)
+                )
+            ),
+            1
+        },
+         // Binary tree 3
+        new object[]
+        {
+            new TreeNode(236,
+                new TreeNode(104,
+                    null,
+                    new TreeNode(227)
+                ),
+                new TreeNode(701,
+                    null,
+                    new TreeNode(911)
+                )
+            ),
+            9
+        },
+        // Binary tree 4
+        new object[]
+        {
+            new TreeNode(0,
+                null,
+                new TreeNode(2236,
+                    new TreeNode(1277, new TreeNode(519)),
+                    new TreeNode(2776)
+                )
+            ),
+            9
         }
     };
 
