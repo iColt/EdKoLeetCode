@@ -633,7 +633,7 @@ public static class Trees
 
     #endregion
 
-    #region 530 Minimum Absolute Difference in BST - 100/38
+    #region 530 && 783 Minimum Absolute Difference in BST - 100/38
 
     public static int GetMinimumDifference(TreeNode root)
     {
