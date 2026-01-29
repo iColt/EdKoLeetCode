@@ -1642,6 +1642,18 @@ public sealed class TreesFixture
 
     public static object[] GetMinimumDifferenceTestCases =
     {
+        // Binary tree 4
+        new object[]
+        {
+            new TreeNode(0,
+                null,
+                new TreeNode(2236,
+                    new TreeNode(1277, new TreeNode(519)),
+                    new TreeNode(2776)
+                )
+            ),
+            519
+        },
          // Binary tree 1
         new object[]
         {
@@ -1687,18 +1699,7 @@ public sealed class TreesFixture
             ),
             9
         },
-        // Binary tree 4
-        new object[]
-        {
-            new TreeNode(0,
-                null,
-                new TreeNode(2236,
-                    new TreeNode(1277, new TreeNode(519)),
-                    new TreeNode(2776)
-                )
-            ),
-            9
-        }
+        
     };
 
     #endregion

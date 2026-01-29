@@ -633,49 +633,31 @@ public static class Trees
 
     #endregion
 
-    #region 530 Minimum Absolute Difference in BST
+    #region 530 Minimum Absolute Difference in BST - 100/38
 
     public static int GetMinimumDifference(TreeNode root)
     {
-        int minAbsDiff = 100001;
+        int minDiff = int.MaxValue;
+        int? prev = null;
 
-        int DFS(TreeNode node, bool left)
+        void InOrder(TreeNode node)
         {
-            if(node == null)
+            if (node == null) return;
+
+            InOrder(node.left);
+
+            if (prev != null)
             {
-                return left? int.MinValue : int.MaxValue;
+                minDiff = Math.Min(minDiff, node.val - prev.Value);
             }
 
-            int leftValMax = DFS(node.left, true);
-            int rightValMin = DFS(node.right, false);
+            prev = node.val;
 
-
-            if (leftValMax == int.MinValue)
-            {
-                leftValMax = node.val;
-            }
-            else
-            if (node.val - leftValMax < minAbsDiff)
-            {
-                minAbsDiff = node.val - leftValMax;
-            }
-
-            if (rightValMin == int.MaxValue)
-            {
-                rightValMin = node.val;
-            }
-            else
-            if (rightValMin - node.val < minAbsDiff)
-            {
-                minAbsDiff = rightValMin - node.val;
-            }
-
-            return left ? Math.Max(leftValMax, rightValMin) : Math.Min(leftValMax, rightValMin);
+            InOrder(node.right);
         }
 
-        DFS(root, false);
-
-        return minAbsDiff;
+        InOrder(root);
+        return minDiff;
     }
 
     #endregion
