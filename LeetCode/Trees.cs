@@ -56,6 +56,42 @@ public static class Trees
 
     #endregion
 
+    #region 99 Recover Binary Search Tree
+
+    public static void RecoverTree(TreeNode root)
+    {
+        int wrongValue = 0;
+
+        int? DFS(TreeNode node)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+
+            int? leftVal = DFS(node.left);
+            int? rightVal = DFS(node.right);
+
+            if(leftVal == null || rightVal == null)
+            {
+                return node.val;
+            }
+
+            if(leftVal > node.val && rightVal >= node.val)
+            {
+                wrongValue = node.val;
+            }
+            if(rightVal < node.val && leftVal <= node.val)
+            {
+                wrongValue = node.val;
+            }
+
+            return node.val;
+        }
+    }
+
+    #endregion
+
     #region 98 Valid binary tree - 17/5 poor performance
 
     public static bool IsValidBST(TreeNode root)
