@@ -1,4 +1,5 @@
-﻿using EdkoSKD.Common.Models;
+﻿using EdkoSKD.Common.Helpers;
+using EdkoSKD.Common.Models;
 using EdkoSKD.Common.Trees;
 using LeetCodeTasks.Models;
 using System.Text;
@@ -27,7 +28,7 @@ public static class Trees
 
     #endregion
 
-    #region 96 Unique Binary Search Tree
+    #region 96 Unique Binary Search Tree - 100/31 - Solution with Catalan number and Factorials
 
     public static int NumTrees(int n)
     {
@@ -39,19 +40,8 @@ public static class Trees
         {
             return n;
         }
-        if(n == 3)
-        {
-            return 5;
-        }
-
-        int sum = 0;
-
-        while(n > 2)
-        {
-            sum += 2 * NumTrees(--n);
-        }
-
-        return sum;
+        
+        return decimal.ToInt32(IntegerHelpers.Factorial(2 * n, n + 1) / IntegerHelpers.Factorial(n + 1));
     }
 
     #endregion
