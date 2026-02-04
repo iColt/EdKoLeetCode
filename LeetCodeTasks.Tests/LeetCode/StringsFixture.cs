@@ -144,6 +144,95 @@ public sealed class StringsFixture
 
     #endregion
 
+    #region 387
+
+    [TestCaseSource(nameof(FirstUniqCharTestCases))]
+    public void FirstUniqChar_ShouldReturnCorrectIndex(
+        string input,
+        int expected)
+    {
+        // Act
+        var result = Strings.FirstUniqChar(input);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    public static object[] FirstUniqCharTestCases =
+    {
+        // Empty string
+        new object[]
+        {
+            "",
+            -1
+        },
+
+        // Single character
+        new object[]
+        {
+            "a",
+            0
+        },
+
+        // Example 1
+        new object[]
+        {
+            "leetcode",
+            0
+        },
+
+        // Example 2
+        new object[]
+        {
+            "loveleetcode",
+            2
+        },
+
+        // All characters repeat
+        new object[]
+        {
+            "aabbcc",
+            -1
+        },
+
+        // First unique at the end
+        new object[]
+        {
+            "aabbccd",
+            6
+        },
+
+        // Multiple uniques, take first
+        new object[]
+        {
+            "abaccdeff",
+            1
+        },
+
+        // Adjacent duplicates
+        new object[]
+        {
+            "aabb",
+            -1
+        },
+
+        // Long repetition then unique
+        new object[]
+        {
+            "zzzzzzzzzzx",
+            10
+        },
+
+        // Mixed pattern
+        new object[]
+        {
+            "aadadaad",
+            -1
+        }
+    };
+
+    #endregion
+
     #region 409
 
     [TestCaseSource(nameof(LongestPalindromeTestCases))]

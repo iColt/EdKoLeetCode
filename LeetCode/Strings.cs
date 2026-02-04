@@ -353,6 +353,31 @@ public static class Strings
 
     #endregion
 
+    #region 387 First Unique Character in a String - 70/18
+
+    public static int FirstUniqChar(string s)
+    {
+        if (s.IndexOf(s[0], 1) == -1)
+        {
+            return 0;
+        }
+
+        for (int i = 1; i < s.Length - 1; i++ )
+        {
+            if (s.IndexOf(s[i], 0, i) == -1 && s.IndexOf(s[i], i + 1, s.Length - i - 1) == -1)
+            { return i; }
+        }
+
+        if (s.IndexOf(s[s.Length - 1], 0, s.Length - 1) == -1)
+        {
+            return s.Length - 1;
+        }
+
+        return -1;
+    }
+
+    #endregion
+
     #region 409 Longest Palindrome - 7/11 worst performance
 
     public static int LongestPalindrome(string s)
