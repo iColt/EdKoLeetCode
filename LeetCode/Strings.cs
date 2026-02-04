@@ -330,6 +330,29 @@ public static class Strings
 
     #endregion
 
+    #region 242 Valid Anagram - 20/27
+
+    public static bool IsAnagram(string s, string t)
+    {
+        var sArr = s.ToCharArray();
+        Array.Sort<char>(sArr);
+        var tArr = t.ToCharArray();
+        Array.Sort<char>(tArr);
+
+        if (sArr.Length != tArr.Length ) {
+            return false;
+        }
+
+        for( int i = 0; i < sArr.Length; i++)
+        {
+            if (sArr[i] != tArr[i]) { return false; }
+        }
+
+        return true;
+    }
+
+    #endregion
+
     #region 409 Longest Palindrome - 7/11 worst performance
 
     public static int LongestPalindrome(string s)

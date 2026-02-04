@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace LeetCodeTasks.Tests.LeetCode;
+﻿namespace LeetCodeTasks.Tests.LeetCode;
 
 [TestFixture]
 public sealed class StringsFixture
@@ -134,6 +132,17 @@ public sealed class StringsFixture
         // Assert
         Assert.That(result, Is.EqualTo(expected));
     }
+
+    #region 242
+
+    [TestCase("car", "arc", true)]
+    [TestCase("car", "rat", false)]
+    public void IsAnagram_ReturnExpectedResult(string input, string secondInput, bool expected)
+    {
+        Assert.That(expected, Is.EqualTo(Strings.IsAnagram(input, secondInput)));
+    }
+
+    #endregion
 
     #region 409
 
