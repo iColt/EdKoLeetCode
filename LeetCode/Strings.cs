@@ -378,6 +378,28 @@ public static class Strings
 
     #endregion
 
+    #region 389 - Find the Difference - 12/54
+
+    public static char FindTheDifference(string s, string t)
+    {
+        var sArr = s.ToCharArray();
+        Array.Sort<char>(sArr);
+        var tArr = t.ToCharArray();
+        Array.Sort<char>(tArr);
+
+        for(int i = 0; i < sArr.Length; i++ )
+        {
+            if (sArr[i] != tArr[i])
+            {
+                return tArr[i];
+            }
+        }
+
+        return tArr[tArr.Length - 1];
+    }
+
+    #endregion
+
     #region 409 Longest Palindrome - 7/11 worst performance
 
     public static int LongestPalindrome(string s)
