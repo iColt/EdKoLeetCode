@@ -261,6 +261,90 @@ public static class Strings
 
     #endregion
 
+    #region 67 Add Binary - 12.7/37.55
+
+    public static string AddBinary(string a, string b)
+    {
+        var sb = new StringBuilder();
+
+        int lengthOfSmall = a.Length > b.Length ? b.Length : a.Length;
+        int lengthOfBig = a.Length > b.Length ? a.Length : b.Length;
+        bool shouldIncrement = false;
+
+        for (int i = 1; i <= lengthOfSmall; i++)
+        {
+            char postfixA = a[a.Length - i];
+            char postfixB = b[b.Length - i];
+
+            if(postfixA == '1' && postfixB == '1')
+            {
+                if (shouldIncrement)
+                {
+                    sb.Append('1');
+                    continue;
+                }
+                sb.Append('0');
+                shouldIncrement = true;
+            } else if(postfixA == '1' || postfixB == '1')
+            {
+                if(shouldIncrement)
+                {
+                    sb.Append('0');
+                    shouldIncrement = true;
+                    continue;
+                }
+
+                sb.Append('1');
+            } else
+            {
+                if(shouldIncrement)
+                {
+                    sb.Append('1');
+                    shouldIncrement = false; 
+                    continue;
+                }
+
+                sb.Append("0");
+            }
+        }
+        AppendFirst(sb, a.Length > b.Length ? a : b);
+
+        void AppendFirst(StringBuilder sb, string biggerString)
+        {
+
+            for (int i = lengthOfBig - lengthOfSmall - 1; i >= 0; i--)
+            {
+                if (biggerString[i] == '1')
+                {
+                    if(shouldIncrement)
+                    {
+                        sb.Append('0');
+                        continue;
+                    }
+                    sb.Append("1");
+                } else
+                {
+                    if(shouldIncrement)
+                    {
+                        sb.Append('1');
+                        shouldIncrement= false;
+                        continue;
+                    }
+                    sb.Append('0');
+                }
+            }
+
+            if(shouldIncrement)
+            {
+                sb.Append('1');
+            }
+        }
+
+        return string.Join(null, sb.ToString().Reverse());
+    }
+
+    #endregion
+
     #region 71 - Simplify path - 70/84 runtime/memory
 
     public static string SimplifyPath(string path)
