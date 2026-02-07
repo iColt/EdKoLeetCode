@@ -235,6 +235,32 @@ public static class Strings
 
     #endregion
 
+    #region 28 - Find the index of the first occurance - 100/53
+
+    public static int StrStr(string haystack, string needle)
+    {
+        int iterator = 0;
+        while(iterator < haystack.Length)
+        {
+            var index = haystack.IndexOf(needle[0], iterator);
+
+            if(index < 0 || haystack.Length - index < needle.Length)
+            {
+                return -1;
+            }
+            if(haystack.Substring(index, needle.Length).Equals(needle))
+            {
+                return index;
+            }
+
+            iterator = index + 1;
+        }
+
+        return -1;
+    }
+
+    #endregion
+
     #region 71 - Simplify path - 70/84 runtime/memory
 
     public static string SimplifyPath(string path)
