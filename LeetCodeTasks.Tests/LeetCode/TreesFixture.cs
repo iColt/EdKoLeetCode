@@ -274,6 +274,103 @@ public sealed class TreesFixture
 
     #endregion
 
+    #region 99
+
+    [TestCaseSource(nameof(RecoverTreeTestCases))]
+    public void RecoverTree_ShouldRestoreBST(
+        TreeNode root,
+        int[] expectedInOrder)
+    {
+        // Act
+        RecoverTree(root);
+
+        // Assert
+        var actual = root.InOrderTraversal();
+        CollectionAssert.AreEqual(expectedInOrder, actual);
+    }
+
+    private static object[] RecoverTreeTestCases =
+    {
+        // Example 1: adjacent nodes swapped
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(3,
+                    null,
+                    new TreeNode(2)),
+                null),
+            new[] { 1, 2, 3 }
+        },
+
+        // Example 2: non-adjacent nodes swapped
+        new object[]
+        {
+            new TreeNode(3,
+                new TreeNode(1),
+                new TreeNode(4,
+                    new TreeNode(2),
+                    null)),
+            new[] { 1, 2, 3, 4 }
+        },
+
+        // Minimal tree (2 nodes)
+        new object[]
+        {
+            new TreeNode(1,
+                new TreeNode(2),
+                null),
+            new[] { 1, 2 }
+        },
+
+        // Root swapped with leaf
+        new object[]
+        {
+            new TreeNode(5,
+                new TreeNode(3,
+                    new TreeNode(2),
+                    new TreeNode(4)),
+                new TreeNode(1)),
+            new[] { 1, 2, 3, 4, 5 }
+        },
+
+        // Left-skewed tree
+        new object[]
+        {
+            new TreeNode(3,
+                new TreeNode(1,
+                    new TreeNode(2),
+                    null),
+                null),
+            new[] { 1, 2, 3 }
+        },
+
+        // Right-skewed tree
+        new object[]
+        {
+            new TreeNode(1,
+                null,
+                new TreeNode(2,
+                    new TreeNode(3),
+                    null)),
+            new[] { 1, 2, 3 }
+        },
+
+        // Larger tree with distant swap
+        new object[]
+        {
+            new TreeNode(6,
+                new TreeNode(3,
+                    new TreeNode(1),
+                    new TreeNode(4)),
+                new TreeNode(8,
+                    new TreeNode(7),
+                    new TreeNode(2))),
+            new[] { 1, 2, 3, 4, 6, 7, 8 }
+        }
+    };
+
+    #endregion
+
     #region 100
 
     [TestCaseSource(typeof(SameTreeTestData), nameof(SameTreeTestData.TestCases))]

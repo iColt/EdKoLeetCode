@@ -46,42 +46,6 @@ public static class Trees
 
     #endregion
 
-    #region 99 Recover Binary Search Tree - Not solved
-
-    public static void RecoverTree(TreeNode root)
-    {
-        int wrongValue = 0;
-
-        int? DFS(TreeNode node)
-        {
-            if (node == null)
-            {
-                return null;
-            }
-
-            int? leftVal = DFS(node.left);
-            int? rightVal = DFS(node.right);
-
-            if(leftVal == null || rightVal == null)
-            {
-                return node.val;
-            }
-
-            if(leftVal > node.val && rightVal >= node.val)
-            {
-                wrongValue = node.val;
-            }
-            if(rightVal < node.val && leftVal <= node.val)
-            {
-                wrongValue = node.val;
-            }
-
-            return node.val;
-        }
-    }
-
-    #endregion
-
     #region 98 Valid binary tree - 17/5 poor performance
 
     public static bool IsValidBST(TreeNode root)
@@ -129,6 +93,49 @@ public static class Trees
         }
 
         return IsValidBTSInternal(root).IsTreeValid;
+    }
+
+    #endregion
+
+    #region 99 Recover Binary Search Tree - 100/85 good performance with DFS and PREV approach
+
+    public static void RecoverTree(TreeNode root)
+    {
+        TreeNode first = null;
+        TreeNode second = null;
+        TreeNode prev = null;
+
+        void DFS(TreeNode node)
+        {
+            if (node == null)
+                return;
+
+            DFS(node.left);
+
+            if (prev != null && prev.val > node.val)
+            {
+                if (first == null)
+                {
+                    first = prev;
+                    second = node;
+                }
+                else
+                {
+                    second = node;
+                }
+            }
+
+            prev = node;
+
+            DFS(node.right);
+        }
+
+        DFS(root);
+
+        // swap values
+        int temp = first.val;
+        first.val = second.val;
+        second.val = temp;
     }
 
     #endregion
