@@ -133,6 +133,79 @@ public sealed class StringsFixture
         Assert.That(result, Is.EqualTo(expected));
     }
 
+    #region 8
+
+    [TestCaseSource(nameof(MyAtoiTestCases))]
+    public void MyAtoi_ShouldReturnCorrectValue(
+        string input,
+        int expected)
+    {
+        // Act
+        var result = Strings.MyAtoi(input);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    public static object[] MyAtoiTestCases =
+    {
+        // Basic numbers
+        new object[] { "0", 0 },
+        new object[] { "42", 42 },
+        new object[] { "-42", -42 },
+        new object[] { "+42", 42 },
+
+        // Leading spaces
+        new object[] { "   42", 42 },
+        new object[] { "   -42", -42 },
+
+        // Trailing characters
+        new object[] { "4193 with words", 4193 },
+        new object[] { "-91283472332 words", int.MinValue },
+
+        // Words before numbers
+        new object[] { "words and 987", 0 },
+
+        // Sign only
+        new object[] { "+", 0 },
+        new object[] { "-", 0 },
+
+        // Multiple signs
+        new object[] { "+-12", 0 },
+        new object[] { "--2", 0 },
+        new object[] { "-+3", 0 },
+
+        // Leading zeros
+        new object[] { "00000", 0 },
+        new object[] { "0000123", 123 },
+
+        // Overflow
+        new object[] { "2147483647", int.MaxValue },
+        new object[] { "2147483648", int.MaxValue },
+        new object[] { "-2147483648", int.MinValue },
+        new object[] { "-2147483649", int.MinValue },
+
+        // Mixed symbols
+        new object[] { "  -0012a42", -12 },
+
+        // Empty / whitespace
+        new object[] { "", 0 },
+        new object[] { "   ", 0 },
+
+        // Non-digit start
+        new object[] { ".", 0 },
+        new object[] { "   +abc", 0 },
+
+        // Digits then sign (invalid)
+        new object[] { "123-45", 123 },
+
+        // Large number with sign
+        new object[] { "+10000000000", int.MaxValue },
+        new object[] { "-10000000000", int.MinValue }
+    };
+
+    #endregion
+
     #region 242
 
     [TestCase("car", "arc", true)]

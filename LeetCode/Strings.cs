@@ -55,6 +55,15 @@ public static class Strings
 
     #endregion
 
+    #region 8 String to Integer - Not Solved
+
+    public static int MyAtoi(string s)
+    {
+        return 0;
+    }
+
+    #endregion
+
     #region 13 Roman to Integer - 9/14 - poor performace || 71.5/74 runtume/memory with one loop and +- approach
 
     public static int RomanToIntOld(string s)
