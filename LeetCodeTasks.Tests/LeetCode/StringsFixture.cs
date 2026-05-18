@@ -221,6 +221,17 @@ public sealed class StringsFixture
 
     #endregion
 
+    #region 151
+
+    [TestCase(" World    Hello  ", "Hello World")]
+    [TestCase("the sky is blue", "blue is sky the")]
+    public void ReverseWords_ReturnsExpectedResult(string input, string output)
+    {
+        Assert.That(Strings.ReverseWords(input), Is.EqualTo(output));
+    }
+
+    #endregion
+
     #region 242
 
     [TestCase("car", "arc", true)]

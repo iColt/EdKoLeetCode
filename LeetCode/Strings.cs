@@ -441,6 +441,16 @@ public static class Strings
 
     #endregion
 
+    #region 151 Reverse Words in a String - 100/35
+
+    public static string ReverseWords(string s)
+    {
+        IEnumerable<string> words = s.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        return string.Join(' ', words.Reverse());
+    }
+
+    #endregion
+
     #region 168 - Excel Sheet Column Title - 100/98
 
     public static string ConvertToTitle(int columnNumber)
