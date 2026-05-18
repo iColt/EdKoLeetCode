@@ -232,6 +232,23 @@ public sealed class StringsFixture
 
     #endregion
 
+    #region 165
+
+    [TestCase("1.0", "1.0", 0)]
+    [TestCase("1.0", "1.1", -1)]
+    [TestCase("1.1", "1.0", 1)]
+    [TestCase("1.0.0", "1.0", 0)]
+    [TestCase("1.0.1", "1.0", 1)]
+    [TestCase("1.0", "1.0.1", -1)]
+    [TestCase("0.1", "1.1", -1)]
+    [TestCase("1.01", "1.001", 0)]
+    public void CompareVersion_ReturnsExpectedResult(string version1, string version2, int expected)
+    {
+        Assert.That(expected, Is.EqualTo(Strings.CompareVersion(version1, version2)));
+    }
+
+    #endregion
+
     #region 242
 
     [TestCase("car", "arc", true)]

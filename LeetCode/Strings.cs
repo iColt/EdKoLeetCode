@@ -451,6 +451,30 @@ public static class Strings
 
     #endregion
 
+    #region 165 Compare Version Numbers - 2/80 - worst runtime
+
+    public static int CompareVersion(string version1, string version2)
+    {
+        IEnumerable<int> version1Parts = version1.Split('.').Select(int.Parse);
+        IEnumerable<int> version2Parts = version2.Split('.').Select(int.Parse);
+        int maxLength = Math.Max(version1Parts.Count(), version2Parts.Count());
+        for(int i = 0; i < maxLength; i++)
+        {
+            int v1Part = i < version1Parts.Count() ? version1Parts.ElementAt(i) : 0;
+            int v2Part = i < version2Parts.Count() ? version2Parts.ElementAt(i) : 0;
+            if(v1Part > v2Part)
+            {
+                return 1;
+            } else if(v1Part < v2Part)
+            {
+                return -1;
+            }
+        }
+        return 0;
+    }
+
+    #endregion
+
     #region 168 - Excel Sheet Column Title - 100/98
 
     public static string ConvertToTitle(int columnNumber)
