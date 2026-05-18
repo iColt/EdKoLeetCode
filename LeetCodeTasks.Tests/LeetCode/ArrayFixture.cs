@@ -1,4 +1,5 @@
 using EdkoSKD.Common.Arrays;
+using NUnit.Framework.Legacy;
 
 namespace LeetCodeTasks.Tests.LeetCode;
 [TestFixture]
@@ -524,7 +525,7 @@ public class ArrayFixture
 
     private void AssertMatricesAreEqual(int[][] expected, int[][] actual)
     {
-        Assert.AreEqual(expected.Length, actual.Length);
+        Assert.Equals(expected.Length, actual.Length);
 
         for (int i = 0; i < expected.Length; i++)
         {
@@ -739,7 +740,7 @@ public class ArrayFixture
     [TestCase(new int[] { 0, 1 }, 2)]
     public void Test_SingleNumberIII(int[] nums, int unique)
     {
-        Assert.That(Arrays.SingleNumberIII(nums).Count, Is.EqualTo(unique));
+        Assert.That(Arrays.SingleNumberIII(nums).Count() == unique);
     }
 
     #endregion
@@ -905,14 +906,14 @@ public class ArrayFixture
 
     private static void AssertListsEqual(IList<int> expected, IList<int> actual)
     {
-        Assert.AreEqual(expected.Count, actual.Count, "List count mismatch");
+        Assert.That(expected.Count == actual.Count, "List count mismatch");
 
         var sortedExpected = expected.OrderBy(x => x).ToList();
         var sortedActual = actual.OrderBy(x => x).ToList();
 
         for (int i = 0; i < sortedExpected.Count; i++)
         {
-            Assert.AreEqual(sortedExpected[i], sortedActual[i],
+            Assert.That(sortedExpected[i] == sortedActual[i],
                 $"Mismatch at index {i}");
         }
     }

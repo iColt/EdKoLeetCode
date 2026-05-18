@@ -1,6 +1,7 @@
 ﻿using EdkoSKD.Common.Models;
 using EdkoSKD.Common.Trees;
 using LeetCodeTasks.Tests.Helpers;
+using NUnit.Framework.Legacy;
 using static LeetCodeTasks.LeetCode.Trees;
 
 namespace LeetCodeTasks.Tests.LeetCode;
@@ -789,7 +790,7 @@ public sealed class TreesFixture
     {
         var result = SortedArrayToBST(nums);
 
-        Assert.IsTrue(TreeHelpers.AreEqualTrees(expected, result), "Generated tree does not match expected");
+        Assert.That(TreeHelpers.AreEqualTrees(expected, result), "Generated tree does not match expected");
     }
 
     #endregion
@@ -1407,7 +1408,7 @@ public sealed class TreesFixture
         var result = InvertTree(input);
 
         // Assert
-        Assert.IsTrue(TreeHelpers.AreEqualTrees(expected, result));
+        Assert.That(TreeHelpers.AreEqualTrees(expected, result));
     }
 
     public static object[] InvertTreeTestCases =

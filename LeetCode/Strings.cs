@@ -270,6 +270,22 @@ public static class Strings
 
     #endregion
 
+    #region 58 Length of Last Word - 100/64.4
+
+    public static int LengthOfLastWord(string s)
+    {
+        var trimmed = s.TrimEnd();
+        int lastSpaceIndex = trimmed.LastIndexOf(' ');
+        if (lastSpaceIndex == -1)
+        {
+            return trimmed.Length;
+        }
+
+        return trimmed.Length - lastSpaceIndex - 1;
+    }
+
+    #endregion
+
     #region 67 Add Binary - 12.7/37.55
 
     public static string AddBinary(string a, string b)

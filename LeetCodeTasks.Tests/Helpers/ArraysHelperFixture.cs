@@ -1,4 +1,5 @@
 ﻿using LeetCodeTasks.Helpers;
+using NUnit.Framework.Legacy;
 
 namespace LeetCodeTasks.Tests.Helpers;
 

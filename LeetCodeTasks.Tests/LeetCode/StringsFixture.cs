@@ -1,4 +1,6 @@
-﻿namespace LeetCodeTasks.Tests.LeetCode;
+﻿using NUnit.Framework.Legacy;
+
+namespace LeetCodeTasks.Tests.LeetCode;
 
 [TestFixture]
 public sealed class StringsFixture
@@ -203,6 +205,19 @@ public sealed class StringsFixture
         new object[] { "+10000000000", int.MaxValue },
         new object[] { "-10000000000", int.MinValue }
     };
+
+    #endregion
+
+    #region 58
+
+    [TestCase("A B", 1)]
+    [TestCase("HELLO WORLD", 5)]
+    [TestCase("HI ALL ", 3)]
+    [TestCase("KEK", 3)]
+    public void LengthOfLastWord_ReturnsExpectedResult(string input, int result)
+    {
+        Assert.That(result, Is.EqualTo(Strings.LengthOfLastWord(input)));
+    }
 
     #endregion
 

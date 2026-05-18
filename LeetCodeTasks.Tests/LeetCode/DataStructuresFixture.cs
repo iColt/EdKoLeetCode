@@ -1,4 +1,5 @@
 ﻿using EdkoSKD.Common.Models;
+using NUnit.Framework.Legacy;
 using static LeetCodeTasks.LeetCode.DataStructures;
 
 namespace LeetCodeTasks.Tests.LeetCode;

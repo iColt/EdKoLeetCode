@@ -1,4 +1,6 @@
-﻿namespace LeetCodeTasks.Tests.Helpers;
+﻿using NUnit.Framework.Legacy;
+
+namespace LeetCodeTasks.Tests.Helpers;
 
 internal class TreesAsserts
 {
