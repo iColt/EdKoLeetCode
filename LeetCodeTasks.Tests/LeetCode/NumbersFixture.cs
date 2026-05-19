@@ -55,4 +55,18 @@ internal class NumbersFixture
     {
         Assert.That(Numbers.ClimbStairs(n), Is.EqualTo(output));
     }
-} 
+
+    #region 38
+
+    [TestCase(1, "1")]
+    [TestCase(2, "11")]
+    [TestCase(3, "21")]
+    [TestCase(4, "1211")]
+    [TestCase(5, "111221")]
+    public void Test_CountAndSay(int n, string output)
+    {
+        Assert.That(Numbers.CountAndSay(n), Is.EqualTo(output));
+    }
+
+    #endregion
+}

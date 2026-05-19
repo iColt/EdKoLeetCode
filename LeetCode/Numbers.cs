@@ -1,4 +1,6 @@
-﻿namespace LeetCodeTasks.LeetCode;
+﻿using System.Text;
+
+namespace LeetCodeTasks.LeetCode;
 
 public static class Numbers
 {
@@ -75,6 +77,55 @@ public static class Numbers
         }
 
         return reversedNumber;
+    }
+
+    #endregion
+
+    #region 38 - Count and Say - 8/30
+
+    public static string CountAndSay(int n)
+    {
+        StringBuilder sb = new StringBuilder("1");
+
+        for (int i = 1; i < n; i++)
+        {
+            var parsedNumber = ParseNumber(sb.ToString());
+            sb = new StringBuilder(ConvertToString(parsedNumber));
+        }
+        return sb.ToString();
+
+        static IList<(int, int)> ParseNumber(string number)
+        {
+            List<(int, int)> result = new List<(int, int)>();
+            char currentChar = number[0];
+            int currentCount = 1;
+            for (int i = 1; i < number.Length; i++)
+            {
+                if (number[i] == currentChar)
+                {
+                    currentCount++;
+                }
+                else
+                {
+                    result.Add((currentCount, currentChar - '0'));
+                    currentChar = number[i];
+                    currentCount = 1;
+                }
+            }
+            result.Add((currentCount, currentChar - '0'));
+            return result;
+        }
+
+        static string ConvertToString(IList<(int, int)> number)
+        {
+            StringBuilder sb = new StringBuilder();
+            for(int i = 0; i < number.Count; i++)
+            {
+                sb.Append(number[i].Item1);
+                sb.Append(number[i].Item2);
+            }
+            return sb.ToString();
+        }
     }
 
     #endregion
