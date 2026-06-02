@@ -641,6 +641,18 @@ public class ArrayFixture
 
     #endregion
 
+    #region 162
+
+    [TestCase(new int[] { 1, 2, 3, 1 }, 2)]
+    [TestCase(new int[] { 1, 2, 1, 3, 5, 6 }, 5)]
+    [TestCase(new int[] { 1, 2, 3 }, 2)]
+    public void Test_FindPeakElement(int[] nums, int expected)
+    {
+        Assert.That(Arrays.FindPeakElement(nums), Is.EqualTo(expected));
+    }
+
+    #endregion
+
     #region 179
 
     [TestCase(new int[] { 9, 8, 99, 98 }, "999988")]

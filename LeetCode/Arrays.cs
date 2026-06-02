@@ -831,6 +831,38 @@ public static class Arrays
 
     #endregion
 
+    #region 162 Find Peak Element - 100/99
+
+    public static int FindPeakElement(int[] nums)
+    {
+        if(nums.Length == 1)
+        {
+            return 0;
+        }
+        if (nums[1] < nums[0])
+        {
+            return 0;
+        }
+        if(nums[nums.Length - 2] < nums[nums.Length - 1])
+        {
+            return nums.Length - 1;
+        }
+        int resultIndex = 0;
+
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+           
+            if(i > 0 && i < nums.Length - 1 && nums[i - 1] < nums[i] && nums[i + 1] < nums[i])
+            {
+                return i;
+            }
+        }
+        return resultIndex;
+    }
+
+    #endregion
+
     #region 179 Largest Number - 27/65 poor performance
 
     public static string LargestNumberOld(int[] nums)
