@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Numerics;
+using System.Text;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -279,6 +280,20 @@ public static class Numbers
             previousValue = tmp;
         }
         return result;
+    }
+
+    #endregion
+
+    #region 172 Factorial Trailing Zeroes - 100/100
+
+    public static int TrailingZeroes(int n)
+    {
+        int count = 0;
+        for (long p = 5; p <= n; p *= 5)
+        {
+            count += (int)(n / p);
+        }
+        return count;
     }
 
     #endregion

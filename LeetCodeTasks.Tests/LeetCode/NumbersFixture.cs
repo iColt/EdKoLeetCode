@@ -69,4 +69,17 @@ internal class NumbersFixture
     }
 
     #endregion
+
+    #region 172
+
+    [TestCase(6, 1)]
+    [TestCase(1, 0)]
+    [TestCase(2, 0)]
+    [TestCase(5, 1)]
+    public void Test_TrailingZeroes(int n, int output)
+    {
+        Assert.That(Numbers.TrailingZeroes(n), Is.EqualTo(output));
+    }
+
+    #endregion
 }
