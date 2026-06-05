@@ -131,6 +131,23 @@ public static class Numbers
 
     #endregion
 
+    #region 41 First Missing Positive
+
+    public static int FirstMissingPositive(int[] nums)
+    {
+        int firstPositive = 0;
+        int intermediatePositive = -1;
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+            // 
+        }
+
+        return firstPositive;
+    }
+
+    #endregion
+
     #region 50 - Pow(x, n) - 100/72 in second implementation
 
     public static double MyPow(double x, int n)
