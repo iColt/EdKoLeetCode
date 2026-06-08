@@ -3,6 +3,7 @@ using System.Text;
 using EdkoSDK.Algorithms.Arrays;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -1027,6 +1028,27 @@ public static class Arrays
         }
 
         return [visited.First(), visited.Last()];
+    }
+
+    #endregion
+
+    #region 268 Missing Number - 100/25.5
+
+    public static int MissingNumber(int[] nums)
+    {
+        bool[] entryCounters = new bool[nums.Length + 1];
+        for (int i = 0; i < nums.Length; i++)
+        {
+            entryCounters[nums[i]] = true;
+        }
+        for (int i = 0; i < nums.Length + 1; i++)
+        {
+            if (!entryCounters[i])
+            {
+                return i;
+            }
+        }
+        return 0;
     }
 
     #endregion
