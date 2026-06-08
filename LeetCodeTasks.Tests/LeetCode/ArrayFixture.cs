@@ -837,6 +837,126 @@ public class ArrayFixture
 
     #endregion
 
+    #region 287
+
+    [TestCaseSource(nameof(FindDuplicateTestCases))]
+    public void FindDuplicate_ShouldReturnExpectedResult(
+        int[] nums,
+        int expected)
+    {
+        // Act
+        var result = Arrays.FindDuplicate(nums);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    private static readonly object[] FindDuplicateTestCases =
+    {
+        // LeetCode examples
+        new object[]
+        {
+            new[] { 1, 3, 4, 2, 2 },
+            2
+        },
+        new object[]
+        {
+            new[] { 3, 1, 3, 4, 2 },
+            3
+        },
+
+        // Smallest valid input
+        new object[]
+        {
+            new[] { 1, 1 },
+            1
+        },
+
+        // Duplicate appears at beginning
+        new object[]
+        {
+            new[] { 2, 1, 2, 3, 4 },
+            2
+        },
+
+        // Duplicate appears at end
+        new object[]
+        {
+            new[] { 1, 2, 3, 4, 4 },
+            4
+        },
+
+        // Duplicate in middle
+        new object[]
+        {
+            new[] { 1, 4, 2, 3, 2 },
+            2
+        },
+
+        // Duplicate repeated more than twice
+        new object[]
+        {
+            new[] { 1, 3, 4, 2, 2, 2 },
+            2
+        },
+
+        new object[]
+        {
+            new[] { 5, 1, 5, 2, 5, 3, 4 },
+            5
+        },
+
+        // Duplicate is smallest value
+        new object[]
+        {
+            new[] { 1, 1, 2, 3, 4, 5 },
+            1
+        },
+
+        // Duplicate is largest value
+        new object[]
+        {
+            new[] { 1, 2, 3, 4, 5, 5 },
+            5
+        },
+
+        // Nearly sorted
+        new object[]
+        {
+            new[] { 1, 2, 3, 4, 3, 5 },
+            3
+        },
+
+        // Reverse-ish ordering
+        new object[]
+        {
+            new[] { 5, 4, 3, 2, 1, 5 },
+            5
+        },
+
+        // Floyd cycle detection stress cases
+        new object[]
+        {
+            new[] { 2, 5, 9, 6, 9, 3, 8, 9, 7, 1 },
+            9
+        },
+
+        new object[]
+        {
+            new[] { 2, 2, 2, 2, 2 },
+            2
+        },
+
+        // Cycle starts immediately
+        new object[]
+        {
+            new[] { 1, 4, 6, 3, 2, 5, 6 },
+            6
+        }
+    };
+
+    #endregion
+
     #region 383
 
     [TestCase("aab", "baa", true)]

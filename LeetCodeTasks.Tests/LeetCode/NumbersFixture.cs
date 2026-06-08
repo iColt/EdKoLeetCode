@@ -72,7 +72,7 @@ internal class NumbersFixture
 
     #region 41
 
-    [TestCaseSource(nameof(TestCases))]
+    [TestCaseSource(nameof(FirstMissingPositiveTestCases))]
     public void FirstMissingPositive_ShouldReturnExpectedResult(
         int[] nums,
         int expected)
@@ -84,7 +84,7 @@ internal class NumbersFixture
         Assert.That(result, Is.EqualTo(expected));
     }
 
-    private static readonly object[] TestCases =
+    private static readonly object[] FirstMissingPositiveTestCases =
     {
         // LeetCode examples
         new object[]

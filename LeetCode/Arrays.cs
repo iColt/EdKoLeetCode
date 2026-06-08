@@ -1065,6 +1065,23 @@ public static class Arrays
 
     #endregion
 
+    #region 287 Find the Duplicate Number - 100/50
+
+    public static int FindDuplicate(int[] nums)
+    {
+        bool[] entryCounters = new bool[nums.Length - 1];
+        for(int i = 0; i<nums.Length; i++)
+        {
+            if(entryCounters[nums[i] - 1])
+                return nums[i];
+
+            entryCounters[nums[i] - 1] = true;
+        }
+        return 1;
+    }
+
+    #endregion
+
     #region 383 Ramsone note - Solved
 
     #region # 383 Ramsone note 61/19 - non optimal
