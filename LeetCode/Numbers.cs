@@ -131,19 +131,63 @@ public static class Numbers
 
     #endregion
 
-    #region 41 First Missing Positive
+    #region 41 First Missing Positive 60/52 good result for the first attempt!
 
+    // 1, 3, 5, 2, 7
+    // 0001 + 0010 + 0011 + 0100 = 1010
+    // Explanation of sol#1
+    // Find min and max values and number of suitable values
+    // use array of positions trick, where index in array determins value
+    // to adjust values according to index, calculate number of positive, get rid of too big elements and negative
     public static int FirstMissingPositive(int[] nums)
     {
-        int firstPositive = 0;
-        int intermediatePositive = -1;
+        if(nums.Length == 0)
+        {
+            return 1;
+        }
+        int minimumValue = int.MaxValue;
+        int maxValue = 0;
+        int positiveCounter = 0;
+        int minimumPositive = 1;
 
         for (int i = 0; i < nums.Length; i++)
         {
-            // 
+            if (nums[i] > 0) {
+                if (nums[i] > 0)
+                {
+                    positiveCounter++;
+                }
+                if(nums[i] < minimumValue)
+                {
+                    minimumValue = nums[i];
+                }
+                if (nums[i] > maxValue) { maxValue = nums[i]; }
+            }
         }
 
-        return firstPositive;
+        if (minimumPositive < minimumValue)
+        {
+            return minimumPositive;
+        }
+
+        bool[] classifier = new bool[positiveCounter];
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (nums[i] >= 1 && nums[i] < minimumValue + positiveCounter)
+            {
+                classifier[nums[i] - 1] = true;
+            }
+        }
+
+        for (int i = 0; i < classifier.Length; i++)
+        {
+            if(!classifier[i])
+            {
+                return minimumPositive + i;
+            }
+        }
+
+        return maxValue + 1;
     }
 
     #endregion
