@@ -1157,4 +1157,103 @@ public class ArrayFixture
 
     #endregion
 
+    #region 1980
+
+    [TestCaseSource(nameof(FindDifferentBinaryStringTestCases))]
+    public void FindDifferentBinaryString_ShouldReturnValidResult(
+        string[] nums)
+    {
+        // Act
+        var result = Arrays.FindDifferentBinaryString(nums);
+
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.Length, Is.EqualTo(nums.Length));
+
+        Assert.That(
+            result.All(c => c == '0' || c == '1'),
+            Is.True);
+
+        Assert.That(
+            nums.Contains(result),
+            Is.False);
+    }
+
+    private static readonly object[] FindDifferentBinaryStringTestCases =
+    {
+        new object[]
+        {
+            new[] { "0" }
+        },
+
+        new object[]
+        {
+            new[] { "1" }
+        },
+
+        new object[]
+        {
+            new[] { "01", "10" }
+        },
+
+        new object[]
+        {
+            new[] { "00", "01" }
+        },
+
+        new object[]
+        {
+            new[] { "00", "11" }
+        },
+
+        new object[]
+        {
+            new[] { "000", "001", "010" }
+        },
+
+        new object[]
+        {
+            new[] { "111", "011", "001" }
+        },
+
+        new object[]
+        {
+            new[]
+            {
+                "000",
+                "001",
+                "010",
+                "011",
+                "100",
+                "101",
+                "110"
+            }
+        },
+
+        new object[]
+        {
+            new[]
+            {
+                "1111",
+                "0111",
+                "0011",
+                "0001"
+            }
+        },
+
+        new object[]
+        {
+            new[]
+            {
+                "00000",
+                "00001",
+                "00010",
+                "00100",
+                "01000"
+            }
+        }
+    };
+
+    #endregion
+
 }

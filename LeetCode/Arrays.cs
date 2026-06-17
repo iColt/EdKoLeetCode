@@ -1,9 +1,7 @@
 ﻿using LeetCodeTasks.Helpers;
 using System.Text;
 using EdkoSDK.Algorithms.Arrays;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Runtime.ExceptionServices;
+using EdkoSKD.Common.Helpers;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -1467,6 +1465,114 @@ public static class Arrays
             currWealth = 0;
         }
         return maxVal;
+    }
+
+    #endregion
+
+    #region 1980 8/8 poor performance
+
+    public static string FindDifferentBinaryStringOld(string[] nums)
+    {
+        string missingNumber = string.Empty;
+        bool[] entries = new bool[nums.Length.PowerOfTwo()];
+
+        for(int i = 0; i < nums.Length; i++)
+        {
+            int number = Convert.ToInt32(nums[i], 2);
+            entries[number] = true;
+        }
+
+        for(int i = 0; i < entries.Length; i++)
+        {
+            if (!entries[i])
+            {
+                missingNumber = Convert.ToString(i, 2);
+                int lengthDiff = nums.Length - missingNumber.Length;
+
+                if(lengthDiff > 0)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    for(int j = 0; j < lengthDiff; j++)
+                    {
+                        sb.Append('0');
+                    }
+                    sb.Append(missingNumber);
+                    return sb.ToString();
+                }
+                return missingNumber;
+            }
+        }
+
+        return missingNumber;
+    }
+
+    public static string FindDifferentBinaryString(string[] nums)
+    {
+        string missingNumber = string.Empty;
+        int lengthDiff = 0;
+        if(nums.Length == 1)
+        {
+            if (nums[0].Equals("0"))
+            {
+                return 1.ToString();
+            }
+            else
+            {
+                return 0.ToString();
+            }
+        }
+
+        Array.Sort(nums);
+
+        int firstNumForCompare = Convert.ToInt32(nums[0], 2);
+        if (firstNumForCompare > 0)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < nums.Length; j++)
+            {
+                sb.Append('0');
+            }
+            return sb.ToString();
+        }
+
+        for(int i = 1; i < nums.Length; i++)
+        {
+            int secondNumToCompare = Convert.ToInt32(nums[i], 2);
+            if(secondNumToCompare > firstNumForCompare + 1)
+            {
+                missingNumber = Convert.ToString(firstNumForCompare + 1, 2);
+                lengthDiff = nums.Length - missingNumber.Length;
+
+                if (lengthDiff > 0)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    for (int j = 0; j < lengthDiff; j++)
+                    {
+                        sb.Append('0');
+                    }
+                    sb.Append(missingNumber);
+                    return sb.ToString();
+                }
+            }
+            firstNumForCompare = secondNumToCompare;
+        }
+
+        int lastNumber = Convert.ToInt32(nums[nums.Length - 1], 2) + 1;
+        missingNumber = Convert.ToString(lastNumber, 2);
+        lengthDiff = nums.Length - missingNumber.Length;
+
+        if (lengthDiff > 0)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < lengthDiff; j++)
+            {
+                sb.Append('0');
+            }
+            sb.Append(missingNumber);
+            return sb.ToString();
+        }
+
+        return missingNumber;
     }
 
     #endregion
