@@ -938,6 +938,32 @@ public static class Arrays
 
     #endregion
 
+    #region 217 - 7/98
+
+    public static bool ContainsDuplicate(int[] nums)
+    {
+        if(nums.Length == 1)
+            return false;
+
+        Array.Sort(nums);
+
+        int firstEl = nums[0];
+
+        for(int i = 1; i < nums.Length; i++)
+        {
+            int secEl = nums[i];
+            if(secEl ==  firstEl)
+            {
+                return true;
+            }
+            firstEl = secEl;
+        }
+
+        return false;
+    }
+
+    #endregion
+
     #region 228 Summary Ranges - 64/20 poor memory management
 
     public static IList<string> SummaryRanges(int[] nums)
