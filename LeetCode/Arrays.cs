@@ -964,6 +964,31 @@ public static class Arrays
 
     #endregion
 
+    #region 219 - 5/96
+
+    public static bool ContainsNearbyDuplicate(int[] nums, int k)
+    {
+        for(int i = 0; i < nums.Length - 1; i++) {
+
+            for(int j = i + 1; j < i + k + 1; j++)
+            {
+                if(j == nums.Length)
+                {
+                    break;
+                }
+
+                if (nums[i] == nums[j])
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    #endregion
+
     #region 228 Summary Ranges - 64/20 poor memory management
 
     public static IList<string> SummaryRanges(int[] nums)
