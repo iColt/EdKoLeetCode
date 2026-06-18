@@ -989,6 +989,53 @@ public static class Arrays
 
     #endregion
 
+    #region 220
+
+    public static bool ContainsNearbyAlmostDuplicate(int[] nums, int indexDiff, int valueDiff)
+    {
+        int[] sorted = new int[1];
+        //optimization for large diffs
+        if (indexDiff > 1000)
+        {
+            sorted = new int[nums.Length];
+            Array.Resize<int>(ref sorted, nums.Length);
+            Array.Copy(nums, sorted, nums.Length);
+            Array.Sort(sorted);
+
+
+        }
+
+        for (int i = 0; i < nums.Length - 1; i++)
+        {
+            if(indexDiff > 1000)
+            {
+                int index = Array.BinarySearch(sorted, nums[i]);
+                if (index < nums.Length - 1 && Math.Abs(nums[i] - sorted[index + 1]) > valueDiff)
+                {
+                    continue;
+                }
+            }
+            for (int j = i + 1; j < i + indexDiff + 1; j++)
+            {
+                if (j == nums.Length)
+                {
+                    break;
+                }
+
+                //check diff
+                var test = Math.Abs(nums[i] - nums[j]);
+                if (Math.Abs(nums[i] - nums[j]) <= valueDiff)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    #endregion
+
     #region 228 Summary Ranges - 64/20 poor memory management
 
     public static IList<string> SummaryRanges(int[] nums)
