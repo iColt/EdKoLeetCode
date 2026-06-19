@@ -991,46 +991,64 @@ public static class Arrays
 
     #region 220
 
-    public static bool ContainsNearbyAlmostDuplicate(int[] nums, int indexDiff, int valueDiff)
+    public static bool ContainsNearbyAlmostDuplicateOld(int[] nums, int indexDiff, int valueDiff)
     {
-        int[] sorted = new int[1];
-        //optimization for large diffs
+        if (nums == null || nums.Length <= 1)
+            return false;
+
+        int[] sorted = new int[0];
+        // optimization for large diffs
         if (indexDiff > 1000)
         {
             sorted = new int[nums.Length];
-            Array.Resize<int>(ref sorted, nums.Length);
             Array.Copy(nums, sorted, nums.Length);
             Array.Sort(sorted);
-
-
         }
 
         for (int i = 0; i < nums.Length - 1; i++)
         {
-            if(indexDiff > 1000)
+            if (indexDiff > 1000)
             {
                 int index = Array.BinarySearch(sorted, nums[i]);
-                if (index < nums.Length - 1 && Math.Abs(nums[i] - sorted[index + 1]) > valueDiff)
+                if (index < 0)
+                    index = ~index; // insertion point
+
+                // quick value proximity check in sorted array using long to avoid overflow
+                bool closeFound = false;
+                if (index < nums.Length)
                 {
-                    continue;
+                    if (Math.Abs((long)sorted[index] - nums[i]) <= (long)valueDiff)
+                        closeFound = true;
                 }
+                if (!closeFound && index - 1 >= 0)
+                {
+                    if (Math.Abs((long)sorted[index - 1] - nums[i]) <= (long)valueDiff)
+                        closeFound = true;
+                }
+
+                if (!closeFound)
+                    continue;
             }
+
             for (int j = i + 1; j < i + indexDiff + 1; j++)
             {
                 if (j == nums.Length)
-                {
                     break;
-                }
 
-                //check diff
-                var test = Math.Abs(nums[i] - nums[j]);
-                if (Math.Abs(nums[i] - nums[j]) <= valueDiff)
+                // compute difference in long to avoid int overflow on boundaries
+                if (Math.Abs((long)nums[i] - nums[j]) <= (long)valueDiff)
                 {
                     return true;
                 }
             }
         }
 
+        return false;
+    }
+
+    public static bool ContainsNearbyAlmostDuplicate(int[] nums, int indexDiff, int valueDiff)
+    {
+        // try idea with int array of 2*10^9 els
         return false;
     }
 
