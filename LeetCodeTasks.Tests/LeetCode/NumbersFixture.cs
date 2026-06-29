@@ -245,4 +245,171 @@ internal class NumbersFixture
     }
 
     #endregion
+
+    #region 202 - 8/5 poor
+
+    [TestCaseSource(nameof(IsHappyTestCases))]
+    public void IsHappy_ShouldReturnExpectedResult(
+        int n,
+        bool expected)
+    {
+        // Act
+        var result = Numbers.IsHappy(n);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    private static readonly object[] IsHappyTestCases =
+    {
+        // LeetCode example
+        new object[]
+        {
+            19,
+            true
+        },
+
+        // Smallest happy number
+        new object[]
+        {
+            1,
+            true
+        },
+
+        // Single-digit unhappy numbers
+        new object[]
+        {
+            2,
+            false
+        },
+        new object[]
+        {
+            3,
+            false
+        },
+        new object[]
+        {
+            4,
+            false
+        },
+        new object[]
+        {
+            5,
+            false
+        },
+        new object[]
+        {
+            6,
+            false
+        },
+        new object[]
+        {
+            8,
+            false
+        },
+        new object[]
+        {
+            9,
+            false
+        },
+
+        // Other happy numbers
+        new object[]
+        {
+            7,
+            true
+        },
+        new object[]
+        {
+            10,
+            true
+        },
+        new object[]
+        {
+            13,
+            true
+        },
+        new object[]
+        {
+            23,
+            true
+        },
+        new object[]
+        {
+            28,
+            true
+        },
+        new object[]
+        {
+            31,
+            true
+        },
+        new object[]
+        {
+            32,
+            true
+        },
+        new object[]
+        {
+            68,
+            true
+        },
+        new object[]
+        {
+            70,
+            true
+        },
+        new object[]
+        {
+            100,
+            true
+        },
+
+        // Numbers entering the unhappy cycle
+        new object[]
+        {
+            11,
+            false
+        },
+        new object[]
+        {
+            12,
+            false
+        },
+        new object[]
+        {
+            14,
+            false
+        },
+        new object[]
+        {
+            18,
+            false
+        },
+        new object[]
+        {
+            20,
+            false
+        },
+
+        // Large values
+        new object[]
+        {
+            999,
+            false
+        },
+        new object[]
+        {
+            1000,
+            true
+        },
+        new object[]
+        {
+            int.MaxValue,
+            false
+        }
+    };
+
+
+    #endregion
 }

@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using EdkoSKD.Common.Helpers;
+using System.Numerics;
 using System.Text;
 
 namespace LeetCodeTasks.LeetCode;
@@ -358,4 +359,42 @@ public static class Numbers
     }
 
     #endregion
+
+    #region 202
+
+    public static bool IsHappy(int n)
+    {
+        int[] digits;
+
+        int numberUnderReview = n;
+        int cycleCounter = 0;
+        while(true)
+        {
+            digits = numberUnderReview.ConvertToArrayOfDigits();
+
+            int sum = 0;
+            for (int i = 0; i < digits.Length; i++)
+            {
+                sum += (int) Math.Pow(digits[i], 2);
+            }
+
+            if(sum == 1)
+            {
+                return true;
+            }
+
+            if (sum == n || sum < 0 || cycleCounter > 100) {
+                break;
+            }
+
+            numberUnderReview = sum;
+            cycleCounter++;
+
+        }
+
+        return false;
+    }
+
+    #endregion
 }
+
