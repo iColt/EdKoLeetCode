@@ -360,7 +360,7 @@ public static class Numbers
 
     #endregion
 
-    #region 202
+    #region 202 - 8/5 poor
 
     public static bool IsHappy(int n)
     {
@@ -393,6 +393,49 @@ public static class Numbers
         }
 
         return false;
+    }
+
+    #endregion
+
+    #region 263 - 100/7
+
+    public static bool IsUgly(int n)
+    {
+        if(n <= 0)
+        {
+            return false;
+        }
+
+        if(n == 1)
+        {
+            return true;
+        }
+
+        int numberUnderReview = n;
+
+        while (true)
+        {
+            if (numberUnderReview == 1)
+            {
+                break;
+            }
+
+            if (numberUnderReview % 2 == 0) {
+                numberUnderReview  /= 2;
+            } else if (numberUnderReview % 3 == 0)
+            {
+                numberUnderReview /= 3;
+            } else if (numberUnderReview % 5 == 0)
+            {
+                numberUnderReview /= 5;
+            } else
+            {
+                return false;
+            }
+        }
+
+        return true;
+
     }
 
     #endregion
