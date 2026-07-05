@@ -1724,6 +1724,70 @@ public static class Arrays
 
     #endregion
 
+    #region 2215 - 5/43 poor perf using LinQ
+
+    public static IList<IList<int>> FindDifferenceOld(int[] nums1, int[] nums2)
+    {
+        IList<IList<int>> result = new List<IList<int>>(2)
+        {
+            new List<int>(),
+             new List<int>()
+        };
+
+        bool[] nonUnique = new bool[2001];
+        int minLength = nums1.Length < nums2.Length ? nums1.Length : nums2.Length;
+        int[] intersect = new int[minLength];
+
+        for (int i = 0; i < nums1.Length; i++)
+        {
+            nonUnique[nums1[i] + 1000] = true;
+        }
+
+        int arrayPointer = 0;
+        for (int i = 0; i < nums2.Length; i++)
+        {
+            if (nonUnique[nums2[i]])
+            {
+                intersect[arrayPointer++] = nums2[i];
+                nonUnique[nums2[i]] = false;
+            }
+
+        }
+
+        Array.Sort(intersect);
+        FindUniqueInArray(nums1, result, intersect, 0);
+        FindUniqueInArray(nums2, result, intersect, 1);
+
+        return result;
+
+        static void FindUniqueInArray(int[] nums, IList<IList<int>> result, int[] intersect, int resultArrNumber)
+        {
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (Array.BinarySearch(intersect, nums[i]) < 0)
+                {
+                    result[resultArrNumber].Add(nums[i]);
+                }
+            }
+        }
+    }
+
+    public static IList<IList<int>> FindDifference(int[] nums1, int[] nums2)
+    {
+        IList<IList<int>> result = new List<IList<int>>(2)
+        {
+            new List<int>(),
+             new List<int>()
+        };
+
+        result[0] = nums1.Where(x => !nums2.Contains(x)).Distinct().ToList();
+        result[1] = nums2.Where(x => !nums1.Contains(x)).Distinct().ToList();
+
+        return result;
+    }
+
+    #endregion
+
     #region 2248. Intersection of Multiple Arrays - 82/66
 
     public static IList<int> Intersection(int[][] nums)

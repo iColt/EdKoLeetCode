@@ -1462,4 +1462,58 @@ public class ArrayFixture
 
     #endregion
 
+    #region 2215
+
+    public static IEnumerable<object[]> FindDifferenceCaseSource()
+    {
+        // Example 1 from LeetCode
+        yield return new object[]
+        {
+            new int[] { 1, 2, 3 },
+            new int[] { 2, 4, 6 },
+            new List<IList<int>> { new List<int> { 1, 3 }, new List<int> { 4, 6 } }
+        };
+
+        // Example 2 from LeetCode (Handling duplicates)
+        yield return new object[]
+        {
+            new int[] { 1, 2, 3, 3 },
+            new int[] { 1, 1, 2, 2 },
+            new List<IList<int>> { new List<int> { 3 }, new List<int> { } }
+        };
+
+        // Edge Case 1: Completely disjoint arrays
+        yield return new object[]
+        {
+            new int[] { 7, 8 },
+            new int[] { 9, 10 },
+            new List<IList<int>> { new List<int> { 7, 8 }, new List<int> { 9, 10 } }
+        };
+
+        // Edge Case 2: Identical arrays (Should return empty lists)
+        yield return new object[]
+        {
+            new int[] { 1, 2, 3 },
+            new int[] { 1, 2, 3 },
+            new List<IList<int>> { new List<int> { }, new List<int> { } }
+        };
+    }
+
+    [Theory]
+    [TestCaseSource(nameof(FindDifferenceCaseSource))]
+    public void FindDifference_ShouldReturnCorrectDistinctDifferences(int[] nums1, int[] nums2, IList<IList<int>> expected)
+    {
+        // Act
+        var result = Arrays.FindDifference(nums1, nums2);
+
+        // Assert
+        Assert.That(2, Is.EqualTo(result.Count));
+
+        // Order-independent structural assertion
+        Assert.That(expected[0], Is.EqualTo(result[0]));
+        Assert.That(expected[1], Is.EqualTo(result[1]));
+    }
+
+    #endregion
+
 }
