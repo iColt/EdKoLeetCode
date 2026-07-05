@@ -2,6 +2,7 @@
 using System.Text;
 using EdkoSDK.Algorithms.Arrays;
 using EdkoSKD.Common.Helpers;
+using System.Collections.Immutable;
 
 namespace LeetCodeTasks.LeetCode;
 
@@ -1719,6 +1720,41 @@ public static class Arrays
         }
 
         return missingNumber;
+    }
+
+    #endregion
+
+    #region 2248. Intersection of Multiple Arrays - 82/66
+
+    public static IList<int> Intersection(int[][] nums)
+    {
+        IList<int> result = new List<int>();
+        int[] nonUnique = new int[1001];
+
+        for(int i = 0; i < 1001; i++)
+        {
+            nonUnique[i] = 0;
+        }
+
+        for (int i = 0; i < nums.Length - 1; i++)
+        {
+            for(int j = 0; j < nums[i].Length;j++)
+            {
+                nonUnique[nums[i][j]]++;
+            }
+        }
+
+        for(int i = 0; i < nums[nums.Length - 1].Length; i++)
+        {
+            if (nonUnique[nums[nums.Length - 1][i]] == nums.Length - 1) {
+                result.Add(nums[nums.Length - 1][i]);
+                nonUnique[nums[nums.Length - 1][i]] = -1;
+            }
+        }
+        var arr = result.ToArray();
+        Array.Sort(arr);
+
+        return arr.ToList();
     }
 
     #endregion
