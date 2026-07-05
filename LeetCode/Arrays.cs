@@ -989,7 +989,7 @@ public static class Arrays
 
     #endregion
 
-    #region 220
+    #region 220 - not done
 
     public static bool ContainsNearbyAlmostDuplicateOld(int[] nums, int indexDiff, int valueDiff)
     {
@@ -1214,6 +1214,36 @@ public static class Arrays
             entryCounters[nums[i] - 1] = true;
         }
         return 1;
+    }
+
+    #endregion
+
+    #region 349. Intersection of Two Arrays - 100/87
+
+    public static int[] Intersection(int[] nums1, int[] nums2)
+    {
+        bool[] nonUnique = new bool[1001];
+        int minLength = nums1.Length < nums2.Length ? nums1.Length : nums2.Length;
+        int[] intersect = new int[minLength];
+
+        for (int i = 0; i < nums1.Length; i++)
+        {
+            nonUnique[nums1[i]] = true;
+        }
+
+        int arrayPointer = 0;
+        for (int i = 0; i < nums2.Length; i++)
+        {
+            if (nonUnique[nums2[i]])
+            {
+                intersect[arrayPointer++] = nums2[i];
+                nonUnique[nums2[i]] = false;
+            }
+        
+        }
+        Array.Resize(ref intersect, arrayPointer);
+
+        return intersect;
     }
 
     #endregion
