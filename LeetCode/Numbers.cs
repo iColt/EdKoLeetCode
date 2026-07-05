@@ -360,7 +360,7 @@ public static class Numbers
 
     #endregion
 
-    #region 202 - 8/5 poor
+    #region 202 - Happy Number - 8/5 poor
 
     public static bool IsHappy(int n)
     {
@@ -397,7 +397,7 @@ public static class Numbers
 
     #endregion
 
-    #region 263 - 100/7
+    #region 263 - Ugly Number - 100/7
 
     public static bool IsUgly(int n)
     {
@@ -436,6 +436,43 @@ public static class Numbers
 
         return true;
 
+    }
+
+    #endregion
+
+    #region 264 - Ugly Number II
+
+    public static int NthUglyNumber(int n)
+    {
+        List<int> firstN = new List<int> { 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15 };
+
+        if (n <= 11)
+        {
+            return firstN[n - 1];
+        }
+
+        int basicIndexForTwo = 6;
+        int basicIndexForThree = 5;
+        int basicIndexForFive = 3;
+
+        int currentListPointer = 11;
+        
+        for (int i = 12; i < n; i++)
+        {
+            int multiplyOnTwo = firstN[basicIndexForTwo] * 2;
+            int multiplyOnThree = firstN[basicIndexForThree] * 3;
+            int multiplyOnFive = firstN[basicIndexForFive] * 5;
+
+            // sort positions and values
+            // select first that match - > currentBiggest and < all others
+            // Move pointer of found value by 1, and set value to collection
+            int currentBiggestNumber = firstN[currentListPointer - 1];
+
+
+        }
+
+
+        return 0;
     }
 
     #endregion
